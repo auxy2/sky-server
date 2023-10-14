@@ -22,6 +22,8 @@ const corsOptions = {
 const userRouter = require("./routes/userRouter");
 const AppError = require("./routes/utills/AppError");
 const globalHandler = require("./controller/ErrorController");
+const transactionRouter = require("./routes/transactionRouter");
+const notifications = require("./routes/webHooks");
 
 const app = express();
 const port = process.env.SERVER_PORT || 1234;
@@ -85,6 +87,8 @@ app.use(mongoSanitize());
 app.use(xss());
 
 app.use("/api/V1/skyshowNG", userRouter);
+app.use("/api/V1/skyshowNG", transactionRouter);
+app.use("/notify", notifications);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`cant find this ${req.originalUrl} on this server`, 400));
