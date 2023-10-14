@@ -2,6 +2,10 @@
   "name": "sky-server",
   "version": "1.0.0",
   "description": "",
+  "main": "server.js",
+  "engine": {
+    "node": "14.x"
+  },
   "scripts": {
     "start": "node server.js",
     "start:dev": "nodemon server.js"
