@@ -4,7 +4,6 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": " node server.js",
     "start": "node server.js"
   },
   "author": "Abdllahi",
