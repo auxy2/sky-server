@@ -20,7 +20,7 @@ dotenv.config({ path: "./config.env" });
 // };
 
 const app = express();
-const port = 1234 || process.env.SERVER_PORT;
+const port = process.env.SERVER_PORT || 1234;
 
 // const db = process.env.personal_cloud;
 // const DB = db.replace("<password>", process.env.personal_pass);
