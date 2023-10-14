@@ -1,6 +1,6 @@
 const User = require("../models/userModel");
 const verification = require("../models/verification");
-const catchAsync = require("../routs/util/asynCatch");
+const catchAsync = require("../routes/utills/catchAsync");
 const AppError = require("../routes/utills/AppError");
 const { default: axios } = require("axios");
 const APIs = require("../APIs");
