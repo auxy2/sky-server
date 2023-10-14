@@ -1,13 +1,13 @@
 const User = require("../models/userModel");
 const verification = require("../models/verification");
-const asyncCatch = require("../routs/util/asynCatch");
-const AppError = require("../routs/util/AppError");
+const catchAsync = require("../routs/util/asynCatch");
+const AppError = require("../routes/utills/AppError");
 const { default: axios } = require("axios");
 const APIs = require("../APIs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const fingerPrint = require("fingerprintjs2");
-const Mail = require("../routs/util/email");
+const Mail = require("../routes/utills/email");
 const twilio = require("twilio");
 
 const fpPromise = fingerPrint.getPromise().then((components) => {
@@ -78,7 +78,7 @@ const filteredObj = (obj, ...allowedField) => {
   return newObj;
 };
 
-exports.userLinkedBank = asyncCatch(async (req, res, next) => {
+exports.userLinkedBank = catchAsync(async (req, res, next) => {
   let bankArr = [];
 
   const user = await User.findOne(req.user);
@@ -104,7 +104,7 @@ exports.userLinkedBank = asyncCatch(async (req, res, next) => {
   });
 });
 
-exports.getAllUsers = asyncCatch(async (req, res, next) => {
+exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
   const jwtToken = signToken(users._id);
   res.status(200).json({
@@ -116,7 +116,7 @@ exports.getAllUsers = asyncCatch(async (req, res, next) => {
   });
 });
 
-exports.updateMe = asyncCatch(async (req, res, next) => {
+exports.updateMe = catchAsync(async (req, res, next) => {
   const { profilePhoto } = req.body;
 
   // if(req.body.password || passwordConfirm){
@@ -155,7 +155,7 @@ exports.updateMe = asyncCatch(async (req, res, next) => {
   });
 });
 
-exports.createPin = asyncCatch(async (req, res, next) => {
+exports.createPin = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
   const { newpin, confirmPin } = req.body;
   if (!user) {
@@ -175,7 +175,7 @@ exports.createPin = asyncCatch(async (req, res, next) => {
   }
 });
 
-exports.resetPin = asyncCatch(async (req, res, next) => {
+exports.resetPin = catchAsync(async (req, res, next) => {
   const { oldPin, newPin, confirmPin } = req.body;
   const user = await User.findOne(req.user);
   if (!user) {
@@ -197,7 +197,7 @@ exports.resetPin = asyncCatch(async (req, res, next) => {
   }
 });
 
-exports.deleteMe = asyncCatch(async (req, res, next) => {
+exports.deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndUpdate(req.user.id, {
     active: false,
     verify: undefined,
@@ -209,7 +209,7 @@ exports.deleteMe = asyncCatch(async (req, res, next) => {
   });
 });
 
-exports.getBank = asyncCatch(async (req, res, next) => {
+exports.getBank = catchAsync(async (req, res, next) => {
   // const user = await User.findOne(req.user);
   // if(!user){
   //     res.status(200).json({
@@ -247,7 +247,7 @@ exports.getBank = asyncCatch(async (req, res, next) => {
     console.log(err.message);
   }
 });
-exports.addBank = asyncCatch(async (req, res, next) => {
+exports.addBank = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
   console.log(user);
   console.log(req.query);
@@ -338,7 +338,7 @@ exports.request_Verification = asyncCatch(async (req, res, next) => {
     message: "you verification request is successfull",
   });
 });
-exports.setRateAlart = asyncCatch(async (req, res, next) => {
+exports.setRateAlart = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
 
   if (req.body) {
@@ -409,7 +409,7 @@ exports.setRateAlart = asyncCatch(async (req, res, next) => {
   }
 });
 
-exports.deleteAlart = asyncCatch(async (req, res, next) => {
+exports.deleteAlart = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
   if (!user) {
     res.send(" error deleting alart");
@@ -430,7 +430,7 @@ exports.deleteAlart = asyncCatch(async (req, res, next) => {
   }
 });
 
-exports.rateAlartList = asyncCatch(async (req, res, next) => {
+exports.rateAlartList = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
 
   if (!user) {
@@ -447,7 +447,7 @@ exports.rateAlartList = asyncCatch(async (req, res, next) => {
 
 // refarer and earn //
 
-exports.refarralLInk = asyncCatch(async (req, res, next) => {
+exports.refarralLInk = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user._id);
 
   if (!user) {
@@ -468,7 +468,7 @@ exports.refarralLInk = asyncCatch(async (req, res, next) => {
   });
 });
 
-exports.trackedDevice = asyncCatch(async (req, res, next) => {
+exports.trackedDevice = catchAsync(async (req, res, next) => {
   const { ref } = req.query;
 
   const rootLink = await User.findOne({ ref_Link_Code: ref });
