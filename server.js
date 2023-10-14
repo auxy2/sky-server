@@ -13,11 +13,11 @@ const cors = require("cors");
 
 dotenv.config({ path: "./config.env" });
 
-const corsOptions = {
-  origin: "*",
-  methods: "*",
-  allowedHeaders: "*",
-};
+// const corsOptions = {
+//   origin: "*",
+//   methods: "*",
+//   allowedHeaders: "*",
+// };
 
 const app = express();
 const port = 1234;
@@ -45,7 +45,7 @@ app.get("/api/V1/skyshowNG", (req, res) => {
 
 // GLOBAL MIDLEWARE
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // Set HTTP Headers
 app.use(helmet());
