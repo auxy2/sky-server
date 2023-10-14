@@ -26,7 +26,7 @@ router.get(
   authController.protect,
   TxHistory.withdrawalsNGN
 );
-router.post("/alert", alart.rateAlart);
+// router.post("/alert", alart.rateAlart);
 router.post("/webHook-payStack", notification.notify);
 
 module.exports = router;
