@@ -1,8 +1,8 @@
 const catchAsync = require("../routes/utills/catchAsync");
-const User = require("../modules/usermodule");
-const AppError = require("../routs/util/AppError");
+const User = require("../models/userModel");
+const AppError = require("../routes/utills/AppError");
 const jwt = require("jsonwebtoken");
-const Mail = require("../routs/util/email");
+const Mail = require("../routes/utills/email");
 const crypto = require("crypto");
 const { promisify } = require("util");
 const twilio = require("twilio");

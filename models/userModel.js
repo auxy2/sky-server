@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
-const { String } = require("bitcoinjs-lib/src/types");
 const trns = require("./TransactoinsModel");
 
 const UserSchema = new mongoose.Schema(

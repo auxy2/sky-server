@@ -19,6 +19,10 @@ const corsOptions = {
   allowedHeaders: "*",
 };
 
+const AppError = require("./routes/utills/AppError");
+const userRouter = require("./routes/userRouter");
+const globalHandler = require("./controller/ErrorController");
+
 const app = express();
 const port = process.env.SERVER_PORT || 1234;
 
@@ -80,9 +84,13 @@ app.use(mongoSanitize());
 // Data Sanitization agains XSS
 app.use(xss());
 
+app.use("/api/V1/skyshowNG", userRouter);
+
 app.all("*", (req, res, next) => {
   next(new AppError(`cant find this ${req.originalUrl} on this server`, 400));
 });
+
+app.use(globalHandler);
 
 connectDB().then(() => {
   app.listen(port, () => {

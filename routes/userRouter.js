@@ -1,5 +1,6 @@
 const express = require("express");
 const authControler = require("../controller/authController");
+// const Oneuser = require("../controller/users");
 
 const router = express.Router();
 
@@ -22,9 +23,11 @@ router.patch(
   authControler.protect,
   authControler.UpdatePassword
 ); // Done
-router.get(
-  "/getUser",
-  authControler.protect,
-  authControler.restrictTo("admin", "manger"),
-  Oneuser.getUser
-);
+// router.get(
+//   "/getUser",
+//   authControler.protect,
+//   authControler.restrictTo("admin", "manger"),
+//   Oneuser.getUser
+// );
+
+module.exports = router;
