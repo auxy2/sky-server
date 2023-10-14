@@ -34,12 +34,12 @@ router.patch(
 
 //////////////    user controller /////////////
 
-router.get(
-  "/addBank",
-  authControler.protect,
-  userController.addBank,
-  progress_bar.progress
-); // Done
+// router.get(
+//   "/addBank",
+//   authControler.protect,
+//   userController.addBank,
+//   progress_bar.progress
+// ); // Done
 router.post(
   "/setRateAlart",
   authControler.protect,
