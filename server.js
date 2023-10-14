@@ -19,8 +19,8 @@ const corsOptions = {
   allowedHeaders: "*",
 };
 
-const AppError = require("./routes/utills/AppError");
 const userRouter = require("./routes/userRouter");
+const AppError = require("./routes/utills/AppError");
 const globalHandler = require("./controller/ErrorController");
 
 const app = express();
