@@ -323,7 +323,7 @@ exports.addBank = catchAsync(async (req, res, next) => {
   }
   const jwtToken = signToken(user._id);
 });
-exports.request_Verification = asyncCatch(async (req, res, next) => {
+exports.request_Verification = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
   if (!user) {
     return next(new AppError("user not found", 404));
