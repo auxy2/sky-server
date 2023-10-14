@@ -22,13 +22,13 @@ const corsOptions = {
 const app = express();
 const port = 1234;
 
-const db = process.env.personal_cloud;
-const DB = db.replace("<password>", process.env.personal_pass);
-console.log(DB);
+// const db = process.env.personal_cloud;
+// const DB = db.replace("<password>", process.env.personal_pass);
+// console.log(DB);
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(DB, {
+    const conn = await mongoose.connect(process.env.personal_cloud, {
       family: 4,
       useNewUrlParser: true,
     });
