@@ -47,9 +47,13 @@ const ratesSchema = new mongoose.Schema(
         },
       },
     ],
-    btcRate: String,
-    ethRate: String,
-    usdtRate: String,
+    cryptoRate: [
+      {
+        product: String,
+        priceRange: String,
+        rate: String,
+      },
+    ],
     Admin: {
       type: String,
       enum: ["Admin", "maneger"],
