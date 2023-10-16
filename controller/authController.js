@@ -208,6 +208,7 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError("Something went wrong", 403));
   } else {
     const jwtToken = signToken(user._id);
+    console.log(user);
     sendCookie(jwtToken, res);
     res.status(200).json({
       status: "success",
