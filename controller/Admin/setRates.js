@@ -1,7 +1,7 @@
 const User = require("../../models/userModel");
 const Rates = require("../../models/Rates");
 const AppError = require("../../routes/utills/AppError");
-const catchAsync = require("../../routes/utills/asynCatch");
+const catchAsync = require("../../routes/utills/catchAsync");
 
 exports.setRate = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user).select("role");

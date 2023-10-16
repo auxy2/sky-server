@@ -21,6 +21,7 @@ const corsOptions = {
 
 const userRouter = require("./routes/userRouter");
 const AppError = require("./routes/utills/AppError");
+const Admin = require("./routes/dashboard.js");
 const globalHandler = require("./controller/ErrorController");
 const transactionRouter = require("./routes/transactionRouter");
 const notifications = require("./routes/webHooks");
@@ -88,6 +89,7 @@ app.use(xss());
 
 app.use("/api/V1/skyshowNG", userRouter);
 app.use("/api/V1/skyshowNG", transactionRouter);
+app.use("/api/V1/skyshowNG", Admin);
 app.use("/notify", notifications);
 
 app.all("*", (req, res, next) => {
