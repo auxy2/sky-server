@@ -4,7 +4,7 @@ const catchAsync = require("../../../routes/utills/catchAsync");
 const { transfer, transferRecipient } = require("../../../APIs");
 const crypto = require("crypto");
 const axios = require("axios");
-const trns = require("../../../modules/TransactoinsModel");
+const trns = require("../../../models/TransactoinsModel");
 
 exports.withdraw = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.user.email });

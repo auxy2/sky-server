@@ -1,11 +1,11 @@
-const asyncCatch = require("../../../routs/util/asynCatch");
-const User = require("../../../modules/usermodule");
+const catchAsync = require("../../../routes/utills/catchAsync");
+const User = require("../../../models/userModel");
 const axios = require("axios");
 const bitcore = require("bitcore-lib");
 const { broadcastUrl, ngnRate, unspent, status } = require("../../../APIs");
-const AppError = require("../../../routs/util/AppError");
+const AppError = require("../../../routes/utills/AppError");
 const jwt = require("jsonwebtoken");
-const trns = require("../../../modules/TransactoinsModel");
+const trns = require("../../../models/TransactoinsModel");
 const crypto = require("crypto");
 
 const signToken = (Id) =>
@@ -14,7 +14,7 @@ const signToken = (Id) =>
   });
 
 // Generate Btc Wallet Address
-exports.generateBtcAddress = asyncCatch(async (req, res, next) => {
+exports.generateBtcAddress = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id);
 
   if (!user) {
@@ -118,7 +118,7 @@ exports.generateBtcAddress = asyncCatch(async (req, res, next) => {
   });
 });
 
-exports.checktransactionStatus = asyncCatch(async (req, res, next) => {
+exports.checktransactionStatus = catchAsync(async (req, res, next) => {
   const txid =
     "77ba7f4813ab34bf4b54704b58ba79801e69140891b2d505320b07cecdb9cd15";
   const newT = "76a914d49d60952e3519d67736b9f44640f48be6d4098188ac";

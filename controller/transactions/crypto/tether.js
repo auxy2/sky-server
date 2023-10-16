@@ -1,9 +1,9 @@
-const User = require("../../../modules/usermodule");
-const AppError = require("../../../routs/util/AppError");
+const User = require("../../../models/userModel");
+const AppError = require("../../../routes/utills/AppError");
 const ethers = require("ethers");
-const catchAsync = require("../../../routs/util/asynCatch");
+const catchAsync = require("../../../routes/utills/catchAsync");
 // const Admin = require('../../Admin')
-const ABI = require("../../../modules/build/modules_ConbinedContracts_sol_USDTTransfer.abi");
+const ABI = require("../../../models/build/modules_ConbinedContracts_sol_USDTTransfer.abi");
 
 // const deployer = async(prvKey) => {
 
