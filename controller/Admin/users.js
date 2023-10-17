@@ -4,7 +4,7 @@ const catchAsync = require("../../routes/utills/catchAsync");
 const User = require("../../models/userModel");
 const AppError = require("../../routes/utills/AppError");
 
-exports.usersTx = catchAsync(async (req, res, next) => {
+exports.usersT = catchAsync(async (req, res, next) => {
   let activator = false;
 
   // const Operator = await User.findOne(req.user);

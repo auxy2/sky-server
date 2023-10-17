@@ -1,5 +1,6 @@
 const express = require("express");
 const DB = require("../controller/Admin/dashBoard");
+const Users = require("../controller/Admin/users");
 const rates = require("../controller/Admin/setRates");
 const trns = require("../controller/Admin/Transactions");
 const getAllUsers = require("../controller/Admin/users");
@@ -17,6 +18,7 @@ const categoriesAndRates = require("../controller/RateController/Rates/getGiftCa
 const router = express.Router();
 
 router.post("/Admin/users", DB.users); // Done
+router.post("/Admin/users", Users.usersTx);
 router.post("/dash_Board", DB.dashboard); // Done
 router.post("/Admin/set_Rate_Crypto", rates.setRate); /////////////
 router.post("/Admin/set_GiftCard_Rates", rates.setGiftCardRate); //////////
