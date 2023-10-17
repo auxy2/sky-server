@@ -21,8 +21,8 @@ const axios = require("axios");
 
 const router = express.Router();
 
-router.post("/signUp", authControler.signUp); // Done
-router.post("/login", authControler.login); // Done
+router.post("/signUp", authControler.signUp); //  Done
+router.post("/login", authControler.login); // 100% Done
 router.post("/sell_Gift_Card", authControler.protect, GiftCards.sellGiftCard);
 router.get(
   "/btc_Wallet_Address",
