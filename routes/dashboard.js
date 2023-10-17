@@ -18,8 +18,8 @@ const router = express.Router();
 
 router.post("/Admin/users", DB.users); // Done
 router.post("/dash_Board", DB.dashboard); // Done
-router.post("/Admin/set_Rate_Crypto", rates.setRate);
-router.post("/Admin/set_GiftCard_Catigories", rates.setgiftcardCatigory);
+router.post("/Admin/set_Rate_Crypto", rates.setRate); /////////////
+router.post("/Admin/set_GiftCard_Rates", rates.setGiftCardRate); //////////
 router.post("/Admin/set_GiftCardSub_Catigories", rates.setgiftcardSub_Catigory);
 router.post("/Admin/set_Card_Form", rates.setCardForm);
 router.post("/Admin/post_Notification", notifications.postNotifications); // Done

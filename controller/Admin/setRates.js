@@ -69,20 +69,24 @@ exports.setRate = catchAsync(async (req, res, next) => {
   console.log(req.body);
   res.status(200).json({
     status: "success",
-    message: `you seccessfully set ${req.body.produt} rate`,
+    message: `you seccessfully set ${req.body.product} rate`,
   });
 });
-exports.setgiftcardCatigory = catchAsync(async (req, res, next) => {
+exports.setGiftCardRate = catchAsync(async (req, res, next) => {
   const rates = await Rates.findOne({ Admin: "Admin" });
 
-  const bodyObj = req.body;
+  const catBodyObj = req.body.Catigory;
+  const subCatBodyObj = req.body.subCatigory;
 
-  let id = Math.random() * 15;
+  let id = Math.random() * date.now();
   id = Math.floor(id);
-  bodyObj.id = id;
+  catBodyObj ? (catBodyObj.id = id) : (subCatBodyObj.id = id);
+  console.log(id);
+  const catNewRate = [...rates.gitCard_Cartigories, catBodyObj];
+  const SubCatNewRate = [...rates.giftCardSub_Cartigories, subCatBodyObj];
 
-  const newRate = [...rates.gitCard_Cartigories, bodyObj];
-  rates.gitCard_Cartigories = newRate;
+  rates.gitCard_Cartigories = catNewRate;
+  rates.giftCardSub_Cartigories = SubCatNewRate;
   await rates.save();
   res.status(200).json({
     status: "success",
