@@ -196,7 +196,7 @@ exports.login = catchAsync(async (req, res, next) => {
       message: "Invalid input",
     });
   }
-
+  const credential = email || username;
   let user;
   let verifiedUser;
   // find user with his credential and validate it
@@ -209,7 +209,9 @@ exports.login = catchAsync(async (req, res, next) => {
 
   // if not user send a error message to the user
   if (user === "null" || !(await user.correctPass(password, user.password))) {
-    res.status(404).send("Invalid Email or password");
+    res
+      .status(404)
+      .send(`Invalid Email ${Object.keys(credential)} or password`);
   } else if (!verifiedUser.verify) {
     res.send("Something went wrong please use the reset password");
   } else {
