@@ -74,6 +74,7 @@ exports.setRate = catchAsync(async (req, res, next) => {
 });
 exports.setGiftCardRate = catchAsync(async (req, res, next) => {
   const rates = await Rates.findOne({ Admin: "Admin" });
+  console.log(req.body);
 
   let Cat_SubBodyObj = req.body;
 
