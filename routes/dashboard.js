@@ -27,7 +27,7 @@ router.post("/Admin/HighCard_rates", cardRates.highCardRate); // Done
 router.get("/getNotifications", notifications.getNotifications);
 router.get("/getHighCard_rates", cardRates.getHighCardRates);
 
-router.post("/Admin/allTransactions", trns.viewAllTrns);
+router.get("/Admin/allTransactions", trns.viewAllTrns);
 router.post("/usersInfo", getAllUsers.usersTx);
 router.post("/tutorial", tutorialVideo.Uploads);
 router.post("/verification", authorize.verify);
