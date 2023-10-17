@@ -189,21 +189,29 @@ exports.signUp = catchAsync(async (req, res, next) => {
 
 //////////////    Login Users //////////////
 exports.login = catchAsync(async (req, res, next) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
+  const { email, password, username } = req.body;
+  if ((!email && !username) || !password) {
     res.status(404).json({
       status: "fail",
       message: "Invalid input",
     });
   }
+
+  let user;
+  let verifiedUser;
   // find user with his credential and validate it
-  const user = await User.findOne({ email }).select("password");
-  const verifiedUser = await User.findById(user._id);
+  email
+    ? (user = await User.findOne({ email }).select("password"))
+    : (user = await User.findOne({ username }).select("password"));
+  user
+    ? (verifiedUser = await User.findById(user._id))
+    : res.status(404).send("Invalid Email or password");
+
   // if not user send a error message to the user
-  if (!user || !(await user.correctPass(password, user.password))) {
-    return next(new AppError("Invalid Email or password", 404));
+  if (user === "null" || !(await user.correctPass(password, user.password))) {
+    res.status(404).send("Invalid Email or password");
   } else if (!verifiedUser.verify) {
-    return next(new AppError("Something went wrong", 403));
+    res.send("Something went wrong please use the reset password");
   } else {
     const jwtToken = signToken(user._id);
     console.log(user);
