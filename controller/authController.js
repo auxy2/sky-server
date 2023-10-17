@@ -205,7 +205,9 @@ exports.login = catchAsync(async (req, res, next) => {
     : (user = await User.findOne({ username }).select("password"));
   user
     ? (verifiedUser = await User.findById(user._id))
-    : res.status(404).send("Invalid Email or password");
+    : res
+        .status(404)
+        .send(`Invalid Email ${Object.keys(credential)}  or password`);
 
   // if not user send a error message to the user
   if (user === "null" || !(await user.correctPass(password, user.password))) {
