@@ -205,7 +205,7 @@ exports.login = catchAsync(async (req, res, next) => {
     : (user = await User.findOne({ username }).select("password"));
   user
     ? (verifiedUser = await User.findById(user._id))
-    : res.send(`Invalid ${credential}`);
+    : res.send(`Email or Username Not Found`);
 
   // if not user send a error message to the user
   if (user === "null" || !(await user.correctPass(password, user.password))) {
