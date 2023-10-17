@@ -100,12 +100,7 @@ router.get(
 //   authControler.restrictTo("admin", "manger"),
 //   Oneuser.getUser
 // );
-router.get(
-  "/getUserInfo-Tx",
-  authControler.protect,
-  authControler.restrictTo("admin", "maneger"),
-  transactionHistory.usersTx
-);
+router.get("/getUserInfo-Tx", transactionHistory.usersTx);
 router.get(
   "/refarral_link",
   authControler.protect,

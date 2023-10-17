@@ -29,10 +29,10 @@ exports.usersTx = catchAsync(async (req, res, next) => {
   });
   async () => {
     activator
-      ? await User.findByIdAndUpdate(body, {
+      ? await User.findByIdAndUpdate(req.query, {
           active: false,
         })
-      : await User.findByIdAndUpdate(body, {
+      : await User.findByIdAndUpdate(req.query, {
           active: true,
         });
   };
