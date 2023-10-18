@@ -2,6 +2,7 @@ const express = require("express");
 const DB = require("../controller/Admin/dashBoard");
 const rates = require("../controller/Admin/setRates");
 const trns = require("../controller/Admin/Transactions");
+const CardRequest = require("../controller/Admin/GiftCardRequest");
 const getAllUsers = require("../controller/Admin/users");
 const tutorialVideo = require("../controller/Admin/tutorials");
 const authorize = require("../controller/Admin/verifications");
@@ -29,6 +30,7 @@ router.get("/getHighCard_rates", cardRates.getHighCardRates);
 
 router.get("/Admin/allTransactions", trns.viewAllTrns);
 router.get("/Admin/UserTransaction", trns.userTransation);
+router.get("/Admin/giftCard_request", CardRequest.giftCardsRequests);
 router.post("/usersInfo", getAllUsers.usersTx);
 router.post("/tutorial", tutorialVideo.Uploads);
 router.post("/verification", authorize.verify);
