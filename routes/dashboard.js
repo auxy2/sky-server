@@ -28,6 +28,7 @@ router.get("/getNotifications", notifications.getNotifications);
 router.get("/getHighCard_rates", cardRates.getHighCardRates);
 
 router.get("/Admin/allTransactions", trns.viewAllTrns);
+router.get("/Admin/UserTransaction", trns.userTransation);
 router.post("/usersInfo", getAllUsers.usersTx);
 router.post("/tutorial", tutorialVideo.Uploads);
 router.post("/verification", authorize.verify);

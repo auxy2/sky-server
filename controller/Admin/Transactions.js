@@ -16,3 +16,12 @@ exports.viewAllTrns = catchAsync(async (req, res, next) => {
     trnx,
   });
 });
+
+exports.userTransation = catchAsync(async (req, res, next) => {
+  console.log(req.query);
+  const userTransation = await trns.find({ userId: req.query.id });
+  res.status(200).json({
+    ststua: "success",
+    userTransation,
+  });
+});
