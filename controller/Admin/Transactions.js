@@ -54,10 +54,10 @@ exports.userTransation = catchAsync(async (req, res, next) => {
   //     amount: item[0].amount,
   //   };
   // });
-
+  const rateAlart = userTransation.userId[0].rateAlart;
   res.status(200).json({
     ststua: "success",
-    rateAlart: userTransation.userId[0].rateAlart[0],
+    rateAlart,
     // bankdetails: bankdetails,w
     // allTransactions: allTransactions,
   });
