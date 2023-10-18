@@ -59,9 +59,9 @@ exports.getSalesAnalytsis = catchAsync(async (req, res, next) => {
     for (const transation of trnx) {
       const { amount, currency } = transation;
       if (!currencyTotals[currency]) {
-        currencyTotals[currency] = 0;
+        currencyTotals[currency] = amount;
       }
-      currencyTotals[currency] = amount + amount;
+      currencyTotals[currency] += amount;
     }
 
     const cryptoCurrency = await toDate(trns);
