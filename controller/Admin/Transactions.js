@@ -54,11 +54,23 @@ exports.userTransation = catchAsync(async (req, res, next) => {
   //     amount: item[0].amount,
   //   };
   // });
-  const rateAlart = userTransation.userId[0].rateAlart;
-  res.status(200).json({
-    ststua: "success",
-    rateAlart,
-    // bankdetails: bankdetails,w
-    // allTransactions: allTransactions,
-  });
+
+  for (const entry of userTransation) {
+    const rateAlart = entry.userId[0].rateAlart;
+    console.log("rateAlart for an entry:");
+    console.log(rateAlart);
+    res.status(200).json({
+      status: "success",
+      rateAlart,
+    });
+  }
+
+  // const rateAlart = userTransation.userId[0].rateAlart;
+  // console.log(rateAlart);
+  // res.status(200).json({
+  //   ststua: "success",
+  //   rateAlart,
+  //   // bankdetails: bankdetails,w
+  //   // allTransactions: allTransactions,
+  // });
 });
