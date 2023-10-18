@@ -50,17 +50,8 @@ exports.userTransation = catchAsync(async (req, res, next) => {
 
   // Create the 'allTransactions' array
   const allTransactions = userTransation.map((item) => {
-    const { userId, ...rest } = item;
     return {
-      ...rest,
-      userId: [
-        {
-          _id: userId[0]._id,
-          name: userId[0].name,
-          phoneNumber: userId[0].phoneNumber,
-          email: userId[0].email,
-        },
-      ],
+      amount: item[0].amount,
     };
   });
 
