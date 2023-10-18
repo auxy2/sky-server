@@ -26,6 +26,7 @@ router.post("/Admin/set_Card_Form", rates.setCardForm);
 router.post("/Admin/post_Notification", notifications.postNotifications); // Done
 router.post("/Admin/HighCard_rates", cardRates.highCardRate); // Done
 router.get("/getNotifications", notifications.getNotifications);
+router.delete("/Admin/delete_Notifications", notifications.deleteNotification);
 router.get("/getHighCard_rates", cardRates.getHighCardRates);
 
 router.get("/Admin/allTransactions", trns.viewAllTrns);

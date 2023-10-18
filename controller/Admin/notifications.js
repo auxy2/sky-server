@@ -48,3 +48,18 @@ exports.getNotifications = catchAsync(async (req, res, next) => {
     allNotifications,
   });
 });
+
+exports.deleteNotification = catchAsync(async (req, res, next) => {
+  const rates = await Rates.findOne({ Admin: "Admin" });
+  const allNotifications = rates.notification;
+
+  const newNotifications = allNotifications.filter(
+    (notifications) => notifications._id.toString() !== req.query.id
+  );
+  rates.notification = newNotifications;
+  await rates.save();
+  res.status(200).json({
+    status: "success",
+    message: "notification successfully deleted",
+  });
+});

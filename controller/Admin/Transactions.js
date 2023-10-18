@@ -58,7 +58,15 @@ exports.userTransation = catchAsync(async (req, res, next) => {
   for (const entry of userTransation) {
     const rateAlart = entry.userId[0].rateAlart;
     const userData = entry.userId[0];
-    const { accounName, accountNumber, bankName, walletBalance } = userData;
+    const {
+      name,
+      email,
+      phoneNumber,
+      accounName,
+      accountNumber,
+      bankName,
+      walletBalance,
+    } = userData;
 
     const bankdetails = {
       accounName,
@@ -66,12 +74,29 @@ exports.userTransation = catchAsync(async (req, res, next) => {
       bankName,
       walletBalance,
     };
+    const transactions = {
+      userId: [
+        {
+          name,
+          email,
+          phoneNumber,
+        },
+      ],
+      amount: entry.amount,
+      currency: entry.currency,
+      createdAt: entry.createdAt,
+      status: entry.status,
+      access_code: entry.access_code,
+      txId: entry.txId,
+      id: entry.id,
+    };
     console.log("rateAlart for an entry:");
     console.log(rateAlart);
     res.status(200).json({
       status: "success",
       rateAlart,
       bankdetails,
+      allTransations: [transactions],
       userTransation,
     });
   }
