@@ -21,7 +21,8 @@ exports.userTransation = catchAsync(async (req, res, next) => {
   console.log(req.query);
   const userTransation = await trns.find({ userId: req.query.id }).populate({
     path: "userId",
-    select: "name email phoneNumber",
+    select:
+      "name email phoneNumber walletBalance accounName accountNumber bankName rateAlart",
   });
   res.status(200).json({
     ststua: "success",
