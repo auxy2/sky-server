@@ -15,7 +15,7 @@ const GiftCards = require("../controller/transactions/giftCard");
 // const Oneuser = require("../controller/users");
 // const teherGenrator = require("../controller/tether");
 // const progress_bar = require("../controller/progress_Bar");
-const Admin = require("../controller/Admin/dashBoard");
+// const Admin = require("../controller/Admin/dashBoard");
 
 const axios = require("axios");
 
@@ -113,7 +113,7 @@ router.get(
   authControler.protect,
   Tether.generateTetherAddress
 );
-router.post("/createAdmin", Admin.createAdmin);
+// router.post("/createAdmin", Admin.createAdmin);
 // router.get("/webSoket", Oneuser.websocket);
 router.get("/users", userController.getAllUsers);
 
