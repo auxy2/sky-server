@@ -25,12 +25,16 @@ async function getCryptoToNairaRate(cryptoSymbol) {
 
       const CRYPTO_TO_USD = cryptoToUsdResponse.data.bitcoin.usd;
       const USD_TO_NGN = cryptoToUsdResponse.data.bitcoin.ngn;
+
       return { CRYPTO_TO_USD, USD_TO_NGN };
-    } else if (cryptoSymbol === "ethereum") {
+    }
+
+    if (cryptoSymbol === "ethereum") {
       console.log("ethereum");
 
       const CRYPTO_TO_USD = cryptoToUsdResponse.data.ethereum.usd;
       const USD_TO_NGN = cryptoToUsdResponse.data.ethereum.ngn;
+
       return { CRYPTO_TO_USD, USD_TO_NGN };
     }
   } catch (err) {

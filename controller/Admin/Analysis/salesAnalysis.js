@@ -49,8 +49,11 @@ exports.getSalesAnalytsis = catchAsync(async (req, res, next) => {
   const crypto = await trns.find({});
   const gift_card = await gitfCard.find({});
   const trnx = await trns.find().select("amount currency");
+  const card = await gitfCard.find().select("cardAmount");
+  console.log(card);
 
   let currencyTotals = {};
+  let totalAmout = 0;
 
   toString(crypto);
   toString(gift_card);
@@ -64,11 +67,17 @@ exports.getSalesAnalytsis = catchAsync(async (req, res, next) => {
       currencyTotals[currency] += amount;
     }
 
+    card.forEach((item) => {
+      const { cardAmount } = item;
+      totalAmout += parseFloat(cardAmount);
+    });
+
     const cryptoCurrency = await toDate(trns);
     const gift_Card = await toDate(gitfCard);
 
     const BTCrate = await getCryptoToNairaRate("bitcoin");
     const ETHrate = await getCryptoToNairaRate("ethereum");
+
     console.log(BTCrate.USD_TO_NGN);
 
     //    const NGN = currencyTotals*Rate;
@@ -80,6 +89,7 @@ exports.getSalesAnalytsis = catchAsync(async (req, res, next) => {
 
     const cryptoAmount = currencyTotals.USDT / BTCrate.CRYPTO_TO_USD;
     const nairaAmount = cryptoAmount * BTCrate.USD_TO_NGN;
+    console.log(parseFloat(totalAmout).toLocaleString(), nairaAmount, "USDT");
 
     const BTCtoNGN = currencyTotals.BTC * BTCrate.USD_TO_NGN;
     const EthtoNGN = currencyTotals.ETH * ETHrate.USD_TO_NGN;
@@ -103,7 +113,7 @@ exports.getSalesAnalytsis = catchAsync(async (req, res, next) => {
         percentage: "38",
       },
       GIFTCARD: {
-        currency: EthtoNGN.toLocaleString(),
+        currency: totalAmout.toLocaleString(),
         percentage: "5",
       },
 
