@@ -20,7 +20,7 @@ async function getCryptoToNairaRate(cryptoSymbol) {
       params,
     });
 
-    if (cryptoSymbol === "bitcoin" || "usdt") {
+    if (cryptoSymbol === "bitcoin") {
       console.log("bitcoin");
 
       const CRYPTO_TO_USD = cryptoToUsdResponse.data.bitcoin.usd;

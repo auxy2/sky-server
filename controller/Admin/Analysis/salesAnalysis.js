@@ -70,7 +70,6 @@ exports.getSalesAnalytsis = catchAsync(async (req, res, next) => {
 
     const BTCrate = await getCryptoToNairaRate("bitcoin");
     const ETHrate = await getCryptoToNairaRate("ethereum");
-    const USDTrate = await getCryptoToNairaRate("usdt");
     console.log(BTCrate.USD_TO_NGN);
 
     //    const NGN = currencyTotals*Rate;
@@ -80,8 +79,8 @@ exports.getSalesAnalytsis = catchAsync(async (req, res, next) => {
 
     // console.log(newString);
 
-    const cryptoAmount = currencyTotals.USDT / USDTrate.CRYPTO_TO_USD;
-    const nairaAmount = cryptoAmount * USDTrate.USD_TO_NGN;
+    const cryptoAmount = currencyTotals.USDT / BTCrate.CRYPTO_TO_USD;
+    const nairaAmount = cryptoAmount * BTCrate.USD_TO_NGN;
 
     const BTCtoNGN = currencyTotals.BTC * BTCrate.USD_TO_NGN;
     const EthtoNGN = currencyTotals.ETH * ETHrate.USD_TO_NGN;
