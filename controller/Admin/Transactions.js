@@ -24,8 +24,50 @@ exports.userTransation = catchAsync(async (req, res, next) => {
     select:
       "name email phoneNumber walletBalance accounName accountNumber bankName rateAlart",
   });
+
+  const rateAlart = userTransation.map((item) => {
+    return {
+      asset: item.userId[0].rateAlart[0].asset,
+      enteredAmount: item.userId[0].rateAlart[0].enteredAmount,
+      selectedCategory: item.userId[0].rateAlart[0].selectedCategory,
+      selectedNotifyMethod: item.userId[0].rateAlart[0].selectedNotifyMethod,
+      selectedRate: item.userId[0].rateAlart[0].selectedRate,
+      selectedSubCategory: item.userId[0].rateAlart[0].selectedSubCategory,
+      createdAt: item.userId[0].rateAlart[0].createdAt,
+      _id: item.userId[0].rateAlart[0]._id,
+      id: item.userId[0].rateAlart[0]._id,
+    };
+  });
+
+  const bankdetails = userTransation.map((item) => {
+    return {
+      accounName: item.userId[0].accounName,
+      accountNumber: item.userId[0].accountNumber,
+      bankName: item.userId[0].bankName,
+      walletBalance: item.userId[0].walletBalance,
+    };
+  });
+
+  // Create the 'allTransactions' array
+  const allTransactions = userTransation.map((item) => {
+    const { userId, ...rest } = item;
+    return {
+      ...rest,
+      userId: [
+        {
+          _id: userId[0]._id,
+          name: userId[0].name,
+          phoneNumber: userId[0].phoneNumber,
+          email: userId[0].email,
+        },
+      ],
+    };
+  });
+
   res.status(200).json({
     ststua: "success",
-    userTransation,
+    rateAlart: rateAlart,
+    bankdetails: bankdetails,
+    allTransactions: allTransactions,
   });
 });
