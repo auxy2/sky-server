@@ -74,38 +74,28 @@ exports.userTransation = catchAsync(async (req, res, next) => {
       bankName,
       walletBalance,
     };
-    const transactions = {
-      userId: [
-        {
-          name,
-          email,
-          phoneNumber,
-        },
-      ],
-      amount: entry.amount,
-      currency: entry.currency,
-      createdAt: entry.createdAt,
-      status: entry.status,
-      access_code: entry.access_code,
-      txId: entry.txId,
-      id: entry.id,
-    };
-    console.log("rateAlart for an entry:");
-    console.log(rateAlart);
+    // const transactions = {
+    //   userId: [
+    //     {
+    //       name,
+    //       email,
+    //       phoneNumber,
+    //     },
+    //   ],
+    //   amount: entry.amount,
+    //   currency: entry.currency,
+    //   createdAt: entry.createdAt,
+    //   status: entry.status,
+    //   access_code: entry.access_code,
+    //   txId: entry.txId,
+    //   id: entry.id,
+    // };
+
     res.status(200).json({
       status: "success",
       rateAlart,
       bankdetails,
-      allTransations: [transactions],
       userTransation,
     });
   }
-
-  // console.log(rateAlart);
-  // res.status(200).json({
-  //   ststua: "success",
-  //   userTransation,
-  //   // bankdetails: bankdetails,w
-  //   // allTransactions: allTransactions,
-  // });
 });

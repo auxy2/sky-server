@@ -11,20 +11,8 @@ exports.postNotifications = catchAsync(async (req, res, next) => {
       new AppError("you dont have access to post notifications", 400)
     );
   }
-  if (req.query.id) {
-    const newRates = rate.notification.filter(
-      (notification) => notification.id !== req.query.id
-    );
-    if (newRates) {
-      console.log(newRates);
-      rate.notification = newRates;
-      await rate.save();
-      res.status(200).json({
-        status: "success",
-        message: "successfully deleted",
-      });
-    }
-  } else if (req.body.notificationBody && req.body.notificationTitle) {
+
+  if (req.body.notificationBody && req.body.notificationTitle) {
     const newNotifications = [...rate.notification, req.body];
     rate.notification = newNotifications;
     await rate.save();
@@ -33,11 +21,6 @@ exports.postNotifications = catchAsync(async (req, res, next) => {
       message: "you successfully post a notification",
     });
   }
-
-  res.status(200).json({
-    status: "success",
-    notifications: rate.notification,
-  });
 });
 
 exports.getNotifications = catchAsync(async (req, res, next) => {
