@@ -28,3 +28,18 @@ exports.getHighCardRates = catchAsync(async (req, res, next) => {
     cardRates,
   });
 });
+
+exports.deleteCardRate = catchAsync(async (req, res, next) => {
+  const rates = await Rates.findOne({ Admin: "Admin" });
+  const allCardRates = rates.highCardRates;
+
+  const newCardRate = allCardRates.filter(
+    (cardRates) => cardRates._id.toString() !== req.query.id
+  );
+  rates.highCardRates = newCardRate;
+  await rates.save();
+  res.status(200).json({
+    status: "success",
+    message: "card rate successfully deleted",
+  });
+});

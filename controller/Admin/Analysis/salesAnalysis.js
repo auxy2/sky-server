@@ -18,6 +18,7 @@ const toString = async (obj) => {
     );
   }
 };
+
 const toDate = async (obj) => {
   const getUsersByDate = await obj.aggregate([
     {
@@ -57,17 +58,19 @@ exports.getSalesAnalytsis = catchAsync(async (req, res, next) => {
   if ((user && user.role === "admin") || "manager") {
     for (const transation of trnx) {
       const { amount, currency } = transation;
-      if (!currencyTotals[currency]) {
+      if (currencyTotals[currency]) {
         currencyTotals[currency] = amount;
       } else {
-        currencyTotals[currency] += amount;
+        currencyTotals[currency] = amount + amount;
       }
     }
 
     const cryptoCurrency = await toDate(trns);
     const gift_Card = await toDate(gitfCard);
+
     const BTCrate = await getCryptoToNairaRate("bitcoin");
     const ETHrate = await getCryptoToNairaRate("ethereum");
+    const USDTrate = await getCryptoToNairaRate("usdt");
     console.log(BTCrate.USD_TO_NGN);
 
     //    const NGN = currencyTotals*Rate;
@@ -76,6 +79,9 @@ exports.getSalesAnalytsis = catchAsync(async (req, res, next) => {
     // const newString = [...new Set(arr)];
 
     // console.log(newString);
+
+    const cryptoAmount = currencyTotals.USDT / USDTrate.CRYPTO_TO_USD;
+    const nairaAmount = cryptoAmount * USDTrate.USD_TO_NGN;
 
     const BTCtoNGN = currencyTotals.BTC * BTCrate.USD_TO_NGN;
     const EthtoNGN = currencyTotals.ETH * ETHrate.USD_TO_NGN;
@@ -89,13 +95,13 @@ exports.getSalesAnalytsis = catchAsync(async (req, res, next) => {
         percentage: "40",
       },
       Ethereum: {
-        currency: currencyTotals.BTC,
+        currency: currencyTotals.ETH,
         NGN: EthtoNGN.toLocaleString(),
         percentage: "15",
       },
       USDT: {
         currency: currencyTotals.USDT,
-        NGN: BTCtoNGN.toLocaleString(),
+        NGN: nairaAmount.toLocaleString(),
         percentage: "38",
       },
       GIFTCARD: {

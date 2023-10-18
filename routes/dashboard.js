@@ -24,10 +24,11 @@ router.post("/Admin/set_GiftCard_Rates", rates.setGiftCardRate); //////////
 router.post("/Admin/set_GiftCardSub_Catigories", rates.setgiftcardSub_Catigory);
 router.post("/Admin/set_Card_Form", rates.setCardForm);
 router.post("/Admin/post_Notification", notifications.postNotifications); // Done
-router.post("/Admin/HighCard_rates", cardRates.highCardRate); // Done
+router.post("/Admin/post_HighCard_rates", cardRates.highCardRate); // Done
 router.get("/getNotifications", notifications.getNotifications);
 router.delete("/Admin/delete_Notifications", notifications.deleteNotification);
 router.get("/getHighCard_rates", cardRates.getHighCardRates);
+router.delete("Admin/delete_HighCard_rates", cardRates.deleteCardRate);
 
 router.get("/Admin/allTransactions", trns.viewAllTrns);
 router.get("/Admin/UserTransaction", trns.userTransation);

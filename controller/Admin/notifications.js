@@ -11,9 +11,14 @@ exports.postNotifications = catchAsync(async (req, res, next) => {
       new AppError("you dont have access to post notifications", 400)
     );
   }
+  const bodyObj = req.body;
+
+  let id = Math.random() * Date.now();
+  id = Math.floor(id);
+  bodyObj.id = id;
 
   if (req.body.notificationBody && req.body.notificationTitle) {
-    const newNotifications = [...rate.notification, req.body];
+    const newNotifications = [...rate.notification, bodyObj];
     rate.notification = newNotifications;
     await rate.save();
     res.status(200).json({
