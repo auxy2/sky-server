@@ -176,28 +176,12 @@ exports.createPin = catchAsync(async (req, res, next) => {
 });
 
 exports.existingWalletAddress = catchAsync(async (req, res, next) => {
-  const users = await User.find({});
-
-  const btcWalletAddress = [];
-  const EtherWallet = [];
-  const usdtWalletAddress = [];
-
-  for (const obj of users) {
-    if (obj.btcWalletAddress) {
-      btcWalletAddress.push(obj.btcWalletAddress);
-    }
-    if (obj.EtherWallet) {
-      EtherWallet.push(obj.EtherWallet);
-    }
-    if (obj.usdtWalletAddress) {
-      usdtWalletAddress.push(obj.usdtWalletAddress);
-    }
-  }
+  const users = await User.findOne(req.user);
   res.status(200).json({
     status: "success",
-    btc: btcWalletAddress,
-    eth: EtherWallet,
-    usdt: usdtWalletAddress,
+    btc: user.btcWalletAddress,
+    eth: user.EtherWallet,
+    usdt: user.usdtWalletAddress,
   });
 });
 

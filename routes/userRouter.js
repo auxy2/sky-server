@@ -29,7 +29,11 @@ router.get(
   authControler.protect,
   BTC.generateBtcAddress
 ); // Done
-router.get("/users_Wallets", userController.existingWalletAddress);
+router.get(
+  "/users_Wallets",
+  authControler.protect,
+  userController.existingWalletAddress
+);
 // router.get("/check-balance", authControler.checkbalance); // Done ////
 router.get("/addBank", authControler.protect, userController.addBank); // Done
 router.post(
