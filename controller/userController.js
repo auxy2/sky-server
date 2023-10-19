@@ -119,14 +119,6 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 exports.updateMe = catchAsync(async (req, res, next) => {
-  const { profilePhoto } = req.body;
-
-  // if(req.body.password || passwordConfirm){
-  //     res.status(400).json({
-  //         status: 'failed',
-  //         message: 'please use the password update resource'
-  //     })
-  // }
   let updatedUser;
 
   const filterdBody = filteredObj(
@@ -137,7 +129,9 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     "profilePhoto",
     "username"
   );
-  // const photo = UploadsImage(filterdBody.profilePhoto);
+
+  const photo = UploadsImage(filterdBody.profilePhoto);
+  console.log(photo, filterdBody);
 
   filterdBody?.email === "" || filterdBody.profilePhoto
     ? delete filterdBody.email
@@ -149,7 +143,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 
   if (!updatedUser) {
-    console.log(updatedUser);
     res.send("invalid credentials");
   }
 
@@ -158,21 +151,22 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     jwtToken,
+    updatedUser,
   });
 });
 
 exports.createPin = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
   const { newpin, confirmPin } = req.body;
+
   if (!user) {
     res.send("you dont have access to this page");
   }
+
   if (newpin === confirmPin) {
-    res.send("confirmed");
     user.transactionPin = newpin;
     await user.save({ validateBeforeSave: false });
-    console.log(newpin, confirmPin);
-    console.log(user);
+    res.send("confirmed");
   } else {
     res.status(400).json({
       status: "failed",
@@ -185,7 +179,7 @@ exports.resetPin = catchAsync(async (req, res, next) => {
   const { oldPin, newPin, confirmPin } = req.body;
   const user = await User.findOne(req.user);
   if (!user) {
-    return next(new AppError("password is not correct", 400));
+    return next();
   }
 
   if (oldPin === user.transactionPin) {

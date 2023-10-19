@@ -196,7 +196,6 @@ exports.login = catchAsync(async (req, res, next) => {
       message: "Invalid input",
     });
   }
-  const credential = email || username;
   let user;
   let verifiedUser;
   // find user with his credential and validate it
@@ -214,7 +213,6 @@ exports.login = catchAsync(async (req, res, next) => {
     res.send("Something went wrong please use the reset password");
   } else {
     const jwtToken = signToken(user._id);
-    console.log(user);
     sendCookie(jwtToken, res);
     res.status(200).json({
       status: "success",
@@ -237,7 +235,6 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     jwtToken = req.headers.authorization.split(" ")[1];
-    console.log("jwt is correct", req.headers.authorization);
   } else if (req.cookie) {
     console.log("req.cookei", req.cookie);
     jwtToken = req.cookie;
@@ -290,7 +287,6 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
 
   if (userInfo.includes("@")) {
     const user = await User.findOne({ email: userInfo });
-    console.log(userInfo, user);
     if (user) {
       const token = generateToken();
       const subject = "[ SKYHOWNG ] Forget Your Password?";
@@ -324,7 +320,6 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
 
   if (userInfo.startsWith("0")) {
     const user = await User.findOne({ phoneNumber: userInfo });
-    console.log(userInfo, user);
     if (user) {
       const token = generateToken();
       const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -362,10 +357,7 @@ exports.everifyUpdatePassOTP = catchAsync(async (req, res, next) => {
     passwordResetToken: token,
     passworadEpires: { $gt: Date.now() },
   });
-  console.log(user);
-  console.log(Date.now());
   if (user) {
-    console.log(user);
     user.passwordResetToken = undefined;
     user.passworadEpires = undefined;
     await user.save({ validateBeforeSave: false });
@@ -382,9 +374,7 @@ exports.everifyUpdatePassOTP = catchAsync(async (req, res, next) => {
 
 exports.resetpassword = catchAsync(async (req, res, next) => {
   const { password, passConfirm } = req.body;
-  console.log(req.body);
   const user = await User.findOne(req.user);
-  console.log(user);
   if (!user) {
     res.send("something went wrong");
   }
@@ -398,36 +388,34 @@ exports.resetpassword = catchAsync(async (req, res, next) => {
 });
 
 exports.UpdatePassword = catchAsync(async (req, res, next) => {
-  console.log(req.body);
   const user = await User.findById(req.user._id).select("+password");
 
-  console.log(user, req.body);
   if (!(await user.correctPass(req.body.CurrentPassword, user.password))) {
-    return next(new AppError("incorect password", 400));
-  }
+    res.send("incorect password");
+  } else {
+    user.password = req.body.password;
+    user.passConfirm = req.body.passConfirm;
+    await user.save();
 
-  user.password = req.body.password;
-  user.passConfirm = req.body.passConfirm;
-  await user.save();
+    const subject = "[ SKYHOWNG ] You Recently Change Your Password";
+    const message = `Dear ${user.name.toUpperCase}\nYour  password reset at ${Date} was  successfully`;
+    try {
+      Mail.sendEmail({
+        email: user.email,
+        subject,
+        message,
+      });
+    } catch (err) {
+      return next(new AppError("error sending mail", 400));
+    }
+    const jwtToken = signToken(user._id);
 
-  const subject = "[ SKYHOWNG ] You Recently Change Your Password";
-  const message = `Dear ${user.name.toUpperCase}\nYour  password reset at ${Date} was  successfully`;
-  try {
-    Mail.sendEmail({
-      email: user.email,
-      subject,
-      message,
+    sendCookie(jwtToken, res);
+    res.status(200).json({
+      status: "success",
+      data: {
+        jwtToken,
+      },
     });
-  } catch (err) {
-    return next(new AppError("error sending mail", 400));
   }
-  const jwtToken = signToken(user._id);
-
-  sendCookie(jwtToken, res);
-  res.status(200).json({
-    status: "success",
-    data: {
-      jwtToken,
-    },
-  });
 });

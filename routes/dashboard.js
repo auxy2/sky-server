@@ -19,32 +19,32 @@ const router = express.Router();
 
 router.post("/Admin/users", DB.users); // Done
 router.post("/dash_Board", DB.dashboard); // Done
-router.post("/Admin/set_Rate_Crypto", rates.setRate); /////////////
-router.post("/Admin/set_GiftCard_Rates", rates.setGiftCardRate); //////////
+router.post("/Admin/set_Rate_Crypto", rates.setRate); // Done /////////////
+router.post("/Admin/set_GiftCard_Rates", rates.setGiftCardRate); // Done  //////////
 router.post("/Admin/set_GiftCardSub_Catigories", rates.setgiftcardSub_Catigory);
 router.post("/Admin/set_Card_Form", rates.setCardForm);
 router.post("/Admin/post_Notification", notifications.postNotifications); // Done
 router.post("/Admin/post_HighCard_rates", cardRates.highCardRate); // Done
-router.get("/getNotifications", notifications.getNotifications);
-router.delete("/Admin/delete_Notifications", notifications.deleteNotification);
-router.get("/getHighCard_rates", cardRates.getHighCardRates);
-router.delete("/Admin/delete_HighCard_rates", cardRates.deleteCardRate);
+router.get("/getNotifications", notifications.getNotifications); // Done
+router.delete("/Admin/delete_Notifications", notifications.deleteNotification); // Done
+router.get("/getHighCard_rates", cardRates.getHighCardRates); // Done
+router.delete("/Admin/delete_HighCard_rates", cardRates.deleteCardRate); // Done
 
-router.get("/Admin/allTransactions", trns.viewAllTrns);
-router.get("/Admin/UserTransaction", trns.userTransation);
-router.get("/Admin/giftCard_request", CardRequest.giftCardsRequests);
+router.get("/Admin/allTransactions", trns.viewAllTrns); // Done
+router.get("/Admin/UserTransaction", trns.userTransation); // Done
+router.get("/Admin/giftCard_request", CardRequest.giftCardsRequests); // Done
 router.post("/usersInfo", getAllUsers.usersTx);
 router.post("/tutorial", tutorialVideo.Uploads);
 router.post("/verification", authorize.verify);
 // router.get("/Admin/dashboar/usersAnalysis", analytics.getUsersAnalysis);
 // router.get("salesAnalyis", analytics.getSalesAnalytsis);
-router.post("/Admin/login", login.AdminLogin);
+router.post("/Admin/login", login.AdminLogin); // Done
 router.post("/Admin/UsersAnalysis", analyzeUsr.getUsersAnalysis);
-router.post("/Admin/SalaesAnalysis", analyzeSales.getSalesAnalytsis);
-router.post("/set_Rate_Catigories", categoriesAndRates.adminGiftCardCategories);
+router.post("/Admin/SalaesAnalysis", analyzeSales.getSalesAnalytsis); // Done
+router.post("/set_Rate_Catigories", categoriesAndRates.adminGiftCardCategories); // Done
 router.post(
   "/set_Rate_Sub_Catigories",
   categoriesAndRates.adminGiftCardSubCategories
-);
+); // Done
 
 module.exports = router;
