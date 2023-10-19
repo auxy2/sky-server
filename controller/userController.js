@@ -9,6 +9,7 @@ const crypto = require("crypto");
 const fingerPrint = require("fingerprintjs2");
 const Mail = require("../routes/utills/email");
 const twilio = require("twilio");
+const { UploadsImage } = require("./imageUploads");
 // const { UploadsImage } = require("./imageaUploads");
 
 const fpPromise = fingerPrint.getPromise().then((components) => {
@@ -136,23 +137,16 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     "profilePhoto",
     "username"
   );
-  if (filterdBody.email === "" && profilePhoto) {
-    // const image = UploadsImage(profilePhoto);
+  const photo = UploadsImage(filterdBody.profilePhoto);
 
-    delete filterdBody.email;
-    // filterdBody.profilePhoto = image;
-    console.log("deleted");
+  filterdBody?.email === "" || filterdBody.profilePhoto
+    ? delete filterdBody.email
+    : filterdBody;
 
-    updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody);
-  } else if (filterdBody) {
-    console.log(filterdBody);
-    filterdBody?.email === "" ? delete filterdBody.email : filterdBody;
-    console.log("1", filterdBody);
-    updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
-      new: true,
-      runValidators: true,
-    });
-  }
+  updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
+    new: true,
+    runValidators: true,
+  });
 
   if (!updatedUser) {
     console.log(updatedUser);
