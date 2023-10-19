@@ -2,13 +2,14 @@ const User = require("../models/userModel");
 const verification = require("../models/verification");
 const catchAsync = require("../routes/utills/catchAsync");
 const AppError = require("../routes/utills/AppError");
-const { default: axios } = require("axios");
+const { default: axios, Axios } = require("axios");
 const APIs = require("../APIs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const fingerPrint = require("fingerprintjs2");
 const Mail = require("../routes/utills/email");
 const twilio = require("twilio");
+const { UploadsImage } = require("./imageUploads");
 
 const fpPromise = fingerPrint.getPromise().then((components) => {
   const fingerprint = fingerPrint.x64hash128(
@@ -125,6 +126,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   //         message: 'please use the password update resource'
   //     })
   // }
+  let updatedUser;
 
   const filterdBody = filteredObj(
     req.body,
@@ -134,24 +136,31 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     "profilePhoto",
     "username"
   );
-  const updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
-    new: true,
-    runValidators: true,
-  });
+
+  if (filterdBody.email === "" && profilePhoto) {
+    // const image = UploadsImage(profilePhoto);
+
+    delete filterdBody.email;
+    // filterdBody.profilePhoto = image;
+
+    updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody);
+  } else if (filterdBody.email) {
+    updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
+      new: true,
+      runValidators: true,
+    });
+  }
 
   if (!updatedUser) {
     console.log(updatedUser);
-    return next(new AppError("user not found ", 400));
+    res.send("invalid credentials");
   }
-
-  console.log("user", updatedUser);
 
   const jwtToken = signToken(updatedUser.id);
   // sendCookie(token, res)
   res.status(200).json({
     status: "success",
     jwtToken,
-    user: updatedUser,
   });
 });
 
