@@ -10,7 +10,7 @@ const handleduplicateDB = (err) => {
 const hadleValitionDB = (err) => {
   const value = Object.values(err.errors).map((el) => el.message);
   console.log(value);
-  const message = "Invalid Inpute data: " + value.join(", ")[0];
+  const message = "Invalid Inpute data: " + value[0];
   console.log(message);
   return new AppError(message, 200);
 };
