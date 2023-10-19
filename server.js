@@ -93,7 +93,9 @@ app.use("/api/V1/skyshowNG", Admin);
 app.use("/notify", notifications);
 
 app.all("*", (req, res, next) => {
-  next(new AppError(`cant find this ${req.originalUrl} on this server`, 400));
+  return next(
+    new AppError(`cant find this ${req.originalUrl} on this server`, 400)
+  );
 });
 
 app.use(globalHandler);
