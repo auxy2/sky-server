@@ -151,7 +151,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
   const NewUser = await User.create(req.body);
   console.log(NewUser);
   if (!NewUser) {
-    return next(new AppError("Please use a valid credential", 400));
+    res.send("Please use a valid credential");
   }
   const mail = NewUser.email;
 
