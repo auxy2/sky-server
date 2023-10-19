@@ -142,6 +142,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
     delete filterdBody.email;
     // filterdBody.profilePhoto = image;
+    console.log("deleted");
 
     updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody);
   } else if (filterdBody.email) {
