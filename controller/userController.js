@@ -176,7 +176,21 @@ exports.createPin = catchAsync(async (req, res, next) => {
 });
 
 exports.existingWalletAddress = catchAsync(async (req, res, next) => {
-  const wallets = await User.find({});
+  const users = await User.find({});
+
+  const wallets = [];
+
+  for (const obj of users) {
+    if (obj.btcWalletAddress) {
+      wallets.push(obj.btcWalletAddress);
+    }
+    if (obj.EtherWallet) {
+      wallets.push(obj.EtherWallet);
+    }
+    if (obj.usdtWalletAddress) {
+      wallets.push(obj.usdtWalletAddress);
+    }
+  }
   res.status(200).json({
     status: "success",
     wallets,
