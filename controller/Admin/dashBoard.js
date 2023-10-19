@@ -10,6 +10,7 @@ exports.dashboard = catchAsync(async (req, res, next) => {
   });
 
   const results = await dashboards();
+  console.log(results.earnings, results.users);
 
   res.status(200).json({
     status: "success",
