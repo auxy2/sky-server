@@ -30,12 +30,7 @@ router.get(
   BTC.generateBtcAddress
 ); // Done
 // router.get("/check-balance", authControler.checkbalance); // Done ////
-router.get(
-  "/addBank",
-  authControler.protect,
-  userController.addBank,
-  progress_bar.progress
-); // Done
+router.get("/addBank", authControler.protect, userController.addBank); // Done
 router.post(
   "/setRateAlart",
   authControler.protect,
