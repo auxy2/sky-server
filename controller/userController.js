@@ -260,7 +260,6 @@ exports.addBank = catchAsync(async (req, res, next) => {
     if (req.query.AccountNumber && req.query.bankName) {
       const accountNumber = req.query.AccountNumber;
       const bankName = req.query.bankName;
-      console.log(accountNumber, bankName);
 
       const response = await axios.get(APIs.getBankCode, {
         headers: {
@@ -268,7 +267,6 @@ exports.addBank = catchAsync(async (req, res, next) => {
         },
       });
       const data = response.data.data;
-      console.log(data);
       const bank = data.find(
         (el) => el.name.toLowerCase() === bankName.toLowerCase()
       );
