@@ -3,15 +3,13 @@ const AppError = require("../routes/utills/AppError");
 const handleduplicateDB = (err) => {
   const value = err.keyValue.name;
   const message = `Duplicate value for ( ${value} ). please use another value`;
-  return new AppError(message, 400);
+  return new AppError(message);
 };
 
 const hadleValitionDB = (err) => {
   const value = Object.values(err.errors).map((el) => el.message);
-  console.log(value);
   const message = "Invalid Inpute data: " + value.join(", ");
-  console.log(message);
-  return new AppError(message, 400);
+  return new AppError(message);
 };
 
 const hadlejwtErr = () => new AppError("Invalid login please try again");
@@ -28,18 +26,12 @@ const sendErrdev = (err, res) => {
 const sendErrorprod = (err, res) => {
   // oprational, trusted err : send message to the client
   if (err.isOperational) {
-    res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message,
-    });
+    res.status(err.message);
     // programming, unknown dont leak details
   } else {
     console.error("Error 💥", err);
     // send generic message
-    res.status(500).json({
-      status: "fail",
-      message: "something went wrong",
-    });
+    res.status("something went wrong");
   }
 };
 
