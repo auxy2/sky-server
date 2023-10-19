@@ -136,7 +136,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     "profilePhoto",
     "username"
   );
-  console.log(filterdBody);
   if (filterdBody.email === "" && profilePhoto) {
     // const image = UploadsImage(profilePhoto);
 
@@ -146,6 +145,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
     updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody);
   } else if (filterdBody.email) {
+    console.log(filterdBody);
     updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
       new: true,
       runValidators: true,
