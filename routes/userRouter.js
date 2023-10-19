@@ -30,12 +30,12 @@ router.get(
   BTC.generateBtcAddress
 ); // Done
 // router.get("/check-balance", authControler.checkbalance); // Done ////
-// router.get(
-//   "/addBank",
-//   authControler.protect,
-//   userController.addBank,
-//   progress_bar.progress
-// ); // Done
+router.get(
+  "/addBank",
+  authControler.protect,
+  userController.addBank,
+  progress_bar.progress
+); // Done
 router.post(
   "/setRateAlart",
   authControler.protect,
@@ -117,7 +117,7 @@ router.get(
 // router.get("/webSoket", Oneuser.websocket);
 router.get("/users", userController.getAllUsers);
 
-// router.get('/check-Btc-Rate', checkRate.NGNRATE);
+// rouFter.get('/check-Btc-Rate', checkRate.NGNRATE);
 
 // signUp
 ("https://62b2-102-88-63-117.ngrok-free.app/api/V1/skyshowNG/signUp");
