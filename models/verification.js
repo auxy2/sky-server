@@ -11,6 +11,15 @@ const VerificationSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
+  date: {
+    type: Date,
+    default: Date.now(),
+  },
+  status: {
+    type: String,
+    enum: ["pending", "failed", "success"],
+    default: "pending",
+  },
 });
 
 const verify = mongoose.model("verification", VerificationSchema);
