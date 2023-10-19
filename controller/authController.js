@@ -35,8 +35,6 @@ const sendCookie = (token, res) => {
 /////////  SignUP Users ////////////
 
 exports.signUp = catchAsync(async (req, res, next) => {
-  console.log(req.body);
-
   if (req.query.email) {
     let newUser;
 
@@ -151,6 +149,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
   }
 
   const NewUser = await User.create(req.body);
+  console.log(req.body);
 
   if (!NewUser) {
     return next(new AppError("Please use a valid credential", 400));

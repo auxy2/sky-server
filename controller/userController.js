@@ -133,7 +133,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   const photo = UploadsImage(filterdBody.profilePhoto);
   console.log(photo, filterdBody);
 
-  filterdBody?.email === "" || filterdBody.profilePhoto
+  filterdBody?.email === "" || filterdBody.profilePhoto !== ""
     ? delete filterdBody.email
     : filterdBody;
 
