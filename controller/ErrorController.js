@@ -4,7 +4,7 @@ const handleduplicateDB = (err) => {
   const value = Object.keys(err.keyValue);
   console.log(value);
   const message = `Duplicate value for ( ${value} ). please use another value`;
-  return new AppError(message, 400);
+  return new AppError(message);
 };
 
 const hadleValitionDB = (err) => {
@@ -12,7 +12,7 @@ const hadleValitionDB = (err) => {
   console.log(value);
   const message = "Invalid Inpute data: " + value.join(", ");
   console.log(message);
-  return new AppError(message, 400);
+  return new AppError(message);
 };
 
 const hadlejwtErr = () => new AppError("Invalid login please try again");
