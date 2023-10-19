@@ -146,11 +146,12 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody);
   } else if (filterdBody) {
     console.log(filterdBody);
-    filterdBody?.email === ""
-      ? delete filterdBody.email
-      : res.send("You cant update and empty data");
+    filterdBody?.email === "" ? delete filterdBody.email : filterdBody;
     console.log("1", filterdBody);
-    updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody);
+    updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
+      new: true,
+      runValidators: true,
+    });
   }
 
   if (!updatedUser) {
