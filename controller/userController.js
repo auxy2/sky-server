@@ -2,14 +2,14 @@ const User = require("../models/userModel");
 const verification = require("../models/verification");
 const catchAsync = require("../routes/utills/catchAsync");
 const AppError = require("../routes/utills/AppError");
-const { default: axios, Axios } = require("axios");
+const axios = require("axios");
 const APIs = require("../APIs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const fingerPrint = require("fingerprintjs2");
 const Mail = require("../routes/utills/email");
 const twilio = require("twilio");
-const { UploadsImage } = require("./imageUploads");
+// const { UploadsImage } = require("./imageaUploads");
 
 const fpPromise = fingerPrint.getPromise().then((components) => {
   const fingerprint = fingerPrint.x64hash128(
