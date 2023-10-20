@@ -2,6 +2,7 @@ const User = require("../../../models/userModel");
 const AppError = require("../../../routes/utills/AppError");
 const ethers = require("ethers");
 const catchAsync = require("../../../routes/utills/catchAsync");
+const wallet = require("ethereumjs-wallet");
 // const Admin = require('../../Admin')
 const ABI = require("../../../models/build/modules_ConbinedContracts_sol_USDTTransfer.abi");
 
@@ -29,7 +30,14 @@ exports.generateTetherAddress = catchAsync(async (req, res, next) => {
   if (!user) {
     return next(new AppError("please loging to use this page", 403));
   }
-  console.log("2", user);
+
+  const EtherWallet = wallet.default.generate();
+  const Address = EtherWallet.getAddressString();
+  const PrivateKey = EtherWallet.getPrivateKeyString();
+
+  user.usdtWalletAddress = Address;
+  user.usdtKeyWallet = PrivateKey;
+  await user.save({ validateBeforeSave: false });
   // const constractAddress = await deployer();
 
   // user.usdtWalletAddress = constractAddress
@@ -63,10 +71,8 @@ exports.generateTetherAddress = catchAsync(async (req, res, next) => {
   //         await user.creatTx(newTx)
   //     }
 
-  user.usdtWalletAddress = "0x12kj1b24or4r42buf2442";
-  await user.save({ validateBeforeSave: false });
   res.status(200).json({
     status: "success",
-    UsdtAddress: "0x12kj1b24or4r42buf2442",
+    UsdtAddress: Address,
   });
 });
