@@ -157,6 +157,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
+  console.log(filterdBody);
 
   if (!updatedUser) {
     res.send("invalid credentials");
