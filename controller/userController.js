@@ -214,22 +214,22 @@ exports.viewCryptoRates = catchAsync(async (req, res, next) => {
   };
 
   for (const rate of rates) {
-    rate.cryptoRate.forEach((item) => {
-      switch (item.product.toLowerCase()) {
-        case "btc":
-          categorizedProducts.btcRates.push(item);
-          break;
-        case "eth":
-          categorizedProducts.ethRates.push(item);
-          break;
-        case "usdt":
-          categorizedProducts.usdtRates.push(item);
-          break;
+    rate.cryptoRate.forEach((cryptoRate) => {
+      // Check if the "product" property exists in the object
+      if (cryptoRate.product) {
+        // Convert the product name to lowercase for consistency
+        const product = cryptoRate.product.toLowerCase();
+        // Categorize the product based on its type
+        if (product.includes("btc")) {
+          categorizedProducts.btcRates.push(cryptoRate);
+        } else if (product.includes("eth")) {
+          categorizedProducts.ethRates.push(cryptoRate);
+        } else if (product.includes("usdt")) {
+          categorizedProducts.usdtRates.push(cryptoRate);
+        }
       }
     });
   }
-
-  console.log(rates.giftCard_Form);
   res.status(200).json({
     status: "success",
     btcRates,
