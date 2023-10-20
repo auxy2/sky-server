@@ -91,18 +91,10 @@ exports.userLinkedBank = catchAsync(async (req, res, next) => {
       status: "success",
     });
   }
-  let id = Math.random() * Date.now();
-  const bank = user.bankName;
-  id = Math.floor(id);
 
-  const bankArr = {
-    id,
-    name: user.bankName,
-    accountNuber: user.accountNumber,
-    accName: user.accountNumber,
-  };
-
-  console.log(bank, bankArr);
+  if (user.accountNumber === undefined) {
+    res.send("null");
+  }
   res.status(200).json({
     bank: {
       id,
