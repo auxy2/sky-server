@@ -100,9 +100,16 @@ exports.userLinkedBank = catchAsync(async (req, res, next) => {
     bank: {
       BankName: user.bankName,
       AccountNumber: user.accountNumber,
-      AccountName: user.accountNumber,
+      AccountName: user.accounName,
     },
   });
+});
+
+exports.deleteBank = catchAsync(async (req, res, next) => {
+  const user = await User.findOne(req.user);
+  if (!user) {
+    return next(new AppError(""));
+  }
 });
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
