@@ -190,7 +190,7 @@ exports.existingWalletAddress = catchAsync(async (req, res, next) => {
 });
 
 exports.viewCryptoRates = catchAsync(async (req, res, next) => {
-  const rates = await Rates.find({ Admin });
+  const rates = await Rates.find({ Admin: "Admin" });
   const btcRates = rates.filter((rate) =>
     rate.cryptoRate.product.includes("btc")
   );
