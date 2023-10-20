@@ -39,7 +39,7 @@ router.post("/tutorial", tutorialVideo.Uploads);
 router.post("/verification", authorize.verify);
 // router.get("/Admin/dashboar/usersAnalysis", analytics.getUsersAnalysis);
 // router.get("salesAnalyis", analytics.getSalesAnalytsis);
-router.post("/Admin/login", authControler.protect, login.AdminLogin); // Done
+router.post("/Admin/login", login.AdminLogin); // Done
 router.post("/Admin/UsersAnalysis", analyzeUsr.getUsersAnalysis);
 router.post("/Admin/SalaesAnalysis", analyzeSales.getSalesAnalytsis); // Done
 router.post("/set_Rate_Catigories", categoriesAndRates.adminGiftCardCategories); // Done
