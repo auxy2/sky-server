@@ -97,7 +97,6 @@ exports.userLinkedBank = catchAsync(async (req, res, next) => {
   }
   res.status(200).json({
     bank: {
-      id,
       name: user.bankName,
       accountNuber: user.accountNumber,
       accName: user.accountNumber,
