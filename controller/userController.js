@@ -216,7 +216,7 @@ exports.viewCryptoRates = catchAsync(async (req, res, next) => {
     if (rate.cryptoRate.product === "eth") rate === ethRates;
     if (rate.cryptoRate.product === "Usdt") rate === usdtRates;
   }
-  console.log(rates.cryptoRate.produt);
+  console.log(rates.cryptoRate.product);
   res.status(200).json({
     status: "success",
     btcRates,
