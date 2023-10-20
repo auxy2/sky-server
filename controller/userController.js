@@ -206,7 +206,7 @@ exports.viewCryptoRates = catchAsync(async (req, res, next) => {
   const btcRates = rates.filter((rate) => rate.cryptoRate.product === "btc");
   const ethRates = rates.filter((rate) => rate.cryptoRate.product === "eth");
   const usdtRates = rates.filter((rate) => rate.cryptoRate.product === "Usdt");
-  res.status.(200).json({
+  res.status(200).json({
     status: "success",
     btcRates,
     ethRates,
