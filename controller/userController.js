@@ -291,9 +291,7 @@ exports.addBank = catchAsync(async (req, res, next) => {
 
   try {
     if (req.query.AccountNumber && req.query.bankName) {
-      const accountNumber = req.query.AccountNumber;
       const bankName = req.query.bankName;
-
       const response = await axios.get(APIs.getBankCode, {
         headers: {
           Authorization: `Bearer ${process.env.PAYSTACK_KEY}`,
@@ -328,10 +326,10 @@ exports.addBank = catchAsync(async (req, res, next) => {
         });
       if (Details.status === true) {
         user.bankCode = bank.code;
-        user.bankName = bank.name;
-        user.accountNumber = accountNumber;
-        (user.accounName = Details.data.account_name),
-          await user.save({ validateBeforeSave: false });
+        //   user.bankName = bank.name;
+        //   user.accountNumber = accountNumber;
+        //   (user.accounName = Details.data.account_name),
+        await user.save({ validateBeforeSave: false });
 
         const token = signToken(user._id);
         res.status(200).json({
@@ -343,16 +341,11 @@ exports.addBank = catchAsync(async (req, res, next) => {
             BankName: bank.name,
           },
         });
-      } else
-        return res.status(200).json({
-          status: "failed",
-          message: "invalid accountNumber",
-        });
+      } else return next(new AppError("invalid accountNumber", 200));
     }
   } catch (err) {
-    return next(new AppError("Error while fetching data", 400));
+    return next(new AppError("Error while fetching data", 200));
   }
-  const jwtToken = signToken(user._id);
 });
 
 exports.saveUsersBank = catchAsync(async (req, res, next) => {
