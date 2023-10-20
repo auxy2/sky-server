@@ -352,6 +352,7 @@ exports.saveUsersBank = catchAsync(async (req, res, next) => {
   user.accountNumber = req.body.accountNumber;
   user.accounName = req.body.accounName;
   await user.save({ validateBeforeSave: false });
+  console.log(req.body);
   res.status(200).json({
     status: "success",
     message: "bank details successfully saved ",
