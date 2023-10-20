@@ -214,7 +214,7 @@ exports.viewCryptoRates = catchAsync(async (req, res, next) => {
   for (const rate of rates) {
     if (rate.cryptoRate.product === "btc") rate === btcRates;
     if (rate.cryptoRate.product === "eth") rate === ethRates;
-    if (rate.cryptoRate.product === "Usdt") rate === usdtRates;
+    if (rate.cryptoRate === "Usdt") rate === usdtRates;
   }
   console.log(rates.cryptoRate);
   res.status(200).json({
@@ -222,7 +222,7 @@ exports.viewCryptoRates = catchAsync(async (req, res, next) => {
     btcRates,
     ethRates,
     usdtRates,
-    rates: rates.cryptoRate,
+    rates,
   });
 });
 
