@@ -82,8 +82,6 @@ const filteredObj = (obj, ...allowedField) => {
 };
 
 exports.userLinkedBank = catchAsync(async (req, res, next) => {
-  let bankArr = [];
-
   const user = await User.findOne(req.user);
 
   if (!user) {
@@ -97,12 +95,12 @@ exports.userLinkedBank = catchAsync(async (req, res, next) => {
   const bank = user.bankName;
   id = Math.floor(id);
 
-  bankArr.push({
+  const bankArr = {
     id,
     name: user.bankName,
     accountNuber: user.accountNumber,
     accName: user.accountNumber,
-  });
+  };
 
   console.log(bank, bankArr);
   res.status(200).json({
@@ -395,7 +393,7 @@ exports.setRateAlart = catchAsync(async (req, res, next) => {
 
     console.log(req.body);
     if (!enteredAmount) {
-      res.send("Please set a rate amount");
+      return next(new AppError("Please set a rate amount", 200));
     }
     const newAlart = [...user.rateAlart, req.body];
     user.rateAlart = newAlart;
