@@ -221,6 +221,7 @@ exports.viewCryptoRates = catchAsync(async (req, res, next) => {
         const product = cryptoRate.product.toLowerCase();
         // Categorize the product based on its type
         if (product.includes("btc")) {
+          console.log("rate");
           categorizedProducts.btcRates.push(cryptoRate);
         } else if (product.includes("eth")) {
           categorizedProducts.ethRates.push(cryptoRate);
