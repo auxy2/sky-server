@@ -146,8 +146,8 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     "username"
   );
 
-  const photo = UploadsImage(filterdBody.profilePhoto);
-  console.log(photo, filterdBody);
+  // const photo = UploadsImage(filterdBody.profilePhoto);
+  // console.log(photo, filterdBody);
 
   filterdBody?.email === "" || filterdBody.profilePhoto !== ""
     ? delete filterdBody.email
