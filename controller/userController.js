@@ -233,7 +233,7 @@ exports.viewCryptoRates = catchAsync(async (req, res, next) => {
   }
   res.status(200).json({
     status: "success",
-    // btcRates: categorizedProducts.btcRates,
+    btcRates: categorizedProducts.btcRates,
     ethRates: categorizedProducts.ethRates,
     usdtRates: categorizedProducts.usdtRates,
   });
