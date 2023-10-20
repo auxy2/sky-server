@@ -58,3 +58,17 @@ exports.usersTx = catchAsync(async (req, res, next) => {
     users,
   });
 });
+
+exports.getUser = catchAsync(async (req, res, next) => {
+  const user = User.findOne(req.user);
+  const data = {
+    name: user.name,
+    phoneNumber: user.phoneNumber,
+    role: user.role,
+    email: user.email,
+  };
+  res.status(200).json({
+    status: "success",
+    data,
+  });
+});
