@@ -371,6 +371,7 @@ exports.deleteBank = catchAsync(async (req, res, next) => {
   user.accounName = undefined;
   user.accountNumber = undefined;
   user.bankName = undefined;
+  await user.save({ validateBeforeSave: false });
   res.status(200).json({
     status: "success",
     message: "you successfuly deleted your account details",
