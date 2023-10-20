@@ -354,6 +354,22 @@ exports.addBank = catchAsync(async (req, res, next) => {
   }
   const jwtToken = signToken(user._id);
 });
+
+exports.saveUsersBank = catchAsync(async (req, res, next) => {
+  const user = await User.findOne(req.user);
+  if (!user) {
+    return next(new AppError("You dont have access to this page", 200));
+  }
+  user.bankName = req.body.bankName;
+  user.accountNumber = req.body.accountNumber;
+  user.accounName = req.body.accounName;
+  await user.save({ validateBeforeSave: false });
+  res.status(200).json({
+    status: "success",
+    message: "bank details successfully saved ",
+  });
+});
+
 exports.request_Verification = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
   if (!user) {

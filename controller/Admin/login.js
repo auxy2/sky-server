@@ -1,4 +1,5 @@
 const User = require("../../models/userModel");
+const AppError = require("../../routes/utills/AppError");
 const catchAsync = require("../../routes/utills/catchAsync");
 const jwt = require("jsonwebtoken");
 
@@ -11,13 +12,17 @@ exports.AdminLogin = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   console.log(req.body);
 
-  // const user = await User.findOne({ role: 'admin'})
+  const Admin = await User.findOne({ role: "admin" });
 
   if (!email || !password) {
     res.status(404).json({
       status: "fail",
       message: "Invalid input",
     });
+  }
+
+  if (!Admin) {
+    return next(new AppError("you dont have access to thes page", 200));
   }
   // find user with his credential and validate it
   const user = await User.findOne({ email }).select("password");
