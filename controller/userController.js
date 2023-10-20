@@ -222,6 +222,7 @@ exports.viewCryptoRates = catchAsync(async (req, res, next) => {
     btcRates,
     ethRates,
     usdtRates,
+    rates: rates.cryptoRate,
   });
 });
 
