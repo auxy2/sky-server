@@ -95,9 +95,12 @@ exports.userLinkedBank = catchAsync(async (req, res, next) => {
   let id = Math.random() * Date.now();
   const bank = user.bankName;
   id = Math.floor(id);
+
   bankArr.push({
     id,
-    name: bank,
+    name: user.bankName,
+    accountNuber: user.accountNumber,
+    accName: user.accountNumber,
   });
 
   console.log(bank, bankArr);
