@@ -41,7 +41,6 @@ exports.AdminLogin = catchAsync(async (req, res, next) => {
   } else if (!verifiedUser.verify) {
     res.send("Something went wrong please use the reset password");
   } else {
-    sendCookie(jwtToken, res);
     const jwtToken = signToken(user._id);
     // sendCookie(jwtToken, res);
     res.status(200).json({
