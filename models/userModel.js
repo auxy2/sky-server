@@ -45,7 +45,10 @@ const UserSchema = new mongoose.Schema(
       enum: ["40%", "55%", "70%", "85%", "100%"],
       default: "40%",
     },
-    profilePhoto: String,
+    profilePhoto: {
+      type: String,
+      default: "null",
+    },
     phoneNumber: {
       type: String,
       required: [true, "please inpute your phone number"],
