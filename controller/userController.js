@@ -207,22 +207,34 @@ exports.viewCryptoRates = catchAsync(async (req, res, next) => {
   // const ethRates = rates.filter((rate) => rate.cryptoRate.product === "eth");
   // const usdtRates = rates.filter((rate) => rate.cryptoRate.product === "Usdt");
 
-  let btcRates = {};
-  let usdtRates = {};
-  let ethRates = {};
+  const categorizedProducts = {
+    btcRates: [],
+    ethRates: [],
+    usdtRates: [],
+  };
 
   for (const rate of rates) {
-    if (rate.cryptoRate.product === "btc") rate === btcRates;
-    if (rate.cryptoRate.product === "eth") rate === ethRates;
-    if (rate.cryptoRate === "Usdt") rate === usdtRates;
+    rate.cryptoRate.forEach((item) => {
+      switch (item.product.toLowerCase()) {
+        case "btc":
+          categorizedProducts.btcRates.push(item);
+          break;
+        case "eth":
+          categorizedProducts.ethRates.push(item);
+          break;
+        case "usdt":
+          categorizedProducts.usdtRates.push(item);
+          break;
+      }
+    });
   }
-  console.log(rates.cryptoRate);
+
+  console.log(rates.giftCard_Form);
   res.status(200).json({
     status: "success",
     btcRates,
     ethRates,
     usdtRates,
-    rates,
   });
 });
 
