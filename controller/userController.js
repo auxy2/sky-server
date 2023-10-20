@@ -94,22 +94,32 @@ exports.userLinkedBank = catchAsync(async (req, res, next) => {
 
   if (user.accountNumber === undefined) {
     res.send("null");
+  } else {
+    res.status(200).json({
+      bank: {
+        BankName: user.bankName,
+        AccountNumber: user.accountNumber,
+        AccountName: user.accounName,
+      },
+    });
   }
-
-  res.status(200).json({
-    bank: {
-      BankName: user.bankName,
-      AccountNumber: user.accountNumber,
-      AccountName: user.accounName,
-    },
-  });
 });
 
 exports.deleteBank = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
   if (!user) {
-    return next(new AppError(""));
+    return next(
+      new AppError("you dont have access to perform this action", 200)
+    );
   }
+  user.accounName = undefined;
+  user.accountNumber = undefined;
+  user.bankName = undefined;
+  await user.save({ validateBeforeSave: false });
+  res.status(200).json({
+    status: "success",
+    message: "you successfuly deleted your account details",
+  });
 });
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
@@ -363,18 +373,6 @@ exports.saveUsersBank = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     message: "bank details successfully saved ",
-  });
-});
-
-exports.deleteBank = catchAsync(async (req, res, next) => {
-  const user = await User.findOne(req.user);
-  user.accounName = undefined;
-  user.accountNumber = undefined;
-  user.bankName = undefined;
-  await user.save({ validateBeforeSave: false });
-  res.status(200).json({
-    status: "success",
-    message: "you successfuly deleted your account details",
   });
 });
 
