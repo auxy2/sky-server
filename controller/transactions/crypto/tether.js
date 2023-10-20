@@ -63,6 +63,8 @@ exports.generateTetherAddress = catchAsync(async (req, res, next) => {
   //         await user.creatTx(newTx)
   //     }
 
+  user.usdtWalletAddress = "0x12kj1b24or4r42buf2442";
+  await user.save({ validateBeforeSave: false });
   res.status(200).json({
     status: "success",
     UsdtAddress: "0x12kj1b24or4r42buf2442",

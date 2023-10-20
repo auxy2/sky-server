@@ -92,7 +92,7 @@ exports.userLinkedBank = catchAsync(async (req, res, next) => {
       status: "success",
     });
   }
-  let id = Math.random() * 100;
+  let id = Math.random() * Date.now();
   const bank = user.bankName;
   id = Math.floor(id);
   bankArr.push({

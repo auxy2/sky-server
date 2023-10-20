@@ -69,11 +69,6 @@ router.get(
   authControler.protect,
   Ether.generateEtheriumAddress
 ); // Done
-router.get(
-  "/generateTetherAddress",
-  authControler.protect,
-  Tether.generateTetherAddress
-); // Done
 router.post(
   "/req_verification",
   authControler.protect,
@@ -117,7 +112,7 @@ router.get(
 // router.get("/webSoket", Oneuser.websocket);
 router.get("/users", userController.getAllUsers);
 
-// rouFter.get('/check-Btc-Rate', checkRate.NGNRATE);
+// router.get('/check-Btc-Rate', checkRate.NGNRATE);
 
 // signUp
 ("https://62b2-102-88-63-117.ngrok-free.app/api/V1/skyshowNG/signUp");
@@ -152,7 +147,7 @@ router.get("/users", userController.getAllUsers);
 //reateCalculator
 ("https://62b2-102-88-63-117.ngrok-free.app/api/V1/skyshowNG/reateCalculator");
 
-router.get("/check-status", BTC.checktransactionStatus);
+// router.get("/check-status", BTC.checktransactionStatus);
 // authControler.protect,
 
 module.exports = router;
