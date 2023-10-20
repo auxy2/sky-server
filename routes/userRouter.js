@@ -54,6 +54,8 @@ router.delete(
 ); // Done
 
 router.post("/saveBank", authControler.protect, userController.saveUsersBank);
+router.delete("/deleteBank", authControler.protect, userController.deleteBank);
+
 router.get("/forgetpassword", authControler.forgetPassword);
 router.get(
   "/verity_otp",

@@ -366,7 +366,16 @@ exports.saveUsersBank = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deleteBank = catchAsync(async (req, res, next) => {});
+exports.deleteBank = catchAsync(async (req, res, next) => {
+  const user = await User.findOne(req.user);
+  user.accounName = undefined;
+  user.accountNumber = undefined;
+  user.bankName = undefined;
+  res.status(200).json({
+    status: "success",
+    message: "you successfuly deleted your account details",
+  });
+});
 
 exports.request_Verification = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
