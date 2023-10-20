@@ -203,15 +203,9 @@ exports.existingWalletAddress = catchAsync(async (req, res, next) => {
 
 exports.viewCryptoRates = catchAsync(async (req, res, next) => {
   const rates = await Rates.find({ Admin: "Admin" });
-  const btcRates = rates.filter((rate) =>
-    rate.cryptoRate.product.includes("btc")
-  );
-  const ethRates = rates.filter((rate) =>
-    rate.cryptoRate.product.includes("eth")
-  );
-  const usdtRates = rates.filter((rate) =>
-    rate.cryptoRate.product.includes("Usdt")
-  );
+  const btcRates = rates.filter((rate) => rate.cryptoRate.product === "btc");
+  const ethRates = rates.filter((rate) => rate.cryptoRate.product === "eth");
+  const usdtRates = rates.filter((rate) => rate.cryptoRate.product === "Usdt");
   res.status({
     status: "success",
     btcRates,
