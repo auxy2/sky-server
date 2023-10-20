@@ -95,11 +95,12 @@ exports.userLinkedBank = catchAsync(async (req, res, next) => {
   if (user.accountNumber === undefined) {
     res.send("null");
   }
+
   res.status(200).json({
     bank: {
-      name: user.AccountName,
-      accountNuber: user.AccountNumber,
-      accName: user.BankName,
+      BankName: user.bankName,
+      AccountNumber: user.accountNumber,
+      AccountName: user.accountNumber,
     },
   });
 });
@@ -347,9 +348,9 @@ exports.saveUsersBank = catchAsync(async (req, res, next) => {
   if (!user) {
     return next(new AppError("You dont have access to this page", 200));
   }
-  user.bankName = req.body.bankName;
-  user.accountNumber = req.body.accountNumber;
-  user.accounName = req.body.accounName;
+  user.bankName = req.body.BankName;
+  user.accountNumber = req.body.AccountNumber;
+  user.accounName = req.body.AccountName;
   await user.save({ validateBeforeSave: false });
   console.log(req.body);
   res.status(200).json({
