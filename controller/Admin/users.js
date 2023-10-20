@@ -60,7 +60,8 @@ exports.usersTx = catchAsync(async (req, res, next) => {
 });
 
 exports.getUser = catchAsync(async (req, res, next) => {
-  const user = User.findOne(req.user);
+  const user = await User.findOne(req.user);
+
   const data = {
     name: user.name,
     phoneNumber: user.phoneNumber,
