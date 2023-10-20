@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const verification = require("../models/verification");
+const Rates = require("../models/Rates");
 const catchAsync = require("../routes/utills/catchAsync");
 const AppError = require("../routes/utills/AppError");
 const axios = require("axios");
@@ -185,6 +186,25 @@ exports.existingWalletAddress = catchAsync(async (req, res, next) => {
     btc: user.btcWalletAddress,
     eth: user.EtherWallet,
     usdt: user.usdtWalletAddress,
+  });
+});
+
+exports.viewCryptoRates = catchAsync(async (req, res, next) => {
+  const rates = await Rates.find({ Admin });
+  const btcRates = rates.filter((rate) =>
+    rate.cryptoRate.product.includes("btc")
+  );
+  const ethRates = rates.filter((rate) =>
+    rate.cryptoRate.product.includes("eth")
+  );
+  const usdtRates = rates.filter((rate) =>
+    rate.cryptoRate.product.includes("Usdt")
+  );
+  res.status({
+    status: "success",
+    btcRates,
+    ethRates,
+    usdtRates,
   });
 });
 

@@ -34,6 +34,11 @@ router.get(
   authControler.protect,
   userController.existingWalletAddress
 );
+router.get(
+  "/get_cryptoRatetes",
+  authControler.protect,
+  userController.viewCryptoRates
+);
 // router.get("/check-balance", authControler.checkbalance); // Done ////
 router.get("/addBank", authControler.protect, userController.addBank); // Done
 router.post(
