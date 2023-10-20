@@ -9,11 +9,13 @@ const signToken = (Id) =>
   });
 
 exports.AdminLogin = catchAsync(async (req, res, next) => {
+  const Admin = await User.findOne({ role: "admin" });
+
   const { email, password, phoneNumber } = req.body;
 
-  // if (!Admin) {
-  //   return next(new AppError("you dont have access to this page", 200));
-  // }
+  if (!Admin) {
+    return next(new AppError("you dont have access to this page", 200));
+  }
 
   if ((!email && !phoneNumber) || !password) {
     res.status(404).json({
@@ -24,7 +26,6 @@ exports.AdminLogin = catchAsync(async (req, res, next) => {
 
   let user;
   let verifiedUser;
-
   // find user with his credential and validate it
 
   email
@@ -35,7 +36,6 @@ exports.AdminLogin = catchAsync(async (req, res, next) => {
     : res.send(`Email or Username Not Found`);
 
   // if not user send a error message to the user
-
   if (user === "null" || !(await user.correctPass(password, user.password))) {
     res.send(`Invalid password`);
   } else if (!verifiedUser.verify) {
