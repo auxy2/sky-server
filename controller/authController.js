@@ -187,7 +187,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
 
 //////////////    Login Users //////////////
 exports.login = catchAsync(async (req, res, next) => {
-  const { email, password, username } = req.body;
+  const { email, password, phoneNumber } = req.body;
   if ((!email && !username) || !password) {
     res.status(404).json({
       status: "fail",
@@ -199,7 +199,7 @@ exports.login = catchAsync(async (req, res, next) => {
   // find user with his credential and validate it
   email
     ? (user = await User.findOne({ email }).select("password"))
-    : (user = await User.findOne({ username }).select("password"));
+    : (user = await User.findOne({ phoneNumber }).select("password"));
   user
     ? (verifiedUser = await User.findById(user._id))
     : res.send(`Email or Username Not Found`);

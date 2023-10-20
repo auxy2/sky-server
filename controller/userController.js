@@ -363,6 +363,8 @@ exports.saveUsersBank = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.deleteBank = catchAsync(async (req, res, next) => {});
+
 exports.request_Verification = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
   if (!user) {
