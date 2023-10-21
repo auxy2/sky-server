@@ -91,7 +91,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
           console.log(user.id, newTx);
           res.status(200).json({
             status: "success",
-            wallet_Balance: Number(newBalance).toLocaleString().toFixed(2),
+            wallet_Balance: Number(newBalance).toLocaleString(),
           });
         } else {
           return next(new AppError("something went wrong", 400));
