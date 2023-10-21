@@ -212,7 +212,7 @@ exports.login = catchAsync(async (req, res, next) => {
   if (user === "null" || !(await user.correctPass(password, user.password))) {
     res.send(`Invalid password`);
   } else if (!verifiedUser.verify) {
-    res.send("Something went wrong please use the reset password");
+    res.send("please verify your account");
   } else {
     const jwtToken = signToken(user._id);
     sendCookie(jwtToken, res);
