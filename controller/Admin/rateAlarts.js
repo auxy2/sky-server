@@ -2,7 +2,7 @@ const user = require("../../models/userModel");
 const catchAsync = require("../../routes/utills/catchAsync");
 
 exports.getRateAlarts = catchAsync(async (req, res, next) => {
-  const alarts = await user.find({});
+  const alarts = await user.find();
 
   const groupedData = alarts.map((item) => {
     const groupedItem = {
