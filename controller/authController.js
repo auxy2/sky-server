@@ -176,7 +176,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
         },
       });
     } else {
-      return next(new AppError("please verify your acount", 200));
+      return next(new AppError("Something went wrong verify your acount", 200));
     }
   }
 });
@@ -212,7 +212,7 @@ exports.login = catchAsync(async (req, res, next) => {
   if (user === "null" || !(await user.correctPass(password, user.password))) {
     res.send(`Invalid password`);
   } else if (!verifiedUser.verify) {
-    res.send("please verify your account");
+    res.send("Something went wrong verify your acount");
   } else {
     const jwtToken = signToken(user._id);
     sendCookie(jwtToken, res);
