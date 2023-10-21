@@ -12,6 +12,7 @@ exports.getRateAlarts = catchAsync(async (req, res, next) => {
       username: item.username,
       rateAlarts: [],
     };
+
     if (item.rateAlart) {
       groupedItem.rateAlarts = item.rateAlart.map((rateAlert) => ({
         asset: rateAlert.asset,
@@ -23,12 +24,13 @@ exports.getRateAlarts = catchAsync(async (req, res, next) => {
         createdAt: rateAlert.createdAt,
       }));
     }
+
+    return groupedItem;
   });
 
   res.status(200).json({
     status: "success",
     groupedData,
-    alarts,
   });
 });
 
