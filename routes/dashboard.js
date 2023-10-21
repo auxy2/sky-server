@@ -40,7 +40,7 @@ router.get("/Admin/giftCard_request", CardRequest.giftCardsRequests); // Done
 router.post("/usersInfo", getAllUsers.usersTx);
 router.get("/getUser", authControler.protect, getAllUsers.getUser);
 router.post("/tutorial", tutorialVideo.Uploads);
-router.post("/verification", authControler.protect, authorize.verify);
+router.post("/verification", authorize.verify);
 // router.get("/Admin/dashboar/usersAnalysis", analytics.getUsersAnalysis);
 // router.get("salesAnalyis", analytics.getSalesAnalytsis);
 router.post("/Admin/login", login.AdminLogin); // Done
