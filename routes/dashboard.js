@@ -3,6 +3,7 @@ const DB = require("../controller/Admin/dashBoard");
 const rates = require("../controller/Admin/setRates");
 const trns = require("../controller/Admin/Transactions");
 const CardRequest = require("../controller/Admin/GiftCardRequest");
+const rateAlarts = require("../controller/Admin/rateAlarts");
 const getAllUsers = require("../controller/Admin/users");
 const tutorialVideo = require("../controller/Admin/tutorials");
 const authorize = require("../controller/Admin/verifications");
@@ -29,7 +30,8 @@ router.get("/getNotifications", notifications.getNotifications); // Done
 router.delete("/Admin/delete_Notifications", notifications.deleteNotification); // Done
 router.get("/getHighCard_rates", cardRates.getHighCardRates); // Done
 router.delete("/Admin/delete_HighCard_rates", cardRates.deleteCardRate); // Done
-router.post("/addNewUser", getAllUsers.addUsers);
+router.post("/Admin/addNewUser", getAllUsers.addUsers);
+router.get("/Admin/alarts", rateAlarts.getRateAlarts);
 
 router.get("/Admin/allTransactions", trns.viewAllTrns); // Done
 router.get("/Admin/UserTransaction", trns.userTransation); // Done
