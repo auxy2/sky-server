@@ -13,22 +13,20 @@ exports.verify = catchAsync(async (req, res, next) => {
 });
 
 exports.app_Reject_Verification = catchAsync(async (req, res, next) => {
-  const IdCard = await Verifications.find();
-  const userWithIdCard = IdCard.filter((item) =>
-    item.nin.includes(req.body.nin)
-  );
-  if (!userWithIdCard) {
+  const IdCard = await Verifications.findOne({ nin: req.body.nin });
+  if (!IdCard) {
     return next(new AppError("no user With the nin provided"));
-  } else if (req.body.status === "aprooved") {
-    userWithIdCard.status === "success";
-    await userWithIdCard.save();
+  }
+  if (req.body.status === "aprooved") {
+    IdCard.status === "success";
+    await IdCard.save();
     res.status(200).json({
       status: "success",
       message: "you successfully aprooved an Id Card",
     });
   } else {
-    userWithIdCard.status === "failed";
-    await userWithIdCard.save();
+    IdCard.status === "failed";
+    await IdCard.save();
     res.status(200).json({
       status: "success",
       message: "you successfully declined an Id Card",
