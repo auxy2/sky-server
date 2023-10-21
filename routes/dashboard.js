@@ -29,6 +29,7 @@ router.get("/getNotifications", notifications.getNotifications); // Done
 router.delete("/Admin/delete_Notifications", notifications.deleteNotification); // Done
 router.get("/getHighCard_rates", cardRates.getHighCardRates); // Done
 router.delete("/Admin/delete_HighCard_rates", cardRates.deleteCardRate); // Done
+router.post("/addNewUser", getAllUsers.addUsers);
 
 router.get("/Admin/allTransactions", trns.viewAllTrns); // Done
 router.get("/Admin/UserTransaction", trns.userTransation); // Done
@@ -36,7 +37,7 @@ router.get("/Admin/giftCard_request", CardRequest.giftCardsRequests); // Done
 router.post("/usersInfo", getAllUsers.usersTx);
 router.get("/getUser", authControler.protect, getAllUsers.getUser);
 router.post("/tutorial", tutorialVideo.Uploads);
-router.post("/verification", authorize.verify);
+router.post("/verification", authControler.protect, authorize.verify);
 // router.get("/Admin/dashboar/usersAnalysis", analytics.getUsersAnalysis);
 // router.get("salesAnalyis", analytics.getSalesAnalytsis);
 router.post("/Admin/login", login.AdminLogin); // Done
