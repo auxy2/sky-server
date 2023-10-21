@@ -24,10 +24,12 @@ exports.getRateAlarts = catchAsync(async (req, res, next) => {
         createdAt: rateAlert.createdAt,
       }));
     }
-
-    return groupedItem;
   });
 
+  const rateAlarts = groupedData.filter(
+    (alarts) => alarts.rateAlarts.lenght > 0
+  );
+  console.log(rateAlarts);
   res.status(200).json({
     status: "success",
     groupedData,
