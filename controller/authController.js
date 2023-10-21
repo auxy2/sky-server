@@ -147,34 +147,38 @@ exports.signUp = catchAsync(async (req, res, next) => {
       });
     }
   }
+  if (req.body) {
+    const NewUser = await User.create(req.body);
+    if (!NewUser.verify) {
+      if (!NewUser) {
+        return next(new AppError("Please use a valid credential", 200));
+      }
+      const mail = NewUser.email;
 
-  const NewUser = await User.create(req.body);
-  console.log(NewUser);
-  if (!NewUser) {
-    res.send("Please use a valid credential");
+      const atIndex = mail.indexOf("@");
+      const Email = mail.replace(mail.substring(2, atIndex), "*".repeat(5));
+
+      const number = NewUser.phoneNumber;
+
+      const visibleDigit = number.slice(-2);
+      const markedPart = "*".repeat(7, -2);
+      const PhoneNumber = markedPart + visibleDigit;
+
+      const jwtToken = signToken(NewUser._id);
+
+      res.status(200).json({
+        jwtToken,
+        status: "sucess",
+        data: {
+          PhoneNumber,
+          Email,
+          jwtToken,
+        },
+      });
+    } else {
+      return next(new AppError("please verify your acount", 200));
+    }
   }
-  const mail = NewUser.email;
-
-  const atIndex = mail.indexOf("@");
-  const Email = mail.replace(mail.substring(2, atIndex), "*".repeat(5));
-
-  const number = NewUser.phoneNumber;
-
-  const visibleDigit = number.slice(-2);
-  const markedPart = "*".repeat(7, -2);
-  const PhoneNumber = markedPart + visibleDigit;
-
-  const jwtToken = signToken(NewUser._id);
-
-  res.status(200).json({
-    jwtToken,
-    status: "sucess",
-    data: {
-      PhoneNumber,
-      Email,
-      jwtToken,
-    },
-  });
 });
 
 // const body = {

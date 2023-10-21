@@ -40,13 +40,6 @@ exports.usersT = catchAsync(async (req, res, next) => {
 });
 
 exports.usersTx = catchAsync(async (req, res, next) => {
-  //   const admin = await User.find({ role: "admin" });
-  //   if (!admin) {
-  //     res.status(400).json({
-  //       status: "fail",
-  //       message: "you dont have access",
-  //     });
-  //   }
   const users = await User.find().select(
     "username",
     "name",
@@ -60,7 +53,7 @@ exports.usersTx = catchAsync(async (req, res, next) => {
 });
 
 exports.getUser = catchAsync(async (req, res, next) => {
-  const user = await User.findOne(req.user);
+  const user = await User.findOne(req.user).sort({ createAt: -1 });
 
   const data = {
     name: user.name,

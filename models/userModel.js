@@ -118,7 +118,8 @@ const UserSchema = new mongoose.Schema(
       type: Date,
     },
     verifyId: {
-      type: String,
+      type: Boolean,
+      default: false,
     },
     passworadEpires: {
       type: Date,
