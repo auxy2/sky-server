@@ -25,14 +25,6 @@ exports.getRateAlarts = catchAsync(async (req, res, next) => {
       }));
     }
   });
-
-  for (const alarts of groupedData) {
-    console.log(alarts.rateAlarts);
-    if (alarts.rateAlarts) {
-    }
-  }
-
-  console.log(rateAlarts);
   res.status(200).json({
     status: "success",
     groupedData,
