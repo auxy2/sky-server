@@ -14,15 +14,18 @@ exports.getRateAlarts = catchAsync(async (req, res, next) => {
     };
 
     if (item.rateAlart) {
-      groupedItem.rateAlarts = item.rateAlart.map((rateAlert) => ({
-        asset: rateAlert.asset,
-        enteredAmount: rateAlert.enteredAmount,
-        selectedCategory: rateAlert.selectedCategory,
-        selectedNotifyMethod: rateAlert.selectedNotifyMethod,
-        selectedRate: rateAlert.selectedRate,
-        selectedSubCategory: rateAlert.selectedSubCategory,
-        createdAt: rateAlert.createdAt,
-      }));
+      groupedItem.rateAlarts = item.rateAlart.map((rateAlert) => {
+        console.log(rateAlert.length);
+        const data = {
+          asset: rateAlert.asset,
+          enteredAmount: rateAlert.enteredAmount,
+          selectedCategory: rateAlert.selectedCategory,
+          selectedNotifyMethod: rateAlert.selectedNotifyMethod,
+          selectedRate: rateAlert.selectedRate,
+          selectedSubCategory: rateAlert.selectedSubCategory,
+          createdAt: rateAlert.createdAt,
+        };
+      });
     }
 
     return groupedItem;

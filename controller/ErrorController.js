@@ -3,7 +3,7 @@ const AppError = require("../routes/utills/AppError");
 const handleduplicateDB = (err) => {
   const value = Object.keys(err.keyValue);
   console.log(value);
-  const message = `Duplicate value for ( ${value} ). please use another value`;
+  const message = `There is a user with this ${value}. `;
   return new AppError(message, 200);
 };
 
