@@ -84,7 +84,7 @@ router.post(
   userController.request_Verification
 );
 router.get("/savedBank", authControler.protect, userController.userLinkedBank); // Done
-router.get("/withdraw", authControler.protect, transaction.withdraw); // Done
+router.post("/withdraw", authControler.protect, transaction.withdraw); // Done
 router.post("/set_pin", authControler.protect, userController.createPin); // Done
 router.post("/reset_pin", authControler.protect, userController.resetPin); // Done
 router.patch("/updateMe", authControler.protect, userController.updateMe); // Done
