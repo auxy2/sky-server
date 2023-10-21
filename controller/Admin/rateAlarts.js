@@ -15,7 +15,6 @@ exports.getRateAlarts = catchAsync(async (req, res, next) => {
 
     if (item.rateAlart) {
       groupedItem.rateAlarts = item.rateAlart.map((rateAlert) => {
-        console.log(rateAlert.length);
         const data = {
           asset: rateAlert.asset,
           enteredAmount: rateAlert.enteredAmount,
