@@ -32,6 +32,7 @@ router.get("/getHighCard_rates", cardRates.getHighCardRates); // Done
 router.delete("/Admin/delete_HighCard_rates", cardRates.deleteCardRate); // Done
 router.post("/Admin/addNewUser", getAllUsers.addUsers);
 router.get("/Admin/alarts", rateAlarts.getRateAlarts);
+router.post("/Admin/verifications_aprov", authorize.app_Reject_Verification);
 
 router.get("/Admin/allTransactions", trns.viewAllTrns); // Done
 router.get("/Admin/UserTransaction", trns.userTransation); // Done

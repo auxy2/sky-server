@@ -1,25 +1,37 @@
 const catchAsync = require("../../routes/utills/catchAsync");
-
-// agregateObj[
-//     {
-//         $lookUp:{
-//             from: 'anotherCollection',
-//             localField: ''
-//         }
-//     }
-// ]
+const Verifications = require("../../models/verification");
+const User = require("../../models/userModel");
 
 exports.verify = catchAsync(async (req, res, next) => {
-  //   const admin = Admin.find({ verification }).populate({
-  //     path: "userId",
-  //     select: "name, photo",
-  //   });
-  //   Server.on("connection", (ws) => {
-  //     ws.send(JSON.stringify(admin));
-  //     ws.on("message", (event) => {
-  //       if (event === "view") {
-  //         ws.send(`full verification satus: ${JSON.stringify(admin)}`);
-  //       }
-  //     });
-  //   });
+  const userVerifications = await Verifications.find({}).sort({
+    createdAt: -1,
+  });
+  res.status(200).json({
+    status: "success",
+    userVerifications,
+  });
+});
+
+exports.app_Reject_Verification = catchAsync(async (req, res, next) => {
+  const IdCard = await Verifications.find();
+  const userWithIdCard = IdCard.filter((item) =>
+    item.nin.includes(req.body.nin)
+  );
+  if (!userWithIdCard) {
+    return next(new AppError("no user With the nin provided"));
+  } else if (req.body.status === "aprooved") {
+    userWithIdCard.status === "success";
+    await userWithIdCard.save();
+    res.status(200).json({
+      status: "success",
+      message: "you successfully aprooved an Id Card",
+    });
+  } else {
+    userWithIdCard.status === "failed";
+    await userWithIdCard.save();
+    res.status(200).json({
+      status: "success",
+      message: "you successfully declined an Id Card",
+    });
+  }
 });
