@@ -4,7 +4,9 @@ const User = require("../../models/userModel");
 const AppError = require("../../routes/utills/AppError");
 
 exports.verify = catchAsync(async (req, res, next) => {
-  const userVerifications = await Verifications.find({}).sort({
+  const userVerifications = await Verifications.find({
+    status: "pending",
+  }).sort({
     createdAt: -1,
   });
   res.status(200).json({

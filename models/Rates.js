@@ -54,11 +54,7 @@ const ratesSchema = new mongoose.Schema(
         rate: String,
       },
     ],
-    Admin: {
-      type: String,
-      enum: ["Admin", "maneger"],
-      default: "Admin",
-    },
+    Admin: "Admin",
   },
   {
     toJSON: { virtuals: true },
