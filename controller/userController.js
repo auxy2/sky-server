@@ -152,12 +152,15 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   filterdBody?.email === "" || filterdBody.profilePhoto !== ""
     ? delete filterdBody.email
     : filterdBody;
-
+  console.log(filterdBody.profilePhoto);
   updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
     new: true,
     runValidators: true,
   });
   console.log(filterdBody);
+  if (req.file) {
+    console.log(req.file);
+  }
 
   if (!updatedUser) {
     res.send("invalid credentials");
