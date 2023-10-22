@@ -86,7 +86,7 @@ exports.changeUsersRole = catchAsync(async (req, res, next) => {
   }
 
   user.role = req.body.role;
-  await user.save();
+  await user.save({ validateBeforeSave: false });
   res.status(200).json({
     status: "success",
     message: "user role has been changed",
