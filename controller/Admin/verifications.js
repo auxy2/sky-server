@@ -18,14 +18,14 @@ exports.app_Reject_Verification = catchAsync(async (req, res, next) => {
     return next(new AppError("no user With the nin provided"));
   }
   if (req.body.status === "aprooved") {
-    IdCard.status === "success";
+    IdCard.status = "success";
     await IdCard.save();
     res.status(200).json({
       status: "success",
       message: "you successfully aprooved an Id Card",
     });
   } else {
-    IdCard.status === "failed";
+    IdCard.status = "failed";
     await IdCard.save();
     res.status(200).json({
       status: "success",
