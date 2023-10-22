@@ -8,7 +8,6 @@ const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      unique: true,
       minlength: [8, "Name must be grater 8 characters"],
       required: [true, "Name is required"],
     },
