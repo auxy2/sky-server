@@ -39,12 +39,14 @@ const ApisSchema = new mongoose.Schema({
   ],
   twilio: [
     {
-      apikey: String,
-      apiSecrete: String,
+      account_Sid: String,
+      authToken: String,
+      twillio_phoneNumber: Number,
     },
   ],
   cloudinary: [
     {
+      cloudname: String,
       apikey: String,
       apiSecrete: String,
     },

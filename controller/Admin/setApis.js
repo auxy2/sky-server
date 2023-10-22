@@ -66,5 +66,67 @@ exports.setApi = catchAsync(async (req, res, next) => {
       status: "success",
       message: `${req.body.product} apikey successfully set`,
     });
+  } else if (product === coingecko) {
+    const newApi = await Apis.findOne({ Admin: "Admin" });
+    const newObj = {
+      apikey: req.body.apikey,
+      apiSecrete: req.body.apiSecrete,
+    };
+
+    const coingeckoApi = [...newApi.coingecko, newObj];
+    newApi.alchemy = coingeckoApi;
+    await newApi.save();
+    res.status(200).json({
+      status: "success",
+      message: `${req.body.product} apikey successfully set`,
+    });
+  } else if (product === blockstream) {
+    const newApi = await Apis.findOne({ Admin: "Admin" });
+    const newObj = {
+      apikey: req.body.apikey,
+      apiSecrete: req.body.apiSecrete,
+    };
+
+    const blockstreamApi = [...newApi.blockstream, newObj];
+    newApi.blockstream = blockstreamApi;
+    await newApi.save();
+    res.status(200).json({
+      status: "success",
+      message: `${req.body.product} apikey successfully set`,
+    });
+  } else if (product === twilio) {
+    console.log(req.body);
+    const newApi = await Apis.findOne({ Admin: "Admin" });
+    const newObj = {
+      account_Sid: req.body.account_Sid,
+      authToken: req.body.authToken,
+      twillio_phoneNumber: req.body.twillio_phoneNumber,
+    };
+
+    const twilioApi = [...newApi.twilio, newObj];
+    newApi.twilio = twilioApi;
+    await newApi.save();
+    res.status(200).json({
+      status: "success",
+      message: `${req.body.product} apikey successfully set`,
+    });
+  } else {
+    if (product === "cloudinary") {
+      console.log(req.body);
+      const newApi = await Apis.findOne({ Admin: "Admin" });
+      const newObj = {
+        cloud_name: req.body.cloud_name,
+        apikey: req.body.apikey,
+        apiSecrete: req.body.apikey,
+      };
+
+      const cloudinaryApi = [...newApi.cloudinary, newObj];
+      newApi.twilio = cloudinaryApi;
+      await newApi.save();
+      res.status(200).json({
+        status: "success",
+        message: `${req.body.product} apikey successfully set`,
+      });
+    }
   }
 });
