@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 
 const ApisSchema = new mongoose.Schema({
   paystack: String,

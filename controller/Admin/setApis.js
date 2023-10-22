@@ -6,7 +6,7 @@ exports.setApi = catchAsync(async (req, res, next) => {
   // const user = await User.findOne(req.user);
   // if(user.role === 'admin'){
   // }
-  const apis = await apis.create(req.body);
+  await apis.create(req.body);
   console.log(req.body);
   res.status(201).json({
     status: "success",
