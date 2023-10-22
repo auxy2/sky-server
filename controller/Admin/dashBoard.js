@@ -34,6 +34,7 @@ exports.users = catchAsync(async (req, res, next) => {
     email: user.email,
     number: user.phoneNumber,
     username: user.username,
+    role: user.role,
   }));
   res.status(200).json({
     status: "success",
