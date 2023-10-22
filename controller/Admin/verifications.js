@@ -1,6 +1,7 @@
 const catchAsync = require("../../routes/utills/catchAsync");
 const Verifications = require("../../models/verification");
 const User = require("../../models/userModel");
+const AppError = require("../../routes/utills/AppError");
 
 exports.verify = catchAsync(async (req, res, next) => {
   const userVerifications = await Verifications.find({}).sort({
@@ -22,14 +23,16 @@ exports.app_Reject_Verification = catchAsync(async (req, res, next) => {
     await IdCard.save();
     res.status(200).json({
       status: "success",
-      message: "you successfully aprooved an Id Card",
+      message: `you successfully ${req.body.status} an Id Card`,
     });
-  } else {
+  } else if (req.body.status === "reject") {
     IdCard.status = "failed";
     await IdCard.save();
     res.status(200).json({
       status: "success",
-      message: "you successfully declined an Id Card",
+      message: `you successfully ${req.body.status} an Id Card`,
     });
+  } else {
+    return next(new AppError("status is not defined", 200));
   }
 });
