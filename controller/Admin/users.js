@@ -1,5 +1,5 @@
 const tx = require("../../models/TransactoinsModel");
-const user = require("../../models/userModel");
+const User = require("../../models/userModel");
 const catchAsync = require("../../routes/utills/catchAsync");
 const User = require("../../models/userModel");
 const AppError = require("../../routes/utills/AppError");
@@ -75,5 +75,20 @@ exports.addUsers = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: "sucess",
     message: "you successfully created a new user",
+  });
+});
+
+exports.changeUsersRole = catchAsync(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    return next(new AppError("No user Found", 200));
+  }
+
+  user.role = req.body.role;
+  await user.save();
+  res.status(200).json({
+    status: "success",
+    message: "user role has been changed",
   });
 });

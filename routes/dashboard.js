@@ -39,6 +39,7 @@ router.get("/Admin/allTransactions", trns.viewAllTrns);
 router.post("/Admin/setApikey", ApiKeys.setApi); // Done
 router.get("/Admin/UserTransaction", trns.userTransation); // Done
 router.get("/Admin/giftCard_request", CardRequest.giftCardsRequests); // Done
+router.post("/Admin/ChangeRole", getAllUsers.changeUsersRole);
 router.post("/usersInfo", getAllUsers.usersTx);
 router.get("/getUser", authControler.protect, getAllUsers.getUser);
 router.post("/tutorial", tutorialVideo.Uploads);

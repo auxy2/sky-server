@@ -548,9 +548,9 @@ exports.trackedDevice = catchAsync(async (req, res, next) => {
   if (rootLink) {
     try {
       const device = [...rootLink.devices];
-      const earnedReward = await Admin.findOne({
-        email: "testAdmin@gmail.com",
-      });
+      // const earnedReward = await Admin.findOne({
+      //   email: "testAdmin@gmail.com",
+      // });
 
       if (device.includes(await fpPromise)) {
         return next(new AppError("You cant use this service twice", 400));
