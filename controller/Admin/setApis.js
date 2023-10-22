@@ -8,4 +8,8 @@ exports.setApi = catchAsync(async (req, res, next) => {
 
   // }
   console.log(req.body);
+  res.status(201).json({
+    status: "success",
+    message: `you successfull set ${req.body.product}`,
+  });
 });
