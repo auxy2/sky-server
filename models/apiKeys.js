@@ -7,4 +7,5 @@ const ApisSchema = new mongoose.Schema({
   blockstream: String,
   blockcypher: String,
   twilio: String,
+  cloudinary: String,
 });
