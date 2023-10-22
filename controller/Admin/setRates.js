@@ -6,7 +6,7 @@ const catchAsync = require("../../routes/utills/catchAsync");
 exports.setRate = catchAsync(async (req, res, next) => {
   const rate = await Rates.findOne({ Admin: "Admin" });
 
-  if (rate.cryptoRate.length === 3) {
+  if (rate.cryptoRate.length >= 3) {
     return next(new AppError("maxim rate is set", 200));
   }
   const newRate = [...rate.cryptoRate, req.body];

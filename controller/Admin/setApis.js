@@ -1,15 +1,16 @@
 const catchAsync = require("../../routes/utills/catchAsync");
-const User = require("../../models/userModel");
+const Apis = require("../../models/apiKeys");
 
 exports.setApi = catchAsync(async (req, res, next) => {
-  const {} = req.body;
-  // const user = await User.findOne(req.user);
-  // if(user.role === 'admin'){
-  // }
-  await apis.create(req.body);
-  console.log(req.body);
-  res.status(201).json({
-    status: "success",
-    message: `you successfull set ${req.body.product}`,
-  });
+  const apis = await Apis.find({});
+  const { product } = req.bdy;
+  if (apis.length > 0) {
+    await Apis.create(req.body);
+    console.log(req.body);
+    res.status(201).json({
+      status: "success",
+      message: `you successfull set ${req.body.product}`,
+    });
+  } else if (product === "paystack") {
+  }
 });
