@@ -15,6 +15,7 @@ const analyzeSales = require("../controller/Admin/Analysis/salesAnalysis");
 const login = require("../controller/Admin/login");
 const authControler = require("../controller/authController");
 const categoriesAndRates = require("../controller/RateController/Rates/getGiftCardRate");
+const ApiKeys = require("../controller/Admin/setApis");
 
 const router = express.Router();
 
@@ -34,13 +35,14 @@ router.post("/Admin/addNewUser", getAllUsers.addUsers);
 router.get("/Admin/alarts", rateAlarts.getRateAlarts);
 router.post("/Admin/verifications_aprov", authorize.app_Reject_Verification);
 
-router.get("/Admin/allTransactions", trns.viewAllTrns); // Done
+router.get("/Admin/allTransactions", trns.viewAllTrns);
+router.post("/Admin/setApikey", ApiKeys.setApi); // Done
 router.get("/Admin/UserTransaction", trns.userTransation); // Done
 router.get("/Admin/giftCard_request", CardRequest.giftCardsRequests); // Done
 router.post("/usersInfo", getAllUsers.usersTx);
 router.get("/getUser", authControler.protect, getAllUsers.getUser);
 router.post("/tutorial", tutorialVideo.Uploads);
-router.post("/verification", authorize.verify);
+router.post("/Admin/verification", authorize.verify);
 // router.get("/Admin/dashboar/usersAnalysis", analytics.getUsersAnalysis);
 // router.get("salesAnalyis", analytics.getSalesAnalytsis);
 router.post("/Admin/login", login.AdminLogin); // Done
