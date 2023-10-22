@@ -1,7 +1,6 @@
 const tx = require("../../models/TransactoinsModel");
 const User = require("../../models/userModel");
 const catchAsync = require("../../routes/utills/catchAsync");
-const User = require("../../models/userModel");
 const AppError = require("../../routes/utills/AppError");
 
 exports.usersT = catchAsync(async (req, res, next) => {
@@ -44,7 +43,8 @@ exports.usersTx = catchAsync(async (req, res, next) => {
     "username",
     "name",
     "email",
-    "phoneNumber"
+    "phoneNumber",
+    "role"
   );
   res.status(200).json({
     status: "success",

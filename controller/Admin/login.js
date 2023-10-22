@@ -49,6 +49,7 @@ exports.AdminLogin = catchAsync(async (req, res, next) => {
       data: {
         name: verifiedUser.name,
         wallet_Balance: verifiedUser.walletBalance,
+        role: verifiedUser.role,
       },
     });
   }
