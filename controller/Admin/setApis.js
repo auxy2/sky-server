@@ -4,7 +4,7 @@ const Apis = require("../../models/apiKeys");
 exports.setApi = catchAsync(async (req, res, next) => {
   const apis = await Apis.find({});
   const { product } = req.body;
-  if (apis === "null" || apis.length < 0) {
+  if (apis.length === 0) {
     const obj = {
       paystackey: req.body.apikey,
       apiSecrete: req.body.apiSecrete,
@@ -16,7 +16,7 @@ exports.setApi = catchAsync(async (req, res, next) => {
       message: `you successfull set ${req.body.product}`,
     });
   } else {
-    console.log("Big Error", apis);
+    console.log("Big Error", apis.length);
   }
 
   //   if (product === "paystack") {
