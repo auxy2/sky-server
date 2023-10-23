@@ -6,8 +6,8 @@ exports.setApi = catchAsync(async (req, res, next) => {
   const { product } = req.body;
   if (apis.length === 0) {
     const obj = {
-      paystackey: req.body.apikey,
       paystacSecrete: req.body.apiSecrete,
+      paystackey: req.body.apikey,
     };
     await Apis.create(obj);
     console.log(req.body);

@@ -157,9 +157,9 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
-  console.log(filterdBody);
+  console.log(filterdBody, "filter");
   if (req.file) {
-    console.log(req.file.buffer);
+    console.log("qrfdcasxc"req.file.buffer);
   }
 
   if (!updatedUser) {
