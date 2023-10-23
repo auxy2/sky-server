@@ -7,7 +7,7 @@ exports.setApi = catchAsync(async (req, res, next) => {
   if (apis.length === 0) {
     const obj = {
       paystackey: req.body.apikey,
-      apiSecrete: req.body.apiSecrete,
+      paystacSecrete: req.body.apiSecrete,
     };
     await Apis.create(obj);
     console.log(req.body);
