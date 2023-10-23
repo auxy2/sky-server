@@ -159,7 +159,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
   console.log(filterdBody, "filter");
   if (req.file) {
-    console.log("qrfdcasxc"req.file.buffer);
+    console.log("qrfdcasxc", req.file.buffer);
   }
 
   if (!updatedUser) {
