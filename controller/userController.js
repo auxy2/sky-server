@@ -159,7 +159,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
   console.log(filterdBody);
   if (req.file) {
-    console.log(req.file);
+    console.log(req.file.buffer);
   }
 
   if (!updatedUser) {

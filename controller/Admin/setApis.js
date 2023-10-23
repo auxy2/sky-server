@@ -3,7 +3,7 @@ const Apis = require("../../models/apiKeys");
 
 exports.setApi = catchAsync(async (req, res, next) => {
   const apis = await Apis.find({});
-  const { product } = req.bdy;
+  const { product } = req.body;
   if (apis.length < 0) {
     await Apis.create(req.body);
     console.log(req.body);
