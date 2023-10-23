@@ -142,7 +142,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     "name",
     "email",
     "phoneNumber",
-    "profilePhoto",
     "username"
   );
 
