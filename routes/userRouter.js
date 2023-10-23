@@ -87,7 +87,7 @@ router.get("/savedBank", authControler.protect, userController.userLinkedBank); 
 router.post("/withdraw", authControler.protect, transaction.withdraw); // Done
 router.post("/set_pin", authControler.protect, userController.createPin); // Done
 router.post("/reset_pin", authControler.protect, userController.resetPin); // Done
-router.patch("/updateMe", authControler.protect, userController.updateMe); // Done
+router.post("/updateMe", authControler.protect, userController.updateMe); // Done
 router.post("/reateCalculator_Crypto", cryptoRate.getCurrentRate); // Done
 router.get("/ratecalculator_giftCard", giftCardRate.giftCardRate); // Done
 router.get("/giftCard_Catigories", cat_sub_categories.GiftCard_Cat_SubCat);
