@@ -15,8 +15,6 @@ exports.setApi = catchAsync(async (req, res, next) => {
       status: "success",
       message: `you successfull set ${req.body.product}`,
     });
-  } else {
-    console.log("Big Error", apis.length);
   }
 
   //   if (product === "paystack") {

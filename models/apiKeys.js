@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+// paystackey: String,
+//   paystacSecrete: String,
 
 const ApisSchema = new mongoose.Schema({
   paystackey: String,
