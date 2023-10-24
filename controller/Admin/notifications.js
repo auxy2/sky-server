@@ -5,12 +5,12 @@ const catchAsync = require("../../routes/utills/catchAsync");
 exports.postNotifications = catchAsync(async (req, res, next) => {
   console.log(req.body);
 
-  const rate = await Rates.findOne({ Admin: "Admin" });
-  if (!rate) {
-    return next(
-      new AppError("you dont have access to post notifications", 400)
-    );
-  }
+  // const rate = await Rates.findOne({ Admin: "Admin" });
+  // if (!rate) {
+  //   return next(
+  //     new AppError("you dont have access to post notifications", 400)
+  //   );
+  // }
   const bodyObj = req.body;
 
   let id = Math.random() * Date.now();
@@ -31,6 +31,7 @@ exports.postNotifications = catchAsync(async (req, res, next) => {
 
 exports.getNotifications = catchAsync(async (req, res, next) => {
   const rates = await Rates.find({});
+
   if (rates.length === 0) {
     res.send(" No notifications to diplay");
   }
