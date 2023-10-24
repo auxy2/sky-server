@@ -18,7 +18,8 @@ exports.usersT = catchAsync(async (req, res, next) => {
     .findById({ userId: selectedUser._id })
     .populate({
       path: "userId",
-      select: "name phoneNumber accounName role email walletBalance",
+      select:
+        "name phoneNumber accounName role email walletBalance profilePhoto",
     });
   res.status(200).json({
     status: "success",
@@ -44,7 +45,8 @@ exports.usersTx = catchAsync(async (req, res, next) => {
     "name",
     "email",
     "phoneNumber",
-    "role"
+    "role",
+    "profilePhoto"
   );
   res.status(200).json({
     status: "success",
@@ -60,6 +62,7 @@ exports.getUser = catchAsync(async (req, res, next) => {
     phoneNumber: user.phoneNumber,
     role: user.role,
     email: user.email,
+    profilePhoto: user.profilePhoto,
   };
   res.status(200).json({
     status: "success",
