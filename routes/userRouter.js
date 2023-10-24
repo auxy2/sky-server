@@ -17,7 +17,7 @@ const GiftCards = require("../controller/transactions/giftCard");
 // const progress_bar = require("../controller/progress_Bar");
 // const Admin = require("../controller/Admin/dashBoard");
 
-const axios = require("axios");
+const uploads = require("./utills/multer");
 
 const router = express.Router();
 
@@ -87,7 +87,12 @@ router.get("/savedBank", authControler.protect, userController.userLinkedBank); 
 router.post("/withdraw", authControler.protect, transaction.withdraw); // Done
 router.post("/set_pin", authControler.protect, userController.createPin); // Done
 router.post("/reset_pin", authControler.protect, userController.resetPin); // Done
-router.post("/updateMe", authControler.protect, userController.updateMe); // Done
+router.post(
+  "/updateMe",
+  authControler.protect,
+  uploads.single("image"),
+  userController.updateMe
+); // Done
 router.post("/reateCalculator_Crypto", cryptoRate.getCurrentRate); // Done
 router.get("/ratecalculator_giftCard", giftCardRate.giftCardRate); // Done
 router.get("/giftCard_Catigories", cat_sub_categories.GiftCard_Cat_SubCat);

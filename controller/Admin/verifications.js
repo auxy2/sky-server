@@ -17,9 +17,11 @@ exports.verify = catchAsync(async (req, res, next) => {
 
 exports.app_Reject_Verification = catchAsync(async (req, res, next) => {
   const IdCard = await Verifications.findOne({ nin: req.body.nin });
+
   if (!IdCard) {
     return next(new AppError("no user With the nin provided"));
   }
+
   if (req.body.status === "aprooved") {
     IdCard.status = "success";
     await IdCard.save();

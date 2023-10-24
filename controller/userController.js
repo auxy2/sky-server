@@ -10,8 +10,7 @@ const crypto = require("crypto");
 const fingerPrint = require("fingerprintjs2");
 const Mail = require("../routes/utills/email");
 const twilio = require("twilio");
-const { UploadsImage } = require("./imageUploads");
-// const { UploadsImage } = require("./imageaUploads");
+const cloudinary = require("../routes/utills/cloudinary");
 
 const fpPromise = fingerPrint.getPromise().then((components) => {
   const fingerprint = fingerPrint.x64hash128(
@@ -145,27 +144,48 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     "username"
   );
 
-  // const photo = UploadsImage(filterdBody.profilePhoto);
   // console.log(photo, filterdBody);
+
+  // cloudinary.uploader.upload(req.file.path, function (err, result) {
+  //   console.log(req.file);
+  //   if (err) {
+  //     console.log(req.file);
+  //     return next(new AppError("image uploade fail", 200));
+  //   }
+  //   res.status(200).json({
+  //     status: "sucess",
+  //     data: result,
+  //   });
+  // });
 
   filterdBody?.email === "" || filterdBody.profilePhoto !== ""
     ? delete filterdBody.email
     : filterdBody;
+
   updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
     new: true,
     runValidators: true,
   });
-  console.log(filterdBody, "filter");
-  if (req.file) {
-    console.log("qrfdcasxc", req.file.buffer);
-  }
 
   if (!updatedUser) {
     res.send("invalid credentials");
   }
+  if (req.file) {
+    cloudinary.uploader.upload(req.file.path, async (err, result) => {
+      if (err) {
+        return next("image upload failes", 200);
+      } else {
+        console.log("photo", req.file.path);
+        console.log(result.url);
+        console.log(updatedUser.profilePhoto, "filter");
+        updatedUser.profilePhoto = result.url;
+        await updatedUser.save({ validateBeforeSave: false });
+      }
+    });
+  }
 
   const jwtToken = signToken(updatedUser.id);
-  // sendCookie(token, res)
+  sendCookie(jwtToken, res);
   res.status(200).json({
     status: "success",
     jwtToken,
@@ -411,6 +431,7 @@ exports.request_Verification = catchAsync(async (req, res, next) => {
     message: "you verification request is successfull",
   });
 });
+
 exports.setRateAlart = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
 
