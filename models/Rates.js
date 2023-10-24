@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const ratesSchema = new mongoose.Schema(
   {
+    randomly: String,
     gitCard_Cartigories: [
       {
         name: String,
@@ -36,6 +37,7 @@ const ratesSchema = new mongoose.Schema(
         rateType: String,
       },
     ],
+
     notification: [
       {
         id: String,
@@ -56,7 +58,6 @@ const ratesSchema = new mongoose.Schema(
     ],
     Admin: {
       type: String,
-      enum: ["Admin", "maneger"],
       default: "Admin",
     },
   },

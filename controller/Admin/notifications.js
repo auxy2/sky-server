@@ -5,7 +5,7 @@ const catchAsync = require("../../routes/utills/catchAsync");
 exports.postNotifications = catchAsync(async (req, res, next) => {
   console.log(req.body);
 
-  // const rate = await Rates.findOne({ Admin: "Admin" });
+  const rate = await Rates.findOne();
   // if (!rate) {
   //   return next(
   //     new AppError("you dont have access to post notifications", 400)
