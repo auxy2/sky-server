@@ -128,7 +128,7 @@ exports.setApi = catchAsync(async (req, res, next) => {
     console.log(req.body);
     const newApi = await Apis.findOne({ Admin: "Admin" });
     const newObj = {
-      cloudname: req.body.cloud_name,
+      cloudname: req.body.cloudname,
       apikey: req.body.apikey,
       apiSecrete: req.body.apiSecrete,
     };
