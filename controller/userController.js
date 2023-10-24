@@ -170,6 +170,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   if (!updatedUser) {
     res.send("invalid credentials");
   }
+
   if (req.file) {
     cloudinary.uploader.upload(req.file.path, async (err, result) => {
       if (err) {
@@ -177,16 +178,24 @@ exports.updateMe = catchAsync(async (req, res, next) => {
       }
       updatedUser.profilePhoto = result.url;
       await updatedUser.save({ validateBeforeSave: false });
-
-      const jwtToken = signToken(updatedUser.id);
-      sendCookie(jwtToken, res);
-      res.status(200).json({
-        status: "success",
-        jwtToken,
-        updatedUser,
-      });
     });
   }
+
+  const reUpdateUser = {
+    name: updatedUser,
+    email: updatedUser.email,
+    phoneNumber: updatedUser.phoneNumber,
+    username: updatedUser.username,
+    profilePhoto: updatedUser.profilePhoto,
+  };
+
+  const jwtToken = signToken(updatedUser.id);
+  sendCookie(jwtToken, res);
+  res.status(200).json({
+    status: "success",
+    jwtToken,
+    updatedUser: reUpdateUser,
+  });
 });
 
 exports.createPin = catchAsync(async (req, res, next) => {
@@ -426,6 +435,13 @@ exports.request_Verification = catchAsync(async (req, res, next) => {
     status: "success",
     message: "you verification request is successfull",
   });
+  if (req.file) {
+    cloudinary.uploader.upload(req.file.path, async (err, result) => {
+      if (err) {
+        return next(new AppError("Error"));
+      }
+    });
+  }
 });
 
 exports.setRateAlart = catchAsync(async (req, res, next) => {
