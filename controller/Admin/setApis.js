@@ -4,38 +4,38 @@ const Apis = require("../../models/apiKeys");
 exports.setApi = catchAsync(async (req, res, next) => {
   const apis = await Apis.find({});
   const { product } = req.body;
-  if (apis.length === 0) {
-    const obj = {
-      paystacSecrete: req.body.apiSecrete,
-      paystackey: req.body.apikey,
-    };
-    await Apis.create(obj);
-    console.log(req.body);
-    res.status(201).json({
-      status: "success",
-      message: `you successfull set ${req.body.product}`,
-    });
-  }
-
-  //   if (product === "paystack") {
-  //   const newApi = await Apis.findOne({ Admin: "Admin" });
-  //   const newObj = {
-  //     apikey: req.body.apikey,
-  //     apiSecrete: req.body.apiSecrete,
+  // if (apis.length === 0) {
+  //   const obj = {
+  //     paystacSecrete: req.body.apiSecrete,
+  //     paystackey: req.body.apikey,
   //   };
-  //   const paysatckApi = [...newApi.paystack, newObj];
-  //   newApi.paystack = paysatckApi;
-  //   await newApi.save();
-  //   res.status(200).json({
+  //   await Apis.create(obj);
+  //   console.log(req.body);
+  //   res.status(201).json({
   //     status: "success",
-  //     message: `${req.body.product} apikey successfully set`,
+  //     message: `you successfull set ${req.body.product}`,
   //   });
   // }
+
+  if (product === "paystack") {
+    const newApi = await Apis.findOne({ Admin: "Admin" });
+    const newObj = {
+      apiSecrete: req.body.apiSecrete,
+      apikey: req.body.apikey,
+    };
+    const paysatckApi = [...newApi.paystack, newObj];
+    newApi.paystack = paysatckApi;
+    await newApi.save();
+    res.status(200).json({
+      status: "success",
+      message: `${req.body.product} apikey successfully set`,
+    });
+  }
   if (product === "blockcypher") {
     const newApi = await Apis.findOne({ Admin: "Admin" });
     const newObj = {
-      apikey: req.body.apikey,
       apiSecrete: req.body.apiSecrete,
+      apikey: req.body.apikey,
     };
 
     const blockcypherApi = [...newApi.blockcypher, newObj];
@@ -49,8 +49,8 @@ exports.setApi = catchAsync(async (req, res, next) => {
   if (product === "blockchain") {
     const newApi = await Apis.findOne({ Admin: "Admin" });
     const newObj = {
-      apikey: req.body.apikey,
       apiSecrete: req.body.apiSecrete,
+      apikey: req.body.apikey,
     };
 
     const blockchainApi = [...newApi.blockchain, newObj];
@@ -64,8 +64,8 @@ exports.setApi = catchAsync(async (req, res, next) => {
   if (product === "alchemy") {
     const newApi = await Apis.findOne({ Admin: "Admin" });
     const newObj = {
-      apikey: req.body.apikey,
       apiSecrete: req.body.apiSecrete,
+      apikey: req.body.apikey,
     };
 
     const alchemyApi = [...newApi.alchemy, newObj];
@@ -79,8 +79,8 @@ exports.setApi = catchAsync(async (req, res, next) => {
   if (product === "coingecko") {
     const newApi = await Apis.findOne({ Admin: "Admin" });
     const newObj = {
-      apikey: req.body.apikey,
       apiSecrete: req.body.apiSecrete,
+      apikey: req.body.apikey,
     };
 
     const coingeckoApi = [...newApi.coingecko, newObj];
@@ -94,8 +94,8 @@ exports.setApi = catchAsync(async (req, res, next) => {
   if (product === "blockstream") {
     const newApi = await Apis.findOne({ Admin: "Admin" });
     const newObj = {
-      apikey: req.body.apikey,
       apiSecrete: req.body.apiSecrete,
+      apikey: req.body.apikey,
     };
 
     const blockstreamApi = [...newApi.blockstream, newObj];
@@ -130,7 +130,7 @@ exports.setApi = catchAsync(async (req, res, next) => {
     const newObj = {
       cloud_name: req.body.cloud_name,
       apikey: req.body.apikey,
-      apiSecrete: req.body.apikey,
+      apiSecrete: req.body.apiSecrete,
     };
 
     const cloudinaryApi = [...newApi.cloudinary, newObj];

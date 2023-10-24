@@ -173,24 +173,20 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   if (req.file) {
     cloudinary.uploader.upload(req.file.path, async (err, result) => {
       if (err) {
-        return next("image upload failes", 200);
-      } else {
-        console.log("photo", req.file.path);
-        console.log(result.url);
-        console.log(updatedUser.profilePhoto, "filter");
-        updatedUser.profilePhoto = result.url;
-        await updatedUser.save({ validateBeforeSave: false });
+        return next(new AppError("image upload failes", 200));
       }
+      updatedUser.profilePhoto = result.url;
+      await updatedUser.save({ validateBeforeSave: false });
+
+      const jwtToken = signToken(updatedUser.id);
+      sendCookie(jwtToken, res);
+      res.status(200).json({
+        status: "success",
+        jwtToken,
+        updatedUser,
+      });
     });
   }
-
-  const jwtToken = signToken(updatedUser.id);
-  sendCookie(jwtToken, res);
-  res.status(200).json({
-    status: "success",
-    jwtToken,
-    updatedUser,
-  });
 });
 
 exports.createPin = catchAsync(async (req, res, next) => {
