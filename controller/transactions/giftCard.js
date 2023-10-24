@@ -29,6 +29,7 @@ exports.sellGiftCard = catchAsync(async (req, res, next) => {
         public_id: result.public_id,
         cardForms: "physical",
       };
+      console.log(result);
       await Card.create(obj);
       res.status(201).json({
         status: "success",
