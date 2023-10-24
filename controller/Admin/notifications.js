@@ -31,6 +31,9 @@ exports.postNotifications = catchAsync(async (req, res, next) => {
 
 exports.getNotifications = catchAsync(async (req, res, next) => {
   const rates = await Rates.find({});
+  if (rates.length === 0) {
+    res.send(" No notifications to diplay");
+  }
   for (const notifications of rates) {
     const { notification } = notifications;
     res.status(200).json({
