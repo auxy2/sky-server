@@ -84,7 +84,7 @@ exports.setApi = catchAsync(async (req, res, next) => {
     };
 
     const coingeckoApi = [...newApi.coingecko, newObj];
-    newApi.alchemy = coingeckoApi;
+    newApi.coingecko = coingeckoApi;
     await newApi.save();
     res.status(200).json({
       status: "success",
