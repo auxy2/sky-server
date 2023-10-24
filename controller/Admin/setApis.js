@@ -4,18 +4,18 @@ const Apis = require("../../models/apiKeys");
 exports.setApi = catchAsync(async (req, res, next) => {
   const apis = await Apis.find({});
   const { product } = req.body;
-  // if (apis.length === 0) {
-  //   const obj = {
-  //     paystacSecrete: req.body.apiSecrete,
-  //     paystackey: req.body.apikey,
-  //   };
-  //   await Apis.create(obj);
-  //   console.log(req.body);
-  //   res.status(201).json({
-  //     status: "success",
-  //     message: `you successfull set ${req.body.product}`,
-  //   });
-  // }
+  if (apis.length === 0) {
+    const obj = {
+      paystacSecrete: "emptyString",
+      paystackey: "emptyKey",
+    };
+    await Apis.create(obj);
+    console.log(req.body);
+    res.status(201).json({
+      status: "success",
+      message: `you successfull set ${req.body.product}`,
+    });
+  }
 
   if (product === "paystack") {
     const newApi = await Apis.findOne({ Admin: "Admin" });
