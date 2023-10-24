@@ -30,12 +30,14 @@ exports.postNotifications = catchAsync(async (req, res, next) => {
 });
 
 exports.getNotifications = catchAsync(async (req, res, next) => {
-  const rates = await Rates.findOne({ Admin: "Admin" });
-  const allNotifications = rates.notification;
-  res.status(200).json({
-    status: "success",
-    allNotifications,
-  });
+  const rates = await Rates.find({});
+  for (const notifications of rates) {
+    const { notification } = notifications;
+    res.status(200).json({
+      status: "success",
+      notification,
+    });
+  }
 });
 
 exports.deleteNotification = catchAsync(async (req, res, next) => {
