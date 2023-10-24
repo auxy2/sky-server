@@ -3,6 +3,7 @@ const User = require("../../models/userModel");
 const Rates = require("../../models/Rates.js");
 const AppError = require("../../routes/utills/AppError");
 const catchAsync = require("../../routes/utills/catchAsync");
+const cloudinary = require("../../routes/utills/cloudinary");
 
 exports.sellGiftCard = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
@@ -16,8 +17,26 @@ exports.sellGiftCard = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: "success",
     message: "please note gift card transction take some while before complete",
-    GiftCard,
   });
+  if (req.file) {
+    cloudinary.uploader.upload(req.file.path, async (err, result) => {
+      if (err) {
+        return next(new AppError("Error uploading image"));
+      }
+      const obj = {
+        userId: user._id,
+        image: result.url,
+        public_id: result.public_id,
+        cardForms: "physical",
+      };
+      await Card.create(obj);
+      res.status(201).json({
+        status: "success",
+        message:
+          "please note gift card transction take some while before complete",
+      });
+    });
+  }
 });
 
 exports.GiftCard_Cat_SubCat = catchAsync(async (req, res, next) => {

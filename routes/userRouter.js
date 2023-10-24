@@ -23,7 +23,12 @@ const router = express.Router();
 
 router.post("/signUp", authControler.signUp); //  Done
 router.post("/login", authControler.login); // 100% Done
-router.post("/sell_Gift_Card", authControler.protect, GiftCards.sellGiftCard);
+router.post(
+  "/sell_Gift_Card",
+  authControler.protect,
+  uploads.single("image"),
+  GiftCards.sellGiftCard
+);
 router.get(
   "/btc_Wallet_Address",
   authControler.protect,
