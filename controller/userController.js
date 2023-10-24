@@ -134,7 +134,7 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 exports.updateMe = catchAsync(async (req, res, next) => {
-  let updatedUser;
+  let UpdatedUser;
 
   const filterdBody = filteredObj(
     req.body,
@@ -144,30 +144,16 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     "username"
   );
 
-  // console.log(photo, filterdBody);
-
-  // cloudinary.uploader.upload(req.file.path, function (err, result) {
-  //   console.log(req.file);
-  //   if (err) {
-  //     console.log(req.file);
-  //     return next(new AppError("image uploade fail", 200));
-  //   }
-  //   res.status(200).json({
-  //     status: "sucess",
-  //     data: result,
-  //   });
-  // });
-
   filterdBody?.email === "" || filterdBody.profilePhoto !== ""
     ? delete filterdBody.email
     : filterdBody;
 
-  updatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
+  UpdatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
     new: true,
     runValidators: true,
   });
 
-  if (!updatedUser) {
+  if (!UpdatedUser) {
     res.send("invalid credentials");
   }
 
@@ -176,20 +162,20 @@ exports.updateMe = catchAsync(async (req, res, next) => {
       if (err) {
         return next(new AppError("image upload failes", 200));
       }
-      updatedUser.profilePhoto = result.url;
-      await updatedUser.save({ validateBeforeSave: false });
+      UpdatedUser.profilePhoto = result.url;
+      await UpdatedUser.save({ validateBeforeSave: false });
     });
   }
 
   const reUpdateUser = {
-    name: updatedUser,
-    email: updatedUser.email,
-    phoneNumber: updatedUser.phoneNumber,
-    username: updatedUser.username,
-    profilePhoto: updatedUser.profilePhoto,
+    name: UpdatedUser,
+    email: UpdatedUser.email,
+    phoneNumber: UpdatedUser.phoneNumber,
+    username: UpdatedUser.username,
+    profilePhoto: UpdatedUser.profilePhoto,
   };
 
-  const jwtToken = signToken(updatedUser.id);
+  const jwtToken = signToken(UpdatedUser.id);
   sendCookie(jwtToken, res);
   res.status(200).json({
     status: "success",
@@ -203,7 +189,7 @@ exports.createPin = catchAsync(async (req, res, next) => {
   const { newpin, confirmPin } = req.body;
 
   if (!user) {
-    res.send("you dont have access to this page");
+    return next(new AppError("you dont have access to this page", 200));
   }
 
   if (newpin === confirmPin) {
