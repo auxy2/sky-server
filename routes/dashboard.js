@@ -17,11 +17,13 @@ const authControler = require("../controller/authController");
 const categoriesAndRates = require("../controller/RateController/Rates/getGiftCardRate");
 const ApiKeys = require("../controller/Admin/setApis");
 
+const uploads = require("./utills/multer");
+
 const router = express.Router();
 
 router.post("/Admin/users", DB.users); // Done
 router.post("/dash_Board", DB.dashboard); // Done
-router.post("/Admin/set_Rate_Crypto", rates.setRate); // Done /////////////
+router.post("/Admin/set_Rate_Crypto", uploads.single("image"), rates.setRate); // Done /////////////
 router.post("/Admin/set_GiftCard_Rates", rates.setGiftCardRate); // Done  //////////
 router.post("/Admin/set_GiftCardSub_Catigories", rates.setgiftcardSub_Catigory);
 router.post("/Admin/set_Card_Form", rates.setCardForm);

@@ -2,6 +2,7 @@ const User = require("../../models/userModel");
 const Rates = require("../../models/Rates");
 const AppError = require("../../routes/utills/AppError");
 const catchAsync = require("../../routes/utills/catchAsync");
+const cloudinary = require("../../routes/utills/cloudinary");
 
 exports.setRate = catchAsync(async (req, res, next) => {
   const rate = await Rates.findOne({ Admin: "Admin" });
@@ -9,13 +10,22 @@ exports.setRate = catchAsync(async (req, res, next) => {
   if (rate.cryptoRate.length >= 3) {
     return next(new AppError("maxim rate is set", 200));
   }
-  const newRate = [...rate.cryptoRate, req.body];
-  rate.cryptoRate = newRate;
-  await rate.save();
-  res.status(200).json({
-    status: "success",
-    message: `you seccessfully set ${req.body.product} rate`,
-  });
+  if (req.file) {
+    cloudinary.uploader.upload(req.file.path, async (err, result) => {
+      if (err) {
+        return next(new AppError("image uploads fail", 200));
+      }
+
+      console.log("crypto", result);
+      const newRate = [...rate.cryptoRate, req.body];
+      rate.cryptoRate = newRate;
+      await rate.save();
+      res.status(200).json({
+        status: "success",
+        message: `you seccessfully set ${req.body.product} rate`,
+      });
+    });
+  }
 });
 exports.setGiftCardRate = catchAsync(async (req, res, next) => {
   const rates = await Rates.findOne({ Admin: "Admin" });
@@ -28,15 +38,42 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
   Cat_SubBodyObj.id = id;
 
   if (Cat_SubBodyObj.type === "catigory") {
-    const catNewRate = [...rates.gitCard_Cartigories, Cat_SubBodyObj];
-    rates.gitCard_Cartigories = catNewRate;
-    await rates.save();
-    res.status(200).json({
-      status: "success",
-      message: `Rate successfully set ${Cat_SubBodyObj.type} `,
-    });
+    if (req.file) {
+      const catNewRate = [...rates.gitCard_Cartigories, Cat_SubBodyObj];
+      cloudinary.uploader.upload(req.file.path, async (err, result) => {
+        if (err) {
+          return next(new AppError("image uploads fail", 200));
+        }
+        console.log("catigory", result);
+        rates.gitCard_Cartigories = catNewRate;
+        await rates.save();
+        res.status(200).json({
+          status: "success",
+          message: `Rate successfully set ${Cat_SubBodyObj.type} `,
+        });
+      });
+    }
   }
   if (Cat_SubBodyObj.type === "SubCatigory") {
+    if (req.file) {
+      cloudinary.uploader.upload(req.file.path, async (err, result) => {
+        if (err) {
+          return next(new AppError("image uploads fail", 200));
+        }
+
+        console.log("SubCatigory", result);
+        const SubCatNewRate = [
+          ...rates.giftCardSub_Cartigories,
+          Cat_SubBodyObj,
+        ];
+        rates.giftCardSub_Cartigories = SubCatNewRate;
+        await rates.save();
+        res.status(200).json({
+          status: "success",
+          message: `Rate successfully set ${Cat_SubBodyObj.type} Rate`,
+        });
+      });
+    }
     const SubCatNewRate = [...rates.giftCardSub_Cartigories, Cat_SubBodyObj];
     rates.giftCardSub_Cartigories = SubCatNewRate;
     await rates.save();
