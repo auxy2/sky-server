@@ -5,6 +5,12 @@ const mongoose = require("mongoose");
 const ApisSchema = new mongoose.Schema({
   paystackey: String,
   paystacSecrete: String,
+  paystack: [
+    {
+      apikey: String,
+      apiSecrete: String,
+    },
+  ],
   blockcypher: [
     {
       apikey: String,
