@@ -134,7 +134,7 @@ exports.setApi = catchAsync(async (req, res, next) => {
     };
 
     const cloudinaryApi = [...newApi.cloudinary, newObj];
-    newApi.twilio = cloudinaryApi;
+    newApi.cloudinary = cloudinaryApi;
     await newApi.save();
     res.status(200).json({
       status: "success",
