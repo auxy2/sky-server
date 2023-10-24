@@ -16,6 +16,7 @@ exports.postNotifications = catchAsync(async (req, res, next) => {
   let id = Math.random() * Date.now();
   id = Math.floor(id);
   bodyObj.id = id;
+  console.log(req.body);
 
   if (req.body.notificationBody && req.body.notificationTitle) {
     const newNotifications = [...rate.notification, bodyObj];
