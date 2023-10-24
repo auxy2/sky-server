@@ -55,4 +55,6 @@ router.post(
   categoriesAndRates.adminGiftCardSubCategories
 ); // Done
 
+router.get("/Allapis", ApiKeys.AllapiKeys);
+
 module.exports = router;

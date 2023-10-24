@@ -142,3 +142,11 @@ exports.setApi = catchAsync(async (req, res, next) => {
     });
   }
 });
+
+exports.AllapiKeys = catchAsync(async (req, res, next) => {
+  const apis = await Apis.find({});
+  res.status(200).json({
+    staus: "success",
+    apis,
+  });
+});
