@@ -45,7 +45,7 @@ const ApisSchema = new mongoose.Schema({
     {
       account_Sid: String,
       authToken: String,
-      twillio_phoneNumber: Number,
+      twillio_phoneNumber: String,
     },
   ],
   cloudinary: [

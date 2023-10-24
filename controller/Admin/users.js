@@ -20,7 +20,8 @@ exports.usersT = catchAsync(async (req, res, next) => {
       path: "userId",
       select:
         "name phoneNumber accounName role email walletBalance profilePhoto",
-    });
+    })
+    .sort({ createdAt: -1 });
   res.status(200).json({
     status: "success",
     data: {
@@ -40,14 +41,9 @@ exports.usersT = catchAsync(async (req, res, next) => {
 });
 
 exports.usersTx = catchAsync(async (req, res, next) => {
-  const users = await User.find().select(
-    "username",
-    "name",
-    "email",
-    "phoneNumber",
-    "role",
-    "profilePhoto"
-  );
+  const users = await User.find()
+    .select("username", "name", "email", "phoneNumber", "role", "profilePhoto")
+    .sort({ createdAt: -1 });
   res.status(200).json({
     status: "success",
     users,
