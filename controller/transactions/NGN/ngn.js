@@ -5,6 +5,7 @@ const { transfer, transferRecipient } = require("../../../APIs");
 const crypto = require("crypto");
 const axios = require("axios");
 const trns = require("../../../models/TransactoinsModel");
+const paystack = require("../../../models/apiKeys");
 
 exports.withdraw = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.user.email });
@@ -33,7 +34,12 @@ exports.withdraw = catchAsync(async (req, res, next) => {
     recipient: "",
     reference: "",
   };
-
+  const apis = await paystack.findOne({ Admin: "Admin" });
+  let PAYSTACK_KEY;
+  const Apikey = apis.paystack;
+  Apikey.forEach((key) => {
+    PAYSTACK_KEY = key.apikey;
+  });
   // const amount = transferData.amount.toLocaleString().toFixed(2)
   // console.log('amount', amount)
 
@@ -45,7 +51,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
         console.log(parseFloat(balance), parseFloat(amount));
         const resp = await axios.post(transferRecipient, recipientData, {
           headers: {
-            Authorization: `Bearer ${process.env.PAYSTACK_KEY}`,
+            Authorization: `Bearer ${PAYSTACK_KEY}`,
             "Content-Type": "Application/json",
           },
         });
@@ -57,7 +63,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
 
         const response = await axios.post(transfer, transferData, {
           headers: {
-            Authorization: `Bearer ${process.env.PAYSTACK_KEY}`,
+            Authorization: `Bearer ${PAYSTACK_KEY}`,
             "Content-Type": "Application/json",
           },
         });
