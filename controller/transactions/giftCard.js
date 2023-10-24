@@ -10,7 +10,6 @@ exports.sellGiftCard = catchAsync(async (req, res, next) => {
   if (!user) {
     res.send("Something went wrong", 404);
   }
-  
 
   if (req.file) {
     cloudinary.uploader.upload(req.file.path, async (err, result) => {
@@ -31,19 +30,19 @@ exports.sellGiftCard = catchAsync(async (req, res, next) => {
           "please note gift card transction take some while before complete",
       });
     });
-  }else{
-
+  } else {
     if (req.body) {
       const card = req.body;
       card.userId = user._id;
       console.log(card);
-      
+
       await Card.create(card);
       res.status(201).json({
         status: "success",
         message:
           "please note gift card transction take some while before complete",
       });
+    }
   }
 });
 
