@@ -5,7 +5,7 @@ const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 
 exports.Uploads = catchAsync(async (req, res, next) => {
-  if (!fs.existsSync(req.file)) {
+  if (req.file) {
     console.log("1", req.file);
     return next(new AppError("no path found", 200));
   }
