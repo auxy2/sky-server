@@ -59,34 +59,34 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
   id = Math.floor(id);
   Cat_SubBodyObj.id = id;
 
-  if (req.file) {
-    if (Cat_SubBodyObj.type === "catigory") {
-      cloudinary.uploader.upload(req.file.path, async (err, result) => {
-        if (err) {
-          return next(new AppError("image uploads fail", 200));
-        }
+  // if (req.file) {
+  if (Cat_SubBodyObj.type === "catigory") {
+    cloudinary.uploader.upload(req.file.path, async (err, result) => {
+      if (err) {
+        return next(new AppError("image uploads fail", 200));
+      }
 
-        Cat_SubBodyObj.image = result.url;
+      Cat_SubBodyObj.image = result.url;
 
-        console.log("catigory", result);
-        const catNewRate = [...rates.gitCard_Cartigories, Cat_SubBodyObj];
-        rates.gitCard_Cartigories = catNewRate;
-        await rates.save();
+      console.log("catigory", result);
+      const catNewRate = [...rates.gitCard_Cartigories, Cat_SubBodyObj];
+      rates.gitCard_Cartigories = catNewRate;
+      await rates.save();
 
-        const latestRate = await Rates.findOne({ Admin: "Admin" });
+      const latestRate = await Rates.findOne({ Admin: "Admin" });
 
-        const productField = latestRate.gitCard_Cartigories;
+      const productField = latestRate.gitCard_Cartigories;
 
-        const newproduct = productField.find(
-          (item) => item.product === req.body.product
-        );
-        console.log("body", req.body, "B", body);
-        res.status(200).json({
-          status: "success",
-          message: newproduct,
-        });
+      const newproduct = productField.find(
+        (item) => item.product === req.body.product
+      );
+      console.log("body", req.body, "B", body);
+      res.status(200).json({
+        status: "success",
+        message: newproduct,
       });
-    }
+    });
+    // }
   }
 
   if (Cat_SubBodyObj.type === "SubCatigory") {
