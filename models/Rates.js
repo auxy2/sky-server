@@ -51,6 +51,7 @@ const ratesSchema = new mongoose.Schema(
     ],
     cryptoRate: [
       {
+        image: String,
         product: String,
         priceRange: String,
         rate: String,

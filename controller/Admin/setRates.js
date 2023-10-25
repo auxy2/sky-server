@@ -23,6 +23,7 @@ exports.setRate = catchAsync(async (req, res, next) => {
         return next(new AppError("image uploads fail", 200));
       }
 
+      console.log(req.file);
       console.log("crypto", result);
       const newRate = [...rate.cryptoRate, req.body];
       rate.cryptoRate = newRate;
