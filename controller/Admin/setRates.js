@@ -90,7 +90,7 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
   }
 
   if (req.file) {
-    if (Cat_SubBodyObj.type === "SubCatigory") {
+    if (Cat_SubBodyObj.type === "Sub_catigory") {
       cloudinary.uploader.upload(req.file.path, async (err, result) => {
         if (err) {
           return next(new AppError("image uploads fail", 200));
