@@ -6,7 +6,7 @@ const fs = require("fs");
 
 exports.Uploads = catchAsync(async (req, res, next) => {
   if (!fs.existsSync(req.file)) {
-    console.log(req.file);
+    console.log("1", req.file);
     return next(new AppError("no path found", 200));
   }
   if (req.file) {
