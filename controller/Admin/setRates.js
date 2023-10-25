@@ -5,8 +5,15 @@ const catchAsync = require("../../routes/utills/catchAsync");
 const cloudinary = require("../../routes/utills/cloudinary");
 
 exports.setRate = catchAsync(async (req, res, next) => {
-  const rate = await Rates.findOne({ Admin: "Admin" });
+  const newRate = await Rates.find({});
+  if (newRate.length === 0) {
+    const obj = {
+      randomly: "12yregubdi",
+    };
+    await Rates.create(obj);
+  }
 
+  const rate = await Rates.findOne({ Admin: "Admin" });
   if (rate.cryptoRate.length >= 3) {
     return next(new AppError("maxim rate is set", 200));
   }
@@ -27,6 +34,7 @@ exports.setRate = catchAsync(async (req, res, next) => {
     });
   }
 });
+
 exports.setGiftCardRate = catchAsync(async (req, res, next) => {
   const rates = await Rates.findOne({ Admin: "Admin" });
   console.log(req.body);
@@ -49,11 +57,12 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
         await rates.save();
         res.status(200).json({
           status: "success",
-          message: `Rate successfully set ${Cat_SubBodyObj.type} `,
+          message: `You successfully set ${Cat_SubBodyObj.type} `,
         });
       });
     }
   }
+
   if (Cat_SubBodyObj.type === "SubCatigory") {
     if (req.file) {
       cloudinary.uploader.upload(req.file.path, async (err, result) => {
@@ -70,7 +79,7 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
         await rates.save();
         res.status(200).json({
           status: "success",
-          message: `Rate successfully set ${Cat_SubBodyObj.type} Rate`,
+          message: `You successfully set ${Cat_SubBodyObj.type} Rate`,
         });
       });
     }
@@ -79,7 +88,7 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
     await rates.save();
     res.status(200).json({
       status: "success",
-      message: `Rate successfully set ${Cat_SubBodyObj.type} Rate`,
+      message: `You successfully set ${Cat_SubBodyObj.type} Rate`,
     });
   }
 });
@@ -98,22 +107,26 @@ exports.setgiftcardSub_Catigory = catchAsync(async (req, res, next) => {
   await rates.save();
   res.status(200).json({
     status: "success",
-    message: "Rate successfully set",
+    message: "You successfully set",
   });
 });
 
 exports.setCardForm = catchAsync(async (req, res, next) => {
   const forms = await Rates.findOne({ Admin: "Admin" });
+
   const bodyObj = req.body;
   let id = Math.random() * 15;
   id = Math.floor(id);
   bodyObj.id = id;
 
+  if (forms.cardForms.length >= 3) {
+    return next(new AppError("maxim rate is set", 200));
+  }
   const newRate = [...forms.giftCard_Form, bodyObj];
   forms.giftCard_Form = newRate;
   await forms.save();
   res.status(200).json({
     status: "success",
-    message: "Rate successfully set",
+    message: "You successfully set",
   });
 });
