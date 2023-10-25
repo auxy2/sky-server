@@ -30,17 +30,11 @@ exports.setRate = catchAsync(async (req, res, next) => {
       await rate.save();
       res.status(200).json({
         status: "success",
-        message: `you seccessfully set ${req.body.product} rate`,
+        message: req.body,
       });
     });
   } else {
-    const newRate = [...rate.cryptoRate, req.body];
-    rate.cryptoRate = newRate;
-    await rate.save();
-    res.status(200).json({
-      status: "success",
-      message: `you seccessfully set ${req.body.product} rate`,
-    });
+    return next(new AppError("please provide an icon", 200));
   }
 });
 
