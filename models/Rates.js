@@ -57,6 +57,13 @@ const ratesSchema = new mongoose.Schema(
         rate: String,
       },
     ],
+    tutorials: [
+      {
+        tile: String,
+        url: String,
+        description: String,
+      },
+    ],
     Admin: {
       type: String,
       default: "Admin",
