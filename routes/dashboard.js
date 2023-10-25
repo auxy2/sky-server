@@ -48,7 +48,7 @@ router.get("/Admin/giftCard_request", CardRequest.giftCardsRequests); // Done
 router.post("/Admin/ChangeRole", getAllUsers.changeUsersRole);
 router.post("/usersInfo", getAllUsers.usersTx);
 router.get("/getUser", authControler.protect, getAllUsers.getUser);
-router.post("/tutorial", uploads.single("video"), tutorialVideo.Uploads);
+router.post("/Admin/tutorial", uploads.single("video"), tutorialVideo.Uploads);
 router.get("/Admin/verification", authorize.verify);
 // router.get("/Admin/dashboar/usersAnalysis", analytics.getUsersAnalysis);
 // router.get("salesAnalyis", analytics.getSalesAnalytsis);
