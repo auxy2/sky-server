@@ -21,7 +21,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
         console.log(req.body);
         const newtutorials = [...rate.tutorials, req.body];
         rate.tutorials = newtutorials;
-        res.send(200).json({
+        res.status(200).json({
           status: "success",
           message: "Video Uploads succesfull",
         });
