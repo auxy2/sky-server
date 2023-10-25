@@ -9,7 +9,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
     const ImageBufer = req.file.image[0].buffer;
 
     cloudinary.uploader
-      .upload(
+      .upload_stream(
         req.file.path,
         { resource_type: "image" },
         async (err, ImageResult) => {
@@ -19,7 +19,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
           }
 
           cloudinary.uploader
-            .upload(
+            .upload_stream(
               req.file.path,
               { resource_type: "video" },
               async (err, VideoResult) => {
