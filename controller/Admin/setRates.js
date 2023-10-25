@@ -59,8 +59,8 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
   id = Math.floor(id);
   Cat_SubBodyObj.id = id;
 
-  if (Cat_SubBodyObj.type === "catigory") {
-    if (req.file) {
+  if (req.file) {
+    if (Cat_SubBodyObj.type === "catigory") {
       cloudinary.uploader.upload(req.file.path, async (err, result) => {
         if (err) {
           return next(new AppError("image uploads fail", 200));
