@@ -5,12 +5,12 @@ const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 
 exports.Uploads = catchAsync(async (req, res, next) => {
-  if (!fs.existsSync(req.file.path)) {
+  if (!fs.existsSync(req.files.path)) {
     return next(new AppError("no path found", 200));
   }
   if (req.file) {
-    const videoBuffer = req.file.video[0].buffer;
-    const ImageBufer = req.file.image[0].buffer;
+    const videoBuffer = req.files.video[0].buffer;
+    const ImageBufer = req.files.image[0].buffer;
     console.log("image", ImageBufer, "video", videoBuffer);
 
     cloudinary.uploader
