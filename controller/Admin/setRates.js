@@ -30,10 +30,17 @@ exports.setRate = catchAsync(async (req, res, next) => {
       rate.cryptoRate = newRate;
       await rate.save();
 
+      const latestRate = await Rates.findOne({ Admin: "Admin" });
+
+      const productField = latestRate.cryptoRate;
+
+      const newproduct = productField.find(
+        (item) => item.product === req.body.product
+      );
       console.log("body", req.body, "B", body);
       res.status(200).json({
         status: "success",
-        message: req.body,
+        message: newproduct,
       });
     });
   } else {
