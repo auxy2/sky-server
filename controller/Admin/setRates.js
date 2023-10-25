@@ -95,25 +95,28 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
         }
 
         console.log("SubCatigory", result);
+
+        Cat_SubBodyObj.image = result.url;
         const SubCatNewRate = [
           ...rates.giftCardSub_Cartigories,
           Cat_SubBodyObj,
         ];
         rates.giftCardSub_Cartigories = SubCatNewRate;
         await rates.save();
+
+        const latestRate = await Rates.findOne({ Admin: "Admin" });
+
+        const productField = latestRate.giftCardSub_Cartigories;
+
+        const newproduct = productField.find(
+          (item) => item.product === req.body.product
+        );
         res.status(200).json({
           status: "success",
-          message: `You successfully set ${Cat_SubBodyObj.type} Rate`,
+          message: newproduct,
         });
       });
     }
-    const SubCatNewRate = [...rates.giftCardSub_Cartigories, Cat_SubBodyObj];
-    rates.giftCardSub_Cartigories = SubCatNewRate;
-    await rates.save();
-    res.status(200).json({
-      status: "success",
-      message: `You successfully set ${Cat_SubBodyObj.type} Rate`,
-    });
   }
 });
 
