@@ -60,7 +60,8 @@ const ratesSchema = new mongoose.Schema(
     tutorials: [
       {
         tile: String,
-        url: String,
+        coverImage: String,
+        video: String,
         description: String,
       },
     ],
