@@ -52,6 +52,7 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
   const rates = await Rates.findOne({ Admin: "Admin" });
 
   let Cat_SubBodyObj = req.body;
+  console.log(Cat_SubBodyObj);
 
   let id = Math.random() * Date.now();
   id = Math.floor(id);
