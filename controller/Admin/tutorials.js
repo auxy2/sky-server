@@ -2,8 +2,12 @@ const catchAsync = require("../../routes/utills/catchAsync");
 const Rates = require("../../models/Rates");
 const AppError = require("../../routes/utills/AppError");
 const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
 
 exports.Uploads = catchAsync(async (req, res, next) => {
+  if (!fs.existsSync(req.file.path)) {
+    return next(new AppError("no path found", 200));
+  }
   if (req.file) {
     const videoBuffer = req.file.video[0].buffer;
     const ImageBufer = req.file.image[0].buffer;
