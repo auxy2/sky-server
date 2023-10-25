@@ -65,12 +65,25 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
         if (err) {
           return next(new AppError("image uploads fail", 200));
         }
+
+        Cat_SubBodyObj.image = result.url;
+
         console.log("catigory", result);
+        const catNewRate = [...rates.gitCard_Cartigories, Cat_SubBodyObj];
         rates.gitCard_Cartigories = catNewRate;
         await rates.save();
+
+        const latestRate = await Rates.findOne({ Admin: "Admin" });
+
+        const productField = latestRate.gitCard_Cartigories;
+
+        const newproduct = productField.find(
+          (item) => item.product === req.body.product
+        );
+        console.log("body", req.body, "B", body);
         res.status(200).json({
           status: "success",
-          message: `You successfully set ${Cat_SubBodyObj.type} `,
+          message: newproduct,
         });
       });
     }
