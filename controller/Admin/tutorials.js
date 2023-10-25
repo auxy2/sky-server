@@ -18,7 +18,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
 
         const body = req.body;
         body.url = result.url;
-        const newtutorials = [...rate.tutorials, result.url];
+        const newtutorials = [...rate.tutorials, req.body];
         rate.tutorials = newtutorials;
         res.send(200).json({
           status: "success",
