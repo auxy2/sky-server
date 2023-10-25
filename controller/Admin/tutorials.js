@@ -7,6 +7,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
   if (req.file) {
     const videoBuffer = req.file.video[0].buffer;
     const ImageBufer = req.file.image[0].buffer;
+    console.log("image", ImageBufer, "video", videoBuffer);
 
     cloudinary.uploader
       .upload_stream(
