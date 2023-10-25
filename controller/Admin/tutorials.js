@@ -14,7 +14,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
           return next(new AppError("Error Uploading video", 200));
         }
 
-        const rate = Rates.findOne({ Admin: "Admin" });
+        const rate = await Rates.findOne({ Admin: "Admin" });
 
         const body = req.body;
         body.url = result.url;
