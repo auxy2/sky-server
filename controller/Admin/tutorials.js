@@ -18,8 +18,8 @@ exports.Uploads = catchAsync(async (req, res, next) => {
 
         const body = req.body;
         body.url = result.url;
-        console.log(req.body);
-        const newtutorials = [...rate.tutorials, req.body];
+        console.log(req.body, body);
+        const newtutorials = [...rate.tutorials, body];
         rate.tutorials = newtutorials;
         res.status(200).json({
           status: "success",
