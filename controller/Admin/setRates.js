@@ -32,6 +32,14 @@ exports.setRate = catchAsync(async (req, res, next) => {
         message: `you seccessfully set ${req.body.product} rate`,
       });
     });
+  } else {
+    const newRate = [...rate.cryptoRate, req.body];
+    rate.cryptoRate = newRate;
+    await rate.save();
+    res.status(200).json({
+      status: "success",
+      message: `you seccessfully set ${req.body.product} rate`,
+    });
   }
 });
 
