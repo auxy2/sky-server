@@ -5,10 +5,6 @@ exports.getRateAlarts = catchAsync(async (req, res, next) => {
   const alarts = await user.find();
   const groupedData = alarts.map((item) => {
     const groupedItem = {
-      name: item.name,
-      phoneNumber: item.phoneNumber,
-      email: item.email,
-      username: item.username,
       rateAlarts: [],
     };
 
