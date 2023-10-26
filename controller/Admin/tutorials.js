@@ -42,6 +42,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
 
         const newtutorials = [...rate.tutorials, body];
         rate.tutorials = newtutorials;
+        await rate.save();
         res.status(200).json({
           status: "success",
           message: "Video Uploads succesfull",
