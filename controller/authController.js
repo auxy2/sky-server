@@ -41,6 +41,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
     const email = req.query.email;
 
     newUser = await User.findOne({ email });
+    console.log(newUser);
     const name = newUser.name;
     const token = generateToken();
 
