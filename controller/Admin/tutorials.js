@@ -14,24 +14,25 @@ exports.Uploads = catchAsync(async (req, res, next) => {
     //   const ImageBufer = req.files.image[0].buffer;
     // console.log("image", ImageBufer, "video", videoBuffer);
 
-    cloudinary.uploader.upload(
-      req.file.path,
-      { resource_type: "video" },
-      async (err, ImageResult) => {
-        if (err) {
-          console.log(err.message);
-          return next(new AppError("Error Uploading video", 200));
-        }
+    // cloudinary.uploader.upload(
+    //   req.file.path,
+    //   { resource_type: "video" },
+    //   async (err, ImageResult) => {
+    //     if (err) {
+    //       console.log(err.message);
+    //       return next(new AppError("Error Uploading video", 200));
+    //     }
 
-        // cloudinary.uploader
-        //   .upload_stream(
-        //     req.file.path,
-        //     { resource_type: "video" },
-        //     async (err, VideoResult) => {
-        //       if (err) {
-        //         console.log(err.message);
-        //         return next(new AppError("Error Uploading video", 200));
-        // }
+        cloudinary.uploader
+          .upload_stream(
+            req.file.path,
+            { resource_type: "video" },
+            async (err, ImageResult) => {
+              if (err) {
+                console.log(err.message);
+                return next(new AppError("Error Uploading video", 200));
+        }
+      
 
         const rate = await Rates.findOne({ Admin: "Admin" });
 
@@ -47,6 +48,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
           status: "success",
           message: "Video Uploads succesfull",
         });
+      })
       }
     );
   } else {
