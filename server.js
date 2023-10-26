@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
+const compression = require("compression");
 const cors = require("cors");
 
 dotenv.config({ path: "./config.env" });
@@ -53,6 +54,8 @@ app.get("/api/V1/skyshowNG", (req, res) => {
 // GLOBAL MIDLEWARE
 
 app.use(cors(corsOptions));
+
+app.use(compression());
 
 // Set HTTP Headers
 app.use(helmet());
