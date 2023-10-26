@@ -16,6 +16,7 @@ const login = require("../controller/Admin/login");
 const authControler = require("../controller/authController");
 const categoriesAndRates = require("../controller/RateController/Rates/getGiftCardRate");
 const ApiKeys = require("../controller/Admin/setApis");
+const refer = require("../controller/Admin/referrals");
 
 const uploads = require("./utills/multer");
 
@@ -54,6 +55,7 @@ router.get(
   authControler.protect,
   tutorialVideo.getTutorials
 );
+router.get("/Admin/referrals", refer.getAllReferral);
 router.get("/Admin/verification", authorize.verify);
 // router.get("/Admin/dashboar/usersAnalysis", analytics.getUsersAnalysis);
 // router.get("salesAnalyis", analytics.getSalesAnalytsis);
