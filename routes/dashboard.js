@@ -50,7 +50,7 @@ router.post("/usersInfo", getAllUsers.usersTx);
 router.get("/getUser", authControler.protect, getAllUsers.getUser);
 router.post(
   "/Admin/tutorial",
-  uploads.fields([{ name: "video" }, { maxCount: 1 }]),
+  uploads.fields([{ name: "video" }]),
   tutorialVideo.Uploads
 );
 router.get("/Admin/verification", authorize.verify);
