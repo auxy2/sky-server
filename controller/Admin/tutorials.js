@@ -26,7 +26,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
     cloudinary.uploader.upload(
       req.file.path,
       { resource_type: "video" },
-      async (err, ImageResult) => {
+      async (err, VideoResult) => {
         if (err) {
           console.log(err.message);
           return next(new AppError("Error Uploading video", 200));
@@ -35,9 +35,9 @@ exports.Uploads = catchAsync(async (req, res, next) => {
         const rate = await Rates.findOne({ Admin: "Admin" });
 
         const body = req.body;
-        body.coverImage = ImageResult.url;
-        body.video = ImageResult.url;
-        console.log("body request", req.body, body, "image", ImageResult);
+        body.coverImage = VideoResult.url;
+        body.video = VideoResult.url;
+        console.log("body request", req.body, body, "image", VideoResult);
 
         const newtutorials = [...rate.tutorials, body];
         rate.tutorials = newtutorials;
