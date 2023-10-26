@@ -63,6 +63,10 @@ const ratesSchema = new mongoose.Schema(
         coverImage: String,
         video: String,
         description: String,
+        createdAt: {
+          type: Date,
+          default: Date.now(),
+        },
       },
     ],
     Admin: {

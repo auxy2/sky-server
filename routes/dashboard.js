@@ -49,6 +49,11 @@ router.post("/Admin/ChangeRole", getAllUsers.changeUsersRole);
 router.post("/usersInfo", getAllUsers.usersTx);
 router.get("/getUser", authControler.protect, getAllUsers.getUser);
 router.post("/Admin/tutorial", uploads.single("video"), tutorialVideo.Uploads);
+router.get(
+  "/Admin/AllTutorial",
+  authControler.protect,
+  tutorialVideo.getTutorials
+);
 router.get("/Admin/verification", authorize.verify);
 // router.get("/Admin/dashboar/usersAnalysis", analytics.getUsersAnalysis);
 // router.get("salesAnalyis", analytics.getSalesAnalytsis);

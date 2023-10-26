@@ -35,7 +35,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
         const rate = await Rates.findOne({ Admin: "Admin" });
 
         const body = req.body;
-        body.coverImage = VideoResult.url;
+        // body.coverImage = VideoResult.url;
         body.video = VideoResult.url;
         console.log("body request", req.body, body, "image", VideoResult);
 
@@ -53,4 +53,13 @@ exports.Uploads = catchAsync(async (req, res, next) => {
   } else {
     return next(new AppError("no video found", 200));
   }
+});
+
+exports.getTutorials = catchAsync(async (req, res, next) => {
+  const rates = await Rates.findOne({ Admin: "Admin" }).sort({});
+  const AllTutorials = rates.tutorials;
+  res.status(200).json({
+    status: "success",
+    AllTutorials,
+  });
 });
