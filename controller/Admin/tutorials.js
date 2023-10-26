@@ -23,7 +23,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
     //       return next(new AppError("Error Uploading video", 200));
     //     }
 
-    cloudinary.uploader.upload_stream(
+    cloudinary.uploader.upload(
       req.file.path,
       { resource_type: "video" },
       async (err, ImageResult) => {
