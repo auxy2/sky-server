@@ -20,7 +20,7 @@ exports.getRateAlarts = catchAsync(async (req, res, next) => {
 
     rateAlarts.push(alarts);
 
-    return groupedData;
+    return rateAlarts;
   });
 
   res.status(200).json({
