@@ -38,7 +38,10 @@ exports.signUp = catchAsync(async (req, res, next) => {
   if (req.query.email) {
     const email = req.query.email;
 
-    const newUser = await User.findOne({ email });
+    newUser = await User.findOne({ email });
+    if (!newUser) {
+      return next(new AppError("No user found", 200));
+    }
     console.log(newUser);
     const name = newUser.name;
     const token = generateToken();
@@ -72,9 +75,15 @@ exports.signUp = catchAsync(async (req, res, next) => {
   }
 
   if (req.query.Number) {
+    let newUser;
+
     const phoneNumber = req.query.Number;
     console.log(phoneNumber);
-    const newUser = await User.findOne({ phoneNumber });
+    newUser = await User.findOne({ phoneNumber });
+
+    if (!newUser) {
+      return next(new AppError("No user found", 200));
+    }
     const name = newUser.name;
     const token = generateToken();
 
