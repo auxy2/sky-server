@@ -40,7 +40,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
 
     newUser = await User.findOne({ email });
     if (!newUser) {
-      return next(new AppError("No user found", 200));
+      return next(new AppError("No user found the email", 200));
     }
     console.log(newUser);
     const name = newUser.name;
@@ -82,7 +82,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
     newUser = await User.findOne({ phoneNumber });
 
     if (!newUser) {
-      return next(new AppError("No user found", 200));
+      return next(new AppError("No user found with the mobile number", 200));
     }
     const name = newUser.name;
     const token = generateToken();
