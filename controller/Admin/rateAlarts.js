@@ -4,16 +4,10 @@ const catchAsync = require("../../routes/utills/catchAsync");
 exports.getRateAlarts = catchAsync(async (req, res, next) => {
   const alarts = await user.find();
   const groupedData = alarts.map((item) => {
-    const groupedItem = {
-      name: item.name,
-      phoneNumber: item.phoneNumber,
-      email: item.email,
-      username: item.username,
-      rateAlarts: [],
-    };
+    let rateAlarts = [];
 
     if (item.rateAlart) {
-      groupedItem.rateAlarts = item.rateAlart.map((rateAlert) => ({
+      const alarts = item.rateAlart.map((rateAlert) => ({
         asset: rateAlert.asset,
         enteredAmount: rateAlert.enteredAmount,
         selectedCategory: rateAlert.selectedCategory,
@@ -24,7 +18,9 @@ exports.getRateAlarts = catchAsync(async (req, res, next) => {
       }));
     }
 
-    return groupedItem;
+    rateAlarts.push(alarts);
+
+    return groupedData;
   });
 
   res.status(200).json({
