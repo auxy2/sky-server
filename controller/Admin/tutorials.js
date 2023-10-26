@@ -37,7 +37,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
         const body = req.body;
         // body.coverImage = VideoResult.url;
         body.video = VideoResult.url;
-        console.log("body request", req.body, "body", body);
+        console.log("body", body);
 
         const newtutorials = [...rate.tutorials, body];
         rate.tutorials = newtutorials;
