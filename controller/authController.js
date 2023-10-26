@@ -36,11 +36,9 @@ const sendCookie = (token, res) => {
 
 exports.signUp = catchAsync(async (req, res, next) => {
   if (req.query.email) {
-    let newUser;
-
     const email = req.query.email;
 
-    newUser = await User.findOne({ email });
+    const newUser = await User.findOne({ email });
     console.log(newUser);
     const name = newUser.name;
     const token = generateToken();
@@ -74,11 +72,9 @@ exports.signUp = catchAsync(async (req, res, next) => {
   }
 
   if (req.query.Number) {
-    let newUser;
-
     const phoneNumber = req.query.Number;
     console.log(phoneNumber);
-    newUser = await User.findOne({ phoneNumber });
+    const newUser = await User.findOne({ phoneNumber });
     const name = newUser.name;
     const token = generateToken();
 
