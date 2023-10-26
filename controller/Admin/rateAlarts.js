@@ -10,6 +10,7 @@ exports.getRateAlarts = catchAsync(async (req, res, next) => {
 
     if (item.rateAlart) {
       groupedItem.rateAlarts = item.rateAlart.map((rateAlert) => ({
+        id: rateAlert._id,
         asset: rateAlert.asset,
         enteredAmount: rateAlert.enteredAmount,
         selectedCategory: rateAlert.selectedCategory,
