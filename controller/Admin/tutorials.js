@@ -10,9 +10,9 @@ exports.Uploads = catchAsync(async (req, res, next) => {
   //   return next(new AppError("no path found", 200));
   // }
   if (req.file) {
-    const videoBuffer = req.files.video[0].buffer;
-    const ImageBufer = req.files.image[0].buffer;
-    console.log("image", ImageBufer, "video", videoBuffer);
+    //   const videoBuffer = req.files.video[0].buffer;
+    //   const ImageBufer = req.files.image[0].buffer;
+    // console.log("image", ImageBufer, "video", videoBuffer);
 
     cloudinary.uploader.upload(
       req.file.path,
