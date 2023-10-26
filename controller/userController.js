@@ -426,6 +426,27 @@ exports.request_Verification = catchAsync(async (req, res, next) => {
       if (err) {
         return next(new AppError("Error"));
       }
+
+      const datails = req.body;
+      datails.userId = user._id;
+      console.log(datails);
+      datails.userId = user._id;
+      datails.image = result.url;
+      await verification.create(datails);
+      res.status(201).json({
+        status: "success",
+        message: "you verification request is successfull",
+      });
+    });
+  } else {
+    const datails = req.body;
+    datails.userId = user._id;
+    console.log(datails);
+    datails.userId = user._id;
+    await verification.create(datails);
+    res.status(201).json({
+      status: "success",
+      message: "you verification request is successfull",
     });
   }
 });

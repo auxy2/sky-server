@@ -4,7 +4,7 @@ const VerificationSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   nin: String,
-  images: String,
+  image: String,
   userId: [
     {
       type: mongoose.Schema.ObjectId,

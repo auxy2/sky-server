@@ -86,6 +86,7 @@ router.get(
 router.post(
   "/req_verification",
   authControler.protect,
+  uploads.single("image"),
   userController.request_Verification
 );
 router.get("/savedBank", authControler.protect, userController.userLinkedBank); // Done
