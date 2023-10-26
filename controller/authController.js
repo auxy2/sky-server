@@ -42,7 +42,6 @@ exports.signUp = catchAsync(async (req, res, next) => {
     if (!newUser) {
       return next(new AppError("No user found the email", 200));
     }
-    console.log(newUser);
     const name = newUser.name;
     const token = generateToken();
 
