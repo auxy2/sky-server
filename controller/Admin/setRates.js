@@ -48,6 +48,19 @@ exports.setRate = catchAsync(async (req, res, next) => {
   }
 });
 
+exports.deleteCyptoRate = catchAsync(async (req, res, next) => {
+  const rates = await Rates.findOne({ Admin: "Admin" });
+
+  const rate = rates.cryptoRate;
+  const newRate = rate.filter((item) => item._id.toString() !== req.query.id);
+  rates.cryptoRate = newRate;
+  await rates.save();
+  res.status(200).json({
+    status: "success",
+    message: "you successfully deleted a rate",
+  });
+});
+
 exports.setGiftCardRate = catchAsync(async (req, res, next) => {
   console.log(req.body);
   const rates = await Rates.findOne({ Admin: "Admin" });
@@ -152,11 +165,13 @@ exports.setCardForm = catchAsync(async (req, res, next) => {
   if (forms.cardForms.length >= 3) {
     return next(new AppError("maxim rate is set", 200));
   }
-  const newRate = [...forms.tutorials, bodyObj];
-  forms.giftCard_Form = newRate;
-  await forms.save();
-  res.status(200).json({
-    status: "success",
-    message: "You successfully set",
-  });
+  if (req.body.type === "cardForms") {
+    const newRate = [...forms.tutorials, bodyObj];
+    forms.giftCard_Form = newRate;
+    await forms.save();
+    res.status(200).json({
+      status: "success",
+      message: "You successfully set",
+    });
+  }
 });
