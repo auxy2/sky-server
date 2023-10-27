@@ -60,11 +60,26 @@ exports.Uploads = catchAsync(async (req, res, next) => {
   }
 });
 
-exports.getTutorials = catchAsync(async (req, res, next) => {
+exports.getTutorial = catchAsync(async (req, res, next) => {
   const rates = await Rates.findOne({ Admin: "Admin" }).sort({});
   const AllTutorials = rates.tutorials;
   res.status(200).json({
     status: "success",
     AllTutorials,
+  });
+});
+
+exports.deleteCyptoRate = catchAsync(async (req, res, next) => {
+  const rates = await Rates.findOne({ Admin: "Admin" });
+
+  const rate = rates.tutorials;
+  const newTutorials = rate.filter(
+    (item) => item._id.toString() !== req.query.id
+  );
+  rates.tutorials = newTutorials;
+  await rates.save();
+  res.status(200).json({
+    status: "success",
+    message: "you successfully deleted a tutorial video",
   });
 });
