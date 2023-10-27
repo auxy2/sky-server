@@ -191,7 +191,6 @@ exports.setApi = catchAsync(async (req, res, next) => {
 
   if (product === "btc") {
     const Address = await Apis.findOne({ Admin: "Admin" });
-
     Address.btcAddress = req.body.address;
     await Address.save();
     res.status(200).json({
@@ -202,7 +201,6 @@ exports.setApi = catchAsync(async (req, res, next) => {
 
   if (product === "eth") {
     const Address = await Apis.findOne({ Admin: "Admin" });
-
     Address.ethAddress = req.body.address;
     await Address.save();
     res.status(200).json({
@@ -213,7 +211,6 @@ exports.setApi = catchAsync(async (req, res, next) => {
 
   if (product === "Usdt") {
     const Address = await Apis.findOne({ Admin: "Admin" });
-
     Address.usdtAddress = req.body.address;
     await Address.save();
     res.status(200).json({

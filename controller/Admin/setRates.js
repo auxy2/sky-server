@@ -85,6 +85,7 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
         const catNewRate = [...rates.gitCard_Cartigories, Cat_SubBodyObj];
         rates.gitCard_Cartigories = catNewRate;
         await rates.save();
+        console.log("catigory", Cat_SubBodyObj);
 
         const latestRate = await Rates.findOne({ Admin: "Admin" });
 
@@ -119,6 +120,7 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
         ];
         rates.giftCardSub_Cartigories = SubCatNewRate;
         await rates.save();
+        console.log("SubCatigory", Cat_SubBodyObj);
 
         const latestRate = await Rates.findOne({ Admin: "Admin" });
 
