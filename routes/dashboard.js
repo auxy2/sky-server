@@ -26,7 +26,6 @@ router.post("/Admin/users", DB.users); // Done
 router.post("/dash_Board", DB.dashboard); // Done
 router.post("/Admin/set_Rate_Crypto", uploads.single("image"), rates.setRate); // Done /////////////
 router.delete("/Admin/deleteRate", rates.deleteCyptoRate);
-router.delete("/Admin/deleteTutorial", tutorialVideo.getTutorial);
 router.post(
   "/Admin/set_GiftCard_Rates",
   uploads.single("image"),
@@ -52,6 +51,7 @@ router.post("/Admin/ChangeRole", getAllUsers.changeUsersRole);
 router.post("/usersInfo", getAllUsers.usersTx);
 router.get("/getUser", authControler.protect, getAllUsers.getUser);
 router.post("/Admin/tutorial", uploads.single("video"), tutorialVideo.Uploads);
+router.delete("/Admin/deleteTutorial", tutorialVideo.deleteTutorial);
 router.get(
   "/Admin/AllTutorial",
   authControler.protect,

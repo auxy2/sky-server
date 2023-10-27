@@ -60,7 +60,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
   }
 });
 
-exports.getTutorial = catchAsync(async (req, res, next) => {
+exports.getTutorials = catchAsync(async (req, res, next) => {
   const rates = await Rates.findOne({ Admin: "Admin" }).sort({});
   const AllTutorials = rates.tutorials;
   res.status(200).json({
@@ -69,7 +69,7 @@ exports.getTutorial = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deleteCyptoRate = catchAsync(async (req, res, next) => {
+exports.deleteTutorial = catchAsync(async (req, res, next) => {
   const rates = await Rates.findOne({ Admin: "Admin" });
 
   const rate = rates.tutorials;
