@@ -83,6 +83,7 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
 
         console.log("catigory", result);
         const catNewRate = [...rates.gitCard_Cartigories, Cat_SubBodyObj];
+        const newcardForms = [...rates.cardForms];
         rates.gitCard_Cartigories = catNewRate;
         await rates.save();
         console.log("catigory", Cat_SubBodyObj);
@@ -94,7 +95,6 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
         const newproduct = productField.find(
           (item) => item.product === req.body.product
         );
-        console.log("body", req.body, "B", body);
         res.status(200).json({
           status: "success",
           message: newproduct,
