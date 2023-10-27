@@ -55,6 +55,9 @@ const ApisSchema = new mongoose.Schema({
       apiSecrete: String,
     },
   ],
+  btcAddress: String,
+  ethAddress: String,
+  usdtAddress: String,
   Admin: {
     type: String,
     default: "Admin",

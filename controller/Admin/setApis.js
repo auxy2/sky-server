@@ -188,6 +188,39 @@ exports.setApi = catchAsync(async (req, res, next) => {
       return next(new AppError(`${product} apikey and secrete alredy set`));
     }
   }
+
+  if (product === "btc") {
+    const Address = await Apis.findOne({ Admin: "Admin" });
+
+    Address.btcAddress = req.body.address;
+    await Address.save();
+    res.status(200).json({
+      status: "success",
+      message: `you successfully set ${product} address`,
+    });
+  }
+
+  if (product === "eth") {
+    const Address = await Apis.findOne({ Admin: "Admin" });
+
+    Address.ethAddress = req.body.address;
+    await Address.save();
+    res.status(200).json({
+      status: "success",
+      message: `you successfully set ${product} address`,
+    });
+  }
+
+  if (product === "Usdt") {
+    const Address = await Apis.findOne({ Admin: "Admin" });
+
+    Address.usdtAddress = req.body.address;
+    await Address.save();
+    res.status(200).json({
+      status: "success",
+      message: `you successfully set ${product} address`,
+    });
+  }
 });
 
 exports.AllapiKeys = catchAsync(async (req, res, next) => {
