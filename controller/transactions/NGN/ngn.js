@@ -40,6 +40,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
   Apikey.forEach((key) => {
     PAYSTACK_KEY = key.apikey;
   });
+  console.log("Pkey", PAYSTACK_KEY);
   // const amount = transferData.amount.toLocaleString().toFixed(2)
   // console.log('amount', amount)
 
@@ -51,7 +52,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
         console.log(parseFloat(balance), parseFloat(amount));
         const resp = await axios.post(transferRecipient, recipientData, {
           headers: {
-            Authorization: `Bearer ${PAYSTACK_KEY}`,
+            Authorization: `Bearer ${process.env.PAYSTACK_KEY}`,
             "Content-Type": "Application/json",
           },
         });
@@ -63,7 +64,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
 
         const response = await axios.post(transfer, transferData, {
           headers: {
-            Authorization: `Bearer ${PAYSTACK_KEY}`,
+            Authorization: `Bearer ${process.env.PAYSTACK_KEY}`,
             "Content-Type": "Application/json",
           },
         });
