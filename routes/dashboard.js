@@ -26,6 +26,8 @@ router.post("/Admin/users", DB.users); // Done
 router.post("/dash_Board", DB.dashboard); // Done
 router.post("/Admin/set_Rate_Crypto", uploads.single("image"), rates.setRate); // Done /////////////
 router.delete("/Admin/deleteCryto_Rate", rates.deleteCyptoRate);
+router.delete("/Admin/deleteGiftCard_Rate", rates.deleteGiftCard_Rate);
+
 router.post(
   "/Admin/set_GiftCard_Rates",
   uploads.single("image"),

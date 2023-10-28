@@ -594,7 +594,7 @@ exports.trackedDevice = catchAsync(async (req, res, next) => {
       // });
 
       if (device.includes(await fpPromise)) {
-        return next(new AppError("You cant use this service twice", 400));
+        return next(new AppError("You cant use this service twice", 200));
       }
       const balance = parseFloat(
         String(rootLink.walletBalance).replace(/,/g, "")
@@ -603,7 +603,7 @@ exports.trackedDevice = catchAsync(async (req, res, next) => {
       rootLink.devices = newDevice;
 
       const newBalance = balance + earnedReward.refarralBonus;
-      rootLink.walletBalance = newBalance.toLocaleString();
+      rootLink.walletBalance = String(newBalance).toLocaleString();
       await rootLink.save({ validateBeforeSave: false });
 
       res.status(200).json({
