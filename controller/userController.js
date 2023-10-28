@@ -144,29 +144,28 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     "username"
   );
 
-  if (!req.file) {
-    filterdBody?.email === "" || filterdBody.profilePhoto !== ""
-      ? delete filterdBody.email
-      : filterdBody;
+  filterdBody?.email === "" || filterdBody.profilePhoto !== ""
+    ? delete filterdBody.email
+    : filterdBody;
 
-    UpdatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
-      new: true,
-      runValidators: true,
-    });
-  }
+  UpdatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
+    new: true,
+    runValidators: true,
+  });
 
   if (!UpdatedUser) {
     res.send("invalid credentials");
   }
-
-  cloudinary.uploader.upload(req.file.path, async (err, result) => {
-    if (err) {
-      return next(new AppError("image upload failes", 200));
-    }
-    UpdatedUser.profilePhoto = result.url;
-    console.log(UpdatedUser, result.url);
-    await UpdatedUser.save({ validateBeforeSave: false });
-  });
+  if (req.file) {
+    cloudinary.uploader.upload(req.file.path, async (err, result) => {
+      if (err) {
+        return next(new AppError("image upload failes", 200));
+      }
+      UpdatedUser.profilePhoto = result.url;
+      console.log(UpdatedUser, result.url);
+      await UpdatedUser.save({ validateBeforeSave: false });
+    });
+  }
 
   const reUpdateUser = {
     name: UpdatedUser.name,
