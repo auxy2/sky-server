@@ -163,6 +163,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
         return next(new AppError("image upload failes", 200));
       }
       UpdatedUser.profilePhoto = result.url;
+      console.log(UpdatedUser, result.url);
       await UpdatedUser.save({ validateBeforeSave: false });
     });
   }
