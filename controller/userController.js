@@ -161,13 +161,13 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     cloudinary.uploader.upload(
       req.file.path,
       { resource_type: "image" },
-      async (err, VideoResult) => {
+      async (err, ImageResult) => {
         if (err) {
           console.log(err.message);
           return next(new AppError("Error Uploading video", 200));
         }
-        UpdatedUser.profilePhoto = result.url;
-        console.log(UpdatedUser, result.url);
+        UpdatedUser.profilePhoto = ImageResult.url;
+        console.log(UpdatedUser, ImageResult.url);
         await UpdatedUser.save({ validateBeforeSave: false });
       }
     );
