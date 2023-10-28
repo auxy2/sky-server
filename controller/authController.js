@@ -229,6 +229,8 @@ exports.login = catchAsync(async (req, res, next) => {
         wallet_Balance: verifiedUser.walletBalance,
         email: verifiedUser.email,
         username: verifiedUser.username,
+        phoneNumner: verifiedUser.phoneNumber,
+        profilePhoto: verifiedUser.profilePhoto,
       },
     });
   }
