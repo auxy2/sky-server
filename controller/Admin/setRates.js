@@ -83,7 +83,7 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
 
         console.log("catigory", result);
         const catNewRate = [...rates.gitCard_Cartigories, Cat_SubBodyObj];
-        const newcardForms = [...rates.cardForms];
+        const newcardForms = [...rates.giftCard_Form];
         rates.gitCard_Cartigories = catNewRate;
         await rates.save();
         console.log("catigory", Cat_SubBodyObj);
@@ -136,24 +136,6 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
       });
     }
   }
-});
-
-exports.setgiftcardSub_Catigory = catchAsync(async (req, res, next) => {
-  const rates = await Rates.findOne({ Admin: "Admin" });
-
-  const bodyObj = req.body;
-
-  let id = Math.random() * 15;
-  id = Math.floor(id);
-  bodyObj.id = id;
-
-  const newRate = [...rates.giftCardSub_Cartigories, bodyObj];
-  rates.giftCardSub_Cartigories = newRate;
-  await rates.save();
-  res.status(200).json({
-    status: "success",
-    message: "You successfully set",
-  });
 });
 
 exports.setCardForm = catchAsync(async (req, res, next) => {
