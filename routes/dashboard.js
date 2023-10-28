@@ -31,7 +31,7 @@ router.post(
   uploads.single("image"),
   rates.setGiftCardRate
 ); // Done  //////////
-router.post("/Admin/set_GiftCardSub_Catigories", rates.setgiftcardSub_Catigory);
+// router.post("/Admin/set_GiftCardSub_Catigories", rates.setgiftcardSub_Catigory);
 router.post("/Admin/set_Card_Form", rates.setCardForm);
 router.post("/Admin/post_Notification", notifications.postNotifications); // Done
 router.post("/Admin/post_HighCard_rates", cardRates.highCardRate); // Done
