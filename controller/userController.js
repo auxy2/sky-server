@@ -156,8 +156,8 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   if (!UpdatedUser) {
     res.send("invalid credentials");
   }
-  console.log(req.file.path);
   if (req.file) {
+    console.log(req.file.path);
     cloudinary.uploader.upload(req.file.path, async (err, result) => {
       if (err) {
         return next(new AppError("image upload failes", 200));
@@ -166,7 +166,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
       console.log(UpdatedUser, result.url);
       await UpdatedUser.save({ validateBeforeSave: false });
     });
-
     console.log(req.file);
   }
   const reUpdateUser = {
