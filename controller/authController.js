@@ -197,7 +197,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
 //////////////    Login Users //////////////
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password, phoneNumber } = req.body;
-  if ((!email && !username) || !password) {
+  if ((!email && !phoneNumber) || !password) {
     res.status(404).json({
       status: "fail",
       message: "Invalid input",
