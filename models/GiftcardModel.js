@@ -18,7 +18,7 @@ const GiftCardSchema = new mongoose.Schema(
       type: Date,
       default: Date.now(),
     },
-    subCategory: String,
+    subCatigory: String,
     selectedRate: String,
     cardCountry: String,
     transactions: {

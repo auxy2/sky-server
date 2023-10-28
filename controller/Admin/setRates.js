@@ -144,13 +144,17 @@ exports.deleteGiftCard_Rate = catchAsync(async (req, res, next) => {
   const Sub_rate = rates.giftCardSub_Cartigories;
   const Cat_rate = rates.gitCard_Cartigories;
 
-  const newSubRate = Sub_rate.filter((item) => item._id.toString() !== req.query.id);
-  const newCatRate = Cat_rate.filter((item) => item._id.toString() !== req.query.id);
+  const newSubRate = Sub_rate.filter(
+    (item) => item._id.toString() !== req.query.id
+  );
+  const newCatRate = Cat_rate.filter(
+    (item) => item._id.toString() !== req.query.id
+  );
 
   rates.giftCardSub_Cartigories = newSubRate;
   rates.gitCard_Cartigories = newCatRate;
-
   await rates.save();
+
   res.status(200).json({
     status: "success",
     message: "you successfully deleted a rate",
