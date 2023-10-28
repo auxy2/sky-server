@@ -6,8 +6,6 @@ const AppError = require("../../routes/utills/AppError");
 exports.verify = catchAsync(async (req, res, next) => {
   const userVerifications = await Verifications.find({
     status: "pending",
-  }).sort({
-    createdAt: -1,
   });
   res.status(200).json({
     status: "success",
@@ -37,6 +35,6 @@ exports.app_Reject_Verification = catchAsync(async (req, res, next) => {
       message: `you successfully ${req.body.status} an Id Card`,
     });
   } else {
-    return next(new AppError("status is not defined", 200));
+    return next(new AppError(`${req.body.nin} is not found`, 200));
   }
 });
