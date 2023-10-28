@@ -67,8 +67,8 @@ exports.getUser = catchAsync(async (req, res, next) => {
 });
 
 exports.addUsers = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   const user = await User.create(req.body);
-
   user.verify = "verified";
   await user.save({ validateBeforeSave: false });
   res.status(201).json({

@@ -6,6 +6,7 @@ const cloudinary = require("../../routes/utills/cloudinary");
 
 exports.setRate = catchAsync(async (req, res, next) => {
   const newRate = await Rates.find({});
+
   if (newRate.length === 0) {
     const obj = {
       randomly: "12yregubdi",
