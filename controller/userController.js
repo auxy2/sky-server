@@ -158,14 +158,19 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   }
   if (req.file) {
     console.log(req.file.path);
-    cloudinary.uploader.upload(req.file.path, async (err, result) => {
-      if (err) {
-        return next(new AppError("image upload failes", 200));
+    cloudinary.uploader.upload(
+      req.file.path,
+      { resource_type: "image" },
+      async (err, VideoResult) => {
+        if (err) {
+          console.log(err.message);
+          return next(new AppError("Error Uploading video", 200));
+        }
+        UpdatedUser.profilePhoto = result.url;
+        console.log(UpdatedUser, result.url);
+        await UpdatedUser.save({ validateBeforeSave: false });
       }
-      UpdatedUser.profilePhoto = result.url;
-      console.log(UpdatedUser, result.url);
-      await UpdatedUser.save({ validateBeforeSave: false });
-    });
+    );
     console.log(req.file);
   }
   const reUpdateUser = {
