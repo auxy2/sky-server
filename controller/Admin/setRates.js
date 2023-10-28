@@ -83,7 +83,6 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
 
         console.log("catigory", result);
         const catNewRate = [...rates.gitCard_Cartigories, Cat_SubBodyObj];
-        const newcardForms = [...rates.giftCard_Form];
         rates.gitCard_Cartigories = catNewRate;
         await rates.save();
         console.log("catigory", Cat_SubBodyObj);
