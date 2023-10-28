@@ -168,7 +168,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   }
 
   const reUpdateUser = {
-    name: UpdatedUser,
+    name: UpdatedUser.name,
     email: UpdatedUser.email,
     phoneNumber: UpdatedUser.phoneNumber,
     username: UpdatedUser.username,
@@ -181,7 +181,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     jwtToken,
-    updateUser: reUpdateUser,
+    updatedUser: reUpdateUser,
   });
 });
 
