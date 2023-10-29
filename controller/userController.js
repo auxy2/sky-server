@@ -169,6 +169,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
       await UpdatedUser.save({ validateBeforeSave: false });
     });
     console.log(req.file);
+    console.log("@ qfvwfqewf gbtervfs");
   }
   const reUpdateUser = {
     name: UpdatedUser.name,
