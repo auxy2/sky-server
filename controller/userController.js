@@ -163,6 +163,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
         console.log(err.message);
         return next(new AppError("Error Uploading video", 200));
       }
+      console.log("qfvwfqewf gbtervfs");
       UpdatedUser.profilePhoto = ImageResult.url;
       console.log(UpdatedUser, ImageResult.url);
       await UpdatedUser.save({ validateBeforeSave: false });
