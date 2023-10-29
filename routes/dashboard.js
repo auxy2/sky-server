@@ -45,7 +45,7 @@ router.delete("/Admin/delete_HighCard_rates", cardRates.deleteCardRate); // Done
 router.post("/Admin/addNewUser", getAllUsers.addUsers);
 router.get("/Admin/alarts", rateAlarts.getRateAlarts);
 router.post("/Admin/verifications_aprov", authorize.app_Reject_Verification);
-router.past("/Admin/cardRequest_Aprov", CardRequest.Aproove_Rej_cardRequest);
+router.post("/Admin/cardRequest_Aprov", CardRequest.Aproove_Rej_cardRequest);
 
 router.get("/Admin/allTransactions", trns.viewAllTrns);
 router.post("/Admin/setApikey", ApiKeys.setApi); // Done
