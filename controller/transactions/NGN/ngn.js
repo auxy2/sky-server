@@ -77,6 +77,8 @@ exports.withdraw = catchAsync(async (req, res, next) => {
           const trxObj = {
             amount: data.amount,
             txId: data.reference,
+            accounName: user.accounName,
+            bankName: user.bankName,
             currency: data.currency,
             access_code: data.transfer_code,
             userId: user.id,
