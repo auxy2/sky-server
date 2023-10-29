@@ -59,6 +59,8 @@ router.get(
   authControler.protect,
   tutorialVideo.getTutorials
 );
+
+router.get("Admin/ReferralRate", refer.getReferralRate);
 router.get("/Admin/referrals", refer.getAllReferral);
 router.get("/Admin/verification", authorize.verify);
 // router.get("/Admin/dashboar/usersAnalysis", analytics.getUsersAnalysis);
