@@ -20,7 +20,6 @@ exports.sellGiftCard = catchAsync(async (req, res, next) => {
         userId: user._id,
         image: result.url,
         public_id: result.public_id,
-        cardForms: "physical",
       };
       console.log(result);
       await Card.create(obj);
