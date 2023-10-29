@@ -34,7 +34,7 @@ const GiftCardSchema = new mongoose.Schema(
     comment: String,
     status: {
       type: String,
-      enum: ["pending", "reject", "aproved"],
+      enum: ["pending", "reject", "aprooved"],
       default: "pending",
     },
     promoCode: String,
