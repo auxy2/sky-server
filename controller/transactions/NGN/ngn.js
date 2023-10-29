@@ -74,8 +74,12 @@ exports.withdraw = catchAsync(async (req, res, next) => {
 
           const data = response.data.data;
           // console.log(newAmount);
+          const formatedBallance = new Intl.NumberFormat("en-NG", {
+            style: "currency",
+            currency: "NGN",
+          }).format(data.amount);
           const trxObj = {
-            amount: data.amount,
+            amount: formatedBallance,
             txId: data.reference,
             accounName: user.accounName,
             bankName: user.bankName,
