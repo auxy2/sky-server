@@ -145,7 +145,7 @@ exports.deleteGiftCard_Rate = catchAsync(async (req, res, next) => {
   const Cat_rate = rates.gitCard_Cartigories;
 
   const newSubRate = Sub_rate.filter(
-    (item) => item._id.toString() !== req.query.id
+    (item) => item.id.toString() !== req.query.id
   );
   const newCatRate = Cat_rate.filter(
     (item) => item._id.toString() !== req.query.id
