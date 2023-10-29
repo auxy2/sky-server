@@ -26,9 +26,15 @@ exports.setRate = catchAsync(async (req, res, next) => {
 
       const body = req.body;
       body.image = result.url;
+      const refBody = {
+        rate: "200",
+        active: true,
+      };
 
       const newRate = [...rate.cryptoRate, req.body];
+      const refrate = [...rate.referralRate, refBody];
       rate.cryptoRate = newRate;
+      rate.referralRate = refrate;
       await rate.save();
 
       const latestRate = await Rates.findOne({ Admin: "Admin" });
@@ -62,14 +68,14 @@ exports.deleteCyptoRate = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAllCryptoRates = catchAsync(async(req, res, next) => {
-  const rates = await Rates.findOne({Admin: "Admin"});
+exports.getAllCryptoRates = catchAsync(async (req, res, next) => {
+  const rates = await Rates.findOne({ Admin: "Admin" });
   const crytoRAtes = rates.cryptoRate;
   res.status(200).json({
     status: "sucess",
-    crytoRAtes
-  })
-})
+    crytoRAtes,
+  });
+});
 
 exports.setGiftCardRate = catchAsync(async (req, res, next) => {
   console.log(req.body);
