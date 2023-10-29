@@ -101,14 +101,14 @@ router.post(
 ); // Done
 router.post("/reateCalculator_Crypto", cryptoRate.getCurrentRate); // Done
 router.get("/ratecalculator_giftCard", giftCardRate.giftCardRate); // Done
-router.get("/giftCard_Catigories", cat_sub_categories.GiftCard_Cat_SubCat);
+router.get("/giftCard_Catigories", cat_sub_categories.GiftCard_Cat_SubCat); // Done
 router.get("/listBank", authControler.protect, userController.getBank); // Done
 router.get(
   "/getAllUsers",
   authControler.protect,
   authControler.restrictTo("admin", "maneger"),
   userController.getAllUsers
-);
+); // Done
 // router.get(
 //   "/getUser",
 //   authControler.protect,
@@ -130,7 +130,7 @@ router.get(
 );
 // router.post("/createAdmin", Admin.createAdmin);
 // router.get("/webSoket", Oneuser.websocket);
-router.get("/users", userController.getAllUsers);
+router.get("/users", userController.getAllUsers); // Done
 
 // router.get('/check-Btc-Rate', checkRate.NGNRATE);
 

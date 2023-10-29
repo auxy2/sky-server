@@ -62,6 +62,15 @@ exports.deleteCyptoRate = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getAllCryptoRates = catchAsync(async(req, res, next) => {
+  const rates = await Rates.findOne({Admin: "Admin"});
+  const crytoRAtes = rates.cryptoRate;
+  res.status(200).json({
+    status: "sucess",
+    crytoRAtes
+  })
+})
+
 exports.setGiftCardRate = catchAsync(async (req, res, next) => {
   console.log(req.body);
   const rates = await Rates.findOne({ Admin: "Admin" });

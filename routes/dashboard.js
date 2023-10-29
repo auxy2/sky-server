@@ -26,7 +26,8 @@ router.post("/Admin/users", DB.users); // Done
 router.post("/dash_Board", DB.dashboard); // Done
 router.post("/Admin/set_Rate_Crypto", uploads.single("image"), rates.setRate); // Done /////////////
 router.delete("/Admin/deleteCryto_Rate", rates.deleteCyptoRate);
-router.delete("/Admin/deleteGiftCard_Rate", rates.deleteGiftCard_Rate);
+router.get("/Admin/allCryptoRates", rates.getAllCryptoRates); // Done
+router.delete("/Admin/deleteGiftCard_Rate", rates.deleteGiftCard_Rate); // Done
 
 router.post(
   "/Admin/set_GiftCard_Rates",
@@ -44,6 +45,7 @@ router.delete("/Admin/delete_HighCard_rates", cardRates.deleteCardRate); // Done
 router.post("/Admin/addNewUser", getAllUsers.addUsers);
 router.get("/Admin/alarts", rateAlarts.getRateAlarts);
 router.post("/Admin/verifications_aprov", authorize.app_Reject_Verification);
+router.past("/Admin/cardRequest_Aprov", CardRequest.Aproove_Rej_cardRequest);
 
 router.get("/Admin/allTransactions", trns.viewAllTrns);
 router.post("/Admin/setApikey", ApiKeys.setApi); // Done
@@ -52,21 +54,21 @@ router.get("/Admin/giftCard_request", CardRequest.giftCardsRequests); // Done
 router.post("/Admin/ChangeRole", getAllUsers.changeUsersRole);
 router.post("/usersInfo", getAllUsers.usersTx);
 router.get("/getUser", authControler.protect, getAllUsers.getUser);
-router.post("/Admin/tutorial", uploads.single("video"), tutorialVideo.Uploads);
+router.post("/Admin/tutorial", uploads.single("video"), tutorialVideo.Uploads); // Done
 router.delete("/Admin/deleteTutorial", tutorialVideo.deleteTutorial);
 router.get(
   "/Admin/AllTutorial",
   authControler.protect,
   tutorialVideo.getTutorials
-);
+); // Done
 
-router.get("Admin/ReferralRate", refer.getReferralRate);
-router.get("/Admin/referrals", refer.getAllReferral);
-router.get("/Admin/verification", authorize.verify);
+router.get("Admin/ReferralRate", refer.getReferralRate); // Done
+router.get("/Admin/referrals", refer.getAllReferral); // Done
+router.get("/Admin/verification", authorize.verify); // Done
 // router.get("/Admin/dashboar/usersAnalysis", analytics.getUsersAnalysis);
 // router.get("salesAnalyis", analytics.getSalesAnalytsis);
 router.post("/Admin/login", login.AdminLogin); // Done
-router.post("/Admin/UsersAnalysis", analyzeUsr.getUsersAnalysis);
+router.post("/Admin/UsersAnalysis", analyzeUsr.getUsersAnalysis); // Done
 router.post("/Admin/SalaesAnalysis", analyzeSales.getSalesAnalytsis); // Done
 router.post("/set_Rate_Catigories", categoriesAndRates.adminGiftCardCategories); // Done
 router.post(
@@ -74,6 +76,6 @@ router.post(
   categoriesAndRates.adminGiftCardSubCategories
 ); // Done
 
-router.get("/Allapis", ApiKeys.AllapiKeys);
+router.get("/Allapis", ApiKeys.AllapiKeys); // Done
 
 module.exports = router;
