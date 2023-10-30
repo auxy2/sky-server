@@ -30,18 +30,16 @@ exports.sellGiftCard = catchAsync(async (req, res, next) => {
       });
     });
   } else {
-    if (req.body) {
-      const card = req.body;
-      card.userId = user._id;
-      console.log(card);
+    const card = req.body;
+    card.userId = user._id;
+    console.log(card);
 
-      await Card.create(card);
-      res.status(201).json({
-        status: "success",
-        message:
-          "please note gift card transction take some while before complete",
-      });
-    }
+    await Card.create(card);
+    res.status(201).json({
+      status: "success",
+      message:
+        "please note gift card transction take some while before complete",
+    });
   }
 });
 
