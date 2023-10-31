@@ -21,7 +21,7 @@ const uploads = require("./utills/multer");
 
 const router = express.Router();
 
-router.post("/signUp", authControler.signUp); //  Done
+router.post("/signUp", authControler.signU); //  Done
 router.post("/login", authControler.login); // 100% Done
 router.post(
   "/sell_Gift_Card",
