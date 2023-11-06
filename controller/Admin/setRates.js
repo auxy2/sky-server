@@ -184,16 +184,16 @@ exports.setCardForm = catchAsync(async (req, res, next) => {
   id = Math.floor(id);
   bodyObj.id = id;
 
-  if (forms.cardForms.length >= 3) {
+  if (forms.giftCard_Form.length >= 3) {
     return next(new AppError("maxim rate is set", 200));
   }
-  if (req.body.type === "cardForms") {
-    const newRate = [...forms.tutorials, bodyObj];
+  if (req.body.type === "cardForm") {
+    const newRate = [...forms.giftCard_Form, bodyObj];
     forms.giftCard_Form = newRate;
     await forms.save();
     res.status(200).json({
       status: "success",
-      message: "You successfully set",
+      message: `You successfully set ${req.body.type}`,
     });
   }
 });
