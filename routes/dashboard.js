@@ -62,9 +62,9 @@ router.get(
   tutorialVideo.getTutorials
 ); // Done
 
-router.get("Admin/ReferralRate", refer.getReferralRate); // Done
-router.post("Admin/Act_dis_ReferralRate", refer.activateRefRate); // Done
-router.post("Admin/Change_ReferralRate", refer.changeRate); // Done
+router.get("/Admin/ReferralRate", refer.getReferralRate); // Done
+router.post("/Admin/Act_dis_ReferralRate", refer.activateRefRate); // Done
+router.post("/Admin/Change_ReferralRate", refer.changeRate); // Done
 
 router.get("/Admin/referrals", refer.getAllReferral); // Done
 router.get("/Admin/verification", authorize.verify); // Done
