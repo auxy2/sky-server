@@ -18,3 +18,38 @@ exports.getReferralRate = catchAsync(async (req, res, next) => {
     refRate,
   });
 });
+
+exports.activateRefRate = catchAsync(async (req, res, next) => {
+  const rates = await Rates.findOne({ Admin: "Admin" });
+  if (req.query.activate === false) {
+    const disRate = {
+      active: false,
+      rate: "--",
+    };
+
+    rates.referralRate = disRate;
+    await rates.save();
+    res.status(200).json({
+      status: "success",
+      message: "successfully disabled refrral Rate",
+    });
+  }
+  if (req.query.activate === true) {
+    // async function (){
+    const refRate = rates.referralRate;
+    refRate.find(async (item) => {
+      const actRate = {
+        active: true,
+        rate: item.refrenceRate,
+        refrenceRate: item.refrenceRate,
+      };
+
+      rates.referralRate = actRate;
+      await rates.save();
+      res.status(200).json({
+        status: "success",
+        message: "successfully activate refrral Rate",
+      });
+    });
+  }
+});
