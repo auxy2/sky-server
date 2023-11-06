@@ -52,7 +52,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
         console.log(parseFloat(balance), parseFloat(amount));
         const resp = await axios.post(transferRecipient, recipientData, {
           headers: {
-            Authorization: `Bearer ${process.env.PAYSTACK_KEY}`,
+            Authorization: `Bearer ${PAYSTACK_KEY}`,
             "Content-Type": "Application/json",
           },
         });
@@ -64,7 +64,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
 
         const response = await axios.post(transfer, transferData, {
           headers: {
-            Authorization: `Bearer ${process.env.PAYSTACK_KEY}`,
+            Authorization: `Bearer ${PAYSTACK_KEY}`,
             "Content-Type": "Application/json",
           },
         });
