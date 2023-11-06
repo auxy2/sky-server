@@ -11,10 +11,10 @@ exports.getAllReferral = catchAsync(async (req, res, next) => {
 });
 
 exports.getReferralRate = catchAsync(async (req, res, next) => {
-  const rates = await Rates.find({ Admin: "Admin" });
-  const referralRate = rates.referralRate;
+  const rates = await Rates.findOne({ Admin: "Admin" });
+  const refRate = rates.referralRate;
   res.status(200).json({
     status: "success",
-    referralRate,
+    refRate,
   });
 });

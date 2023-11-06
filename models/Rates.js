@@ -20,9 +20,9 @@ const ratesSchema = new mongoose.Schema(
     ],
     giftCard_Form: [
       {
-        name: String,
+        name: String, // pysical card
         id: Number,
-        value: [],
+        value: [], // [Amazon, Itunes, Walmart.....  20 ]
         description: String,
       },
     ],
