@@ -12,16 +12,20 @@ const ratesSchema = new mongoose.Schema(
         rate: String,
       },
     ],
-    referralRate: [
-      {
-        rate: String,
-        refrenceRate: String,
-        active: {
-          type: Boolean,
-          default: true,
-        },
+    referralRate: {
+      rate: {
+        type: String,
+        default: "200",
       },
-    ],
+      refrenceRate: {
+        type: String,
+        default: "200",
+      },
+      active: {
+        type: Boolean,
+        default: true,
+      },
+    },
     giftCard_Form: [
       {
         name: String, // pysical card
