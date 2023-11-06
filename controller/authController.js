@@ -218,7 +218,7 @@ exports.login = catchAsync(async (req, res, next) => {
       jwtToken,
       data: {
         name: verifiedUser.name,
-        wallet_Balance: verifiedUser.walletBalance,
+        walletBalance: verifiedUser.walletBalance,
         email: verifiedUser.email,
         username: verifiedUser.username,
         phoneNumner: verifiedUser.phoneNumber,
