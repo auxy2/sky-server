@@ -176,7 +176,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     phoneNumber: UpdatedUser.phoneNumber,
     username: UpdatedUser.username,
     profilePhoto: UpdatedUser.profilePhoto,
-    walletBalance: UpdatedUser.walletBalance,
+    wallet_Balance: UpdatedUser.walletBalance,
   };
 
   const jwtToken = signToken(UpdatedUser.id);
