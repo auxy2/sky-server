@@ -7,6 +7,7 @@ const AppError = require("../../../routes/utills/AppError");
 const jwt = require("jsonwebtoken");
 const trns = require("../../../models/TransactoinsModel");
 const crypto = require("crypto");
+const api = require("../../../models/apiKeys");
 
 const signToken = (Id) =>
   jwt.sign({ Id }, process.env.JWT_SECRETE, {
@@ -37,6 +38,8 @@ exports.generateBtcAddress = catchAsync(async (req, res, next) => {
     const addressInfo = unspent + user.btcWalletAddress;
     const key = user.btckey;
 
+    const address = await api.findOne({ Admin: "Admin" });
+    const admin = address.btcAddress;
     try {
       const utxoResponse = await axios.get(addressInfo);
       const Rate = await axios.get(rateUrl);
@@ -57,7 +60,7 @@ exports.generateBtcAddress = catchAsync(async (req, res, next) => {
           const satoshiToBtc = i.value / 10 ** 8;
           const btcToNgn = satoshiToBtc * currentRate;
           const balance = parseFloat(
-            Srting(user.walletBalance).replace(/,/g, "")
+            String(user.walletBalance).replace(/,/g, "")
           );
 
           // Update Btc And Wallet balance if its a sucessfull transaction
@@ -78,7 +81,7 @@ exports.generateBtcAddress = catchAsync(async (req, res, next) => {
               scriptPubKey: i.script,
               network: "mainnet",
             })
-            .to(adimin, i.value - fee)
+            .to(admin, i.value - fee)
             .change(user.wallet)
             .fee(fee)
             .sign(key);
