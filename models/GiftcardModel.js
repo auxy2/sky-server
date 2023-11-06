@@ -13,7 +13,7 @@ const GiftCardSchema = new mongoose.Schema(
     image: String,
     public_id: String,
     category: String,
-    cardForms: String,
+    cardForm: String,
     createdAt: {
       type: Date,
       default: Date.now(),
