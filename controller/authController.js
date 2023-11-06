@@ -186,14 +186,6 @@ exports.signUp = catchAsync(async (req, res, next) => {
   }
 });
 
-// const body = {
-//     name: "lastin tedin",
-//     email: "lasted-email@gmai.com",
-//     phoneNumber: "08120618612",
-//     password: "akanni$19",
-//     passConfirm: "akanni$19"
-// }
-
 //////////////    Login Users //////////////
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password, phoneNumber } = req.body;
