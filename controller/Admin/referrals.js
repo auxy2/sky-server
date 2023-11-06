@@ -31,6 +31,7 @@ exports.activateRefRate = catchAsync(async (req, res, next) => {
     await rates.save();
     res.status(200).json({
       status: "success",
+      refRate: rates.referralRate,
       message: "successfully disabled refrral Rate",
     });
   }
@@ -39,7 +40,7 @@ exports.activateRefRate = catchAsync(async (req, res, next) => {
     const refRate = rates.referralRate;
     refRate.find(async (item) => {
       const actRate = {
-        active: true,
+        active: req.query.activate,
         rate: item.refrenceRate,
         refrenceRate: item.refrenceRate,
       };
@@ -48,8 +49,30 @@ exports.activateRefRate = catchAsync(async (req, res, next) => {
       await rates.save();
       res.status(200).json({
         status: "success",
+        refRate: rates.referralRate,
         message: "successfully activate refrral Rate",
       });
     });
+  }
+});
+
+exports.changeRate = catchAsync(async (req, res, next) => {
+  const rates = await Rates.findOne({ Admin: "Admin" });
+
+  if (rates.referralRate.active === true) {
+    const obj = {
+      rate: req.body.rate,
+      refrenceRate: req.body.rate,
+    };
+
+    rates.referralRate = obj;
+    await rates.save();
+    res.status(200).json({
+      status: "success",
+      refRate: rates.referralRate,
+      message: "successfully change refrral Rate price",
+    });
+  } else {
+    return next(new AppError("Invalid request", 200));
   }
 });
