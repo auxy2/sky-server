@@ -10,6 +10,9 @@ exports.setRate = catchAsync(async (req, res, next) => {
   if (newRate.length === 0) {
     const obj = {
       randomly: "12yregubdi",
+      referralRate: "200",
+      refrenceRate: "200",
+      active: true,
     };
     await Rates.create(obj);
   }
@@ -26,15 +29,9 @@ exports.setRate = catchAsync(async (req, res, next) => {
 
       const body = req.body;
       body.image = result.url;
-      const refBody = {
-        rate: "200",
-        active: true,
-      };
 
       const newRate = [...rate.cryptoRate, req.body];
-      const refrate = [...rate.referralRate, refBody];
       rate.cryptoRate = newRate;
-      rate.referralRate = refrate;
       await rate.save();
 
       const latestRate = await Rates.findOne({ Admin: "Admin" });
