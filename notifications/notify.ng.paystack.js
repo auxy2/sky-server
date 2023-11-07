@@ -42,6 +42,7 @@ exports.notify = catchAsync(async (req, res, next) => {
     const newData = data.event.split(".")[1];
 
     if (data.event) {
+      console.log("paystact response", data);
       const unique = await getTransaction(ref, ref_code, newData, res);
     }
   }

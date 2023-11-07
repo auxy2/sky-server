@@ -80,6 +80,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
             amount: formatedBallance,
             txId: data.reference,
             accounName: user.accounName,
+            accountNumber: user.accountNumber,
             bankName: user.bankName,
             currency: data.currency,
             access_code: data.transfer_code,
