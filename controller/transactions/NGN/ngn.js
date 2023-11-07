@@ -38,7 +38,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
   let PAYSTACK_KEY;
   const Apikey = apis.paystack;
   Apikey.forEach((key) => {
-    PAYSTACK_KEY = key.apikey;
+    PAYSTACK_KEY = key.apiSecrete;
   });
   console.log("Pkey", PAYSTACK_KEY);
   // const amount = transferData.amount.toLocaleString().toFixed(2)
