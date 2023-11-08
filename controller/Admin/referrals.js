@@ -38,21 +38,14 @@ exports.activateRefRate = catchAsync(async (req, res, next) => {
   }
   if (req.query.activate === true) {
     // async function (){
-    const refRate = rates.referralRate;
-    refRate.find(async (item) => {
-      const actRate = {
-        active: req.query.activate,
-        rate: item.refrenceRate,
-        refrenceRate: item.refrenceRate,
-      };
-
-      rates.referralRate = actRate;
-      await rates.save();
-      res.status(200).json({
-        status: "success",
-        refRate: rates.referralRate,
-        message: "successfully activate refrral Rate",
-      });
+    rates.referralRate = req.body.rate;
+    rates.refrenceRate = req.body.rate;
+    rates.active = req.query.activate;
+    await rates.save();
+    res.status(200).json({
+      status: "success",
+      refRate: rates.referralRate,
+      message: "successfully activate refrral Rate",
     });
   }
 });
