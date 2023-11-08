@@ -22,7 +22,7 @@ exports.getReferralRate = catchAsync(async (req, res, next) => {
 
 exports.activateRefRate = catchAsync(async (req, res, next) => {
   const rates = await Rates.findOne({ Admin: "Admin" });
-  if (req.query.activate === false) {
+  if (req.query.activate === "false") {
     const disRate = {
       active: false,
       rate: "--",
@@ -36,7 +36,7 @@ exports.activateRefRate = catchAsync(async (req, res, next) => {
       message: "successfully disabled refrral Rate",
     });
   }
-  if (req.query.activate === true) {
+  if (req.query.activate === "true") {
     // async function (){
     rates.referralRate = req.body.rate;
     rates.refrenceRate = req.body.rate;
