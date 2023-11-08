@@ -23,12 +23,8 @@ exports.getReferralRate = catchAsync(async (req, res, next) => {
 exports.activateRefRate = catchAsync(async (req, res, next) => {
   const rates = await Rates.findOne({ Admin: "Admin" });
   if (req.query.activate === "false") {
-    const disRate = {
-      active: false,
-      rate: "--",
-    };
-
-    rates.referralRate = disRate;
+    rates.referralRate = "--";
+    rates.active = false;
     await rates.save();
     res.status(200).json({
       status: "success",
