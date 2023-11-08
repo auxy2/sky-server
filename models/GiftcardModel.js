@@ -28,7 +28,7 @@ const GiftCardSchema = new mongoose.Schema(
     userId: [
       {
         type: mongoose.Schema.ObjectId,
-        ref: "User",
+        ref: "Users",
       },
     ],
     comment: String,
