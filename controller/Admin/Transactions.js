@@ -7,10 +7,15 @@ exports.viewAllTrns = catchAsync(async (req, res, next) => {
     path: "userId",
     select: "name email phoneNumber",
   });
+  const giftCard_trnx = await giftCard.find().populate({
+    path: "userId",
+    select: "name email phoneNumber",
+  });
 
   res.status(200).json({
     status: "sucess",
     trnx,
+    giftCard_trnx,
   });
 });
 
