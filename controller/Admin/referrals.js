@@ -1,6 +1,7 @@
 const User = require("../../models/userModel");
 const Rates = require("../../models/Rates");
 const catchAsync = require("../../routes/utills/catchAsync");
+const AppError = require("../../routes/utills/AppError");
 
 exports.getAllReferral = catchAsync(async (req, res, next) => {
   const user = await User.find({});
