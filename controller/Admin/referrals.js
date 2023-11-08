@@ -29,6 +29,7 @@ exports.activateRefRate = catchAsync(async (req, res, next) => {
     res.status(200).json({
       status: "success",
       refRate: rates.referralRate,
+      active: req.query.activate,
       message: "successfully disabled refrral Rate",
     });
   }
@@ -39,6 +40,7 @@ exports.activateRefRate = catchAsync(async (req, res, next) => {
     await rates.save();
     res.status(200).json({
       status: "success",
+      active: req.query.activate,
       refRate: rates.referralRate,
       message: "successfully activate refrral Rate",
     });
@@ -48,13 +50,9 @@ exports.activateRefRate = catchAsync(async (req, res, next) => {
 exports.changeRate = catchAsync(async (req, res, next) => {
   const rates = await Rates.findOne({ Admin: "Admin" });
 
-  if (rates.referralRate.active === true) {
-    const obj = {
-      rate: req.body.rate,
-      refrenceRate: req.body.rate,
-    };
-
-    rates.referralRate = obj;
+  if (rates.active === true) {
+    rates.referralRate = req.body.rate;
+    rates.refrenceRate = req.body.rate;
     await rates.save();
     res.status(200).json({
       status: "success",
