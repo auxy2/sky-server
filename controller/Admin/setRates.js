@@ -184,6 +184,7 @@ exports.setCardForm = catchAsync(async (req, res, next) => {
   if (forms.giftCard_Form.length >= 3) {
     return next(new AppError("maxim rate is set", 200));
   }
+  consle.log(req.body);
   if (req.body.type === "cardForm") {
     // forms.giftCard_Form.find((item) => {
     //   if (item.name === req.body.name) {
