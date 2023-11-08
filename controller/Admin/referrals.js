@@ -38,9 +38,8 @@ exports.activateRefRate = catchAsync(async (req, res, next) => {
   }
   if (req.query.activate === "true") {
     // async function (){
-    rates.referralRate = req.body.rate;
-    rates.refrenceRate = req.body.rate;
-    rates.active = req.query.activate;
+    rates.referralRate = rates.refrenceRate;
+    rates.active = true;
     await rates.save();
     res.status(200).json({
       status: "success",
