@@ -40,6 +40,28 @@ exports.usersT = catchAsync(async (req, res, next) => {
   // }
 });
 
+exports.enableAndDisUser = catchAsync(async (req, res, next) => {
+  if (req.query.status === "true") {
+    await User.findByIdAndUpdate(req.query.id, {
+      active: true,
+    });
+    res.status(200).json({
+      status: "success",
+      message: "user successfully enabled",
+    });
+  }
+
+  if (req.query.status === "false") {
+    await User.findByIdAndUpdate(req.query.id, {
+      active: false,
+    });
+    res.status(200).json({
+      status: "success",
+      message: "user successfully disabled",
+    });
+  }
+});
+
 exports.usersTx = catchAsync(async (req, res, next) => {
   const users = await User.find()
     .select("username", "name", "email", "phoneNumber", "role", "profilePhoto")

@@ -50,6 +50,7 @@ router.post("/Admin/cardRequest_Aprov", CardRequest.Aproove_Rej_cardRequest);
 router.get("/Admin/allTransactions", trns.viewAllTrns);
 router.post("/Admin/setApikey", ApiKeys.setApi); // Done
 router.get("/Admin/UserTransaction", trns.userTransation); // Done
+router.patch("/Admin/Enable_Dis_User", getAllUsers.enableAndDisUser); // Done
 router.get("/Admin/giftCard_request", CardRequest.giftCardsRequests); // Done
 router.post("/Admin/ChangeRole", getAllUsers.changeUsersRole);
 router.post("/usersInfo", getAllUsers.usersTx);
