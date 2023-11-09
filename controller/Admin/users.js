@@ -41,7 +41,7 @@ exports.usersT = catchAsync(async (req, res, next) => {
 });
 
 exports.enableAndDisUser = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.query.id);
+  const user = await User.findById(req.query.id).lean();
   console.log(user);
   if (req.query.status === "true") {
     await User.findByIdAndUpdate(req.query.id, {

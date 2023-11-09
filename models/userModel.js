@@ -212,12 +212,8 @@ UserSchema.pre("save", async function (next) {
 //     }
 // })
 
-UserSchema.pre(/^find/, function (next, user) {
-  if (!user) {
-    this.find({ active: { $ne: false } });
-  } else {
-    this.find({});
-  }
+UserSchema.pre(/^find/, function (next) {
+  this.find({ active: { $ne: false } });
   next();
 });
 
