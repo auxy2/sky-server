@@ -8,8 +8,6 @@ const ratesSchema = new mongoose.Schema(
         name: String,
         id: Number,
         image: String,
-        minimumAmount: String,
-        rate: String,
       },
     ],
     referralRate: String,
@@ -17,7 +15,7 @@ const ratesSchema = new mongoose.Schema(
     active: Boolean,
     giftCard_Form: [
       {
-        name: String, // pysical card
+        name: String, // physical card
         id: Number,
         value: [], // [Amazon, Itunes, Walmart.....  20 ]
         description: String,
@@ -26,6 +24,7 @@ const ratesSchema = new mongoose.Schema(
     giftCardSub_Cartigories: [
       {
         name: String,
+        catigory: String,
         id: Number,
         image: String,
         minimumAmount: String,

@@ -3,13 +3,15 @@ const Rates = require("../../models/Rates");
 const AppError = require("../../routes/utills/AppError");
 const catchAsync = require("../../routes/utills/catchAsync");
 const cloudinary = require("../../routes/utills/cloudinary");
+const catigory = require("../../data/catigoreis");
+
+await Rates.create({ gitCard_Cartigories: catigory });
 
 exports.setRate = catchAsync(async (req, res, next) => {
   const newRate = await Rates.find({});
 
   if (newRate.length === 0) {
     const obj = {
-      randomly: "12yregubdi",
       referralRate: "200",
       refrenceRate: "200",
       active: true,
@@ -41,7 +43,6 @@ exports.setRate = catchAsync(async (req, res, next) => {
       const newproduct = productField.find(
         (item) => item.product === req.body.product
       );
-      console.log("body", req.body, "B", body);
       res.status(200).json({
         status: "success",
         message: newproduct,
@@ -148,6 +149,10 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
       });
     }
   }
+});
+
+exports.Allcatigories = catchAsync(async (req, res, next) => {
+  const rates = await Rates.find({});
 });
 
 exports.deleteGiftCard_Rate = catchAsync(async (req, res, next) => {
