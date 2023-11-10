@@ -5,7 +5,12 @@ const catchAsync = require("../../routes/utills/catchAsync");
 const cloudinary = require("../../routes/utills/cloudinary");
 const catigory = require("../../data/catigoreis");
 
-await Rates.create({ gitCard_Cartigories: catigory });
+async function addCatigory() {
+  console.log(catigory);
+  await Rates.create({ gitCard_Cartigories: catigory });
+}
+
+addCatigory();
 
 exports.setRate = catchAsync(async (req, res, next) => {
   const newRate = await Rates.find({});
