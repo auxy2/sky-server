@@ -6,8 +6,11 @@ const cloudinary = require("../../routes/utills/cloudinary");
 const catigory = require("../../data/catigoreis");
 
 async function addCatigory() {
+  const rate = await Rates.findOne({ Admin: "Admin" });
   console.log(catigory);
-  await Rates.create({ gitCard_Cartigories: catigory });
+  const catg = [...rate.gitCard_Cartigories, catigory];
+  rate.gitCard_Cartigories = catg;
+  await rate.save();
 }
 
 addCatigory();
