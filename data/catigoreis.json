@@ -1,0 +1,141 @@
+[
+    {
+        "name": "Amazon",
+        "image": "",
+        "id": 1
+    },
+    {
+        "name": "iTunes",
+        "image": "",
+        "id": 2
+    },
+    {
+        "name": "Wamart",
+        "image": "",
+        "id": 3
+    },
+    {
+        "name": "Starbucks",
+        "image": "",
+        "id": 4
+    },
+    {
+        "name": "Visa",
+        "image": "",
+        "id": 5
+    },
+    {
+        "name": "Mastercard",
+        "image": "",
+        "id": 6
+    },
+    {
+        "name": "Sephora",
+        "image": "",
+        "id": 7
+    },{
+        "name": "Steam",
+        "image": "",
+        "id": 8
+    },{
+        "name": "Best Buy",
+        "image": "",
+        "id": 9
+    },{
+        "name": "Google Play",
+        "image": "",
+        "id": 10
+    },{
+        "name": "Neflix",
+        "image": "",
+        "id": 11
+    },{
+        "name": "Nordstrom",
+        "image": "",
+        "id": 12
+    },{
+        "name": "amazon",
+        "image": "",
+        "id": 13
+    },{
+        "name": "Xbox",
+        "image": "",
+        "id": 14
+    },{
+        "name": "Lowes",
+        "image": "",
+        "id": 15
+    },{
+        "name": "Adidas",
+        "image": "",
+        "id": 16
+    },{
+        "name": "Nike",
+        "image": "",
+        "id": 17
+    },{
+        "name": "Dominos",
+        "image": "",
+        "id": 18
+    },{
+        "name": "Spotify",
+        "image": "",
+        "id": 19
+    },{
+        "name": "Apple",
+        "image": "",
+        "id": 20
+    },{
+        "name": "eBay",
+        "image": "",
+        "id": 21
+    },{
+        "name": "Uber",
+        "image": "",
+        "id": 22
+    },{
+        "name": "Razor Gold",
+        "image": "",
+        "id": 23
+    },{
+        "name": "American Express",
+        "image": "",
+        "id": 24
+    },{
+        "name": "Footlocker",
+        "image": "",
+        "id": 25
+    },{
+        "name": "Game Stop",
+        "image": "",
+        "id": 26
+    },{
+        "name": "Macy's",
+        "image": "",
+        "id": 27
+    },{
+        "name": "Target",
+        "image": "",
+        "id": 28
+    },{
+        "name": "Tidy",
+        "image": "",
+        "id": 29
+    },{
+        "name": "Esty",
+        "image": "",
+        "id": 30
+    },{
+        "name": "Airbnb",
+        "image": "",
+        "id": 31
+    },{
+        "name": "Calpark",
+        "image": "",
+        "id": 32
+    },{
+        "name": "Class pass",
+        "image": "",
+        "id": 33
+    }
+]
