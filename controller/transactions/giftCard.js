@@ -48,10 +48,10 @@ exports.GiftCard_Cat_SubCat = catchAsync(async (req, res, next) => {
   if (!user) {
     next(new AppError("Something went wrong", 400));
   }
-  const rates = await Rates.find();
+  const rates = await Rates.findOne({ Admin: "Admin" });
   const data = req.query.data;
-  const form = rates[0].giftCard_Form;
-  const subcategories = rates[0].giftCardSub_Cartigories;
+  const form = rates.giftCard_Form;
+  const subcategories = rates.giftCardSub_Cartigories;
 
   if (data) {
     const cardForm = form.filter((forms) => forms.value.includes(data));
@@ -65,7 +65,7 @@ exports.GiftCard_Cat_SubCat = catchAsync(async (req, res, next) => {
     // if (rates[0].gitCard_Form.type.includes(data)) {
     //   console.log("data");
     // }
-    const cardCategory = rates[0].gitCard_Cartigories;
+    const cardCategory = rates.gitCard_Cartigories;
     //   const subcategories = rates[0].gitCardSub_Cartigories;
     res.status(200).json({
       status: "success",
