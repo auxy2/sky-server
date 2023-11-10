@@ -24,7 +24,7 @@ const ratesSchema = new mongoose.Schema(
     giftCardSub_Cartigories: [
       {
         name: String,
-        catigory: String,
+        category: String,
         id: Number,
         image: String,
         minimumAmount: String,
