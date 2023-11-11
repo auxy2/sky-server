@@ -52,10 +52,13 @@ exports.GiftCard_Cat_SubCat = catchAsync(async (req, res, next) => {
   const rates = await Rates.findOne({ Admin: "Admin" });
   const data = req.query.data;
   const form = rates.giftCard_Form;
-  const subcategories = rates.giftCardSub_Cartigories;
+  const sub_categories = rates.giftCardSub_Cartigories;
 
   if (data) {
     const cardForm = form.filter((forms) => forms.value.includes(data));
+    const subcategories = sub_categories.filter(
+      (sub_cat) => sub_cat.category === data
+    );
     res.status(200).json({
       status: "sucees",
       cardForm,
