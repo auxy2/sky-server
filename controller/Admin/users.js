@@ -83,6 +83,7 @@ exports.getUser = catchAsync(async (req, res, next) => {
     role: user.role,
     email: user.email,
     profilePhoto: user.profilePhoto,
+    id: user._id,
   };
   res.status(200).json({
     status: "success",
