@@ -31,6 +31,7 @@ exports.sellGiftCard = catchAsync(async (req, res, next) => {
       });
     });
   } else {
+    console.log(req.file.path);
     const card = req.body;
     card.userId = user._id;
     console.log(card);
