@@ -7,6 +7,7 @@ const cloudinary = require("../../routes/utills/cloudinary");
 
 exports.sellGiftCard = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
+  const obj = req.body;
   if (!user) {
     res.send("Something went wrong", 404);
   }
@@ -17,11 +18,10 @@ exports.sellGiftCard = catchAsync(async (req, res, next) => {
         return next(new AppError("Error uploading image"));
       }
       console.log(result.url);
-      const obj = {
-        userId: user._id,
-        image: result.url,
-        public_id: result.public_id,
-      };
+      obj.userId = user._id;
+      obj.image = result.url;
+      obj.public_id = result.public_id;
+
       console.log(result);
       await Card.create(obj);
       res.status(201).json({
