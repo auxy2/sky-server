@@ -12,7 +12,7 @@ exports.sellGiftCard = catchAsync(async (req, res, next) => {
     res.send("Something went wrong", 404);
   }
 
-  if (!req.file) {
+  if (req.file) {
     cloudinary.uploader.upload(req.file.path, async (err, result) => {
       if (err) {
         return next(new AppError("Error uploading image"));
