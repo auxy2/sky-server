@@ -16,6 +16,7 @@ exports.sellGiftCard = catchAsync(async (req, res, next) => {
       if (err) {
         return next(new AppError("Error uploading image"));
       }
+      console.log(result.url);
       const obj = {
         userId: user._id,
         image: result.url,
