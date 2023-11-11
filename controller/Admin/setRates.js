@@ -195,9 +195,9 @@ exports.setCardForm = catchAsync(async (req, res, next) => {
   id = Math.floor(id);
   bodyObj.id = id;
 
-  if (forms.giftCard_Form.length >= 3) {
-    return next(new AppError("maxim rate is set", 200));
-  }
+  // if (forms.giftCard_Form.length >= 3) {
+  //   return next(new AppError("maxim rate is set", 200));
+  // }
   console.log(req.body);
   if (req.body.type === "cardForm") {
     // forms.giftCard_Form.find((item) => {
