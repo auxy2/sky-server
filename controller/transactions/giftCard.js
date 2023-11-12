@@ -33,6 +33,7 @@ exports.sellGiftCard = catchAsync(async (req, res, next) => {
   } else {
     const card = req.body;
     card.userId = user._id;
+    delete card.image;
     console.log(card);
 
     await Card.create(card);
