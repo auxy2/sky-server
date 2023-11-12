@@ -97,7 +97,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
 
           console.log(newBalance);
 
-          user.walletBalance = Number(newBalance).toLocaleString();
+          user.walletBalance = parseFloat(newBalance).toLocaleString();
           await user.save({ validateBeforeSave: false });
 
           const newTx = await trns.create(trxObj);
