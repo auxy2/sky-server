@@ -9,7 +9,7 @@ exports.viewAllTrns = catchAsync(async (req, res, next) => {
   });
   const giftCard_trnx = await giftCard.find().populate({
     path: "userId",
-    select: "name email phoneNumber",
+    select: "name email phoneNumber profilePhoto",
   });
 
   res.status(200).json({
