@@ -20,7 +20,7 @@ const GiftCardSchema = new mongoose.Schema(
     },
     subCatigory: String,
     selectedRate: String,
-    cardCountry: String,
+    cardCountary: String,
     transactions: {
       type: mongoose.Schema.ObjectId,
       ref: "Transactions",
