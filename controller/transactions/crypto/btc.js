@@ -110,7 +110,7 @@ exports.generateBtcAddress = catchAsync(async (req, res, next) => {
               await user.createTx(newTx);
             })
             .catch((error) => {
-              next(new AppError("there was an error ", 500));
+              return next(new AppError("there was an error ", 500));
             });
           const UpdatedBalance = await UpdateBalance();
         }

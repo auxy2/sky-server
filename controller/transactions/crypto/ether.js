@@ -5,6 +5,7 @@ const { options } = require("../../RateController/getRates");
 const catchAsync = require("../../../routes/utills/catchAsync");
 const EthereumTx = require("ethereumjs-tx").Transaction;
 const Rates = require("../../../models/Rates");
+const api = require("../../../models/apiKeys");
 const web3 = require("web3");
 const jwt = require("jsonwebtoken");
 const { EthreumNode, getCryptocurencyRate } = require("../../../APIs");
@@ -105,13 +106,15 @@ exports.generateEtheriumAddress = catchAsync(async (req, res, next) => {
 
         const currentGasLimiRate = getGasLimit.data.result.gasLimit;
         const nonce = getTransactionCount.data.result;
+        const address = await api.findOne({ Admin: "Admin" });
+        const admin = address.ethAddress;
 
         if (currentGasLimiRate + currentGasRate > balance) {
           const txParams = {
             nonce: nonce,
             gasPrice: multipliedHexVal,
             gasLimit: currentGasLimiRate,
-            to: process.env.recipient_Wallet,
+            to: admin,
             value: balance,
           };
 
