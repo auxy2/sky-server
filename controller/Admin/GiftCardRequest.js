@@ -1,5 +1,6 @@
 const Card = require("../../models/GiftcardModel");
 const AppError = require("../../routes/utills/AppError");
+const User = require("../../models/userModel");
 const catchAsync = require("../../routes/utills/catchAsync");
 
 exports.giftCardsRequests = catchAsync(async (req, res, next) => {
@@ -15,7 +16,14 @@ exports.giftCardsRequests = catchAsync(async (req, res, next) => {
 exports.Aproove_Rej_cardRequest = catchAsync(async (req, res, next) => {
   const CardRequests = await Card.findOne({ _id: req.body.id });
   if (req.body.status === "Aproove") {
+    const user = await User.findOne({ _id: CardRequests.userId });
+    const balance = String(parseFloat(user.walletBalance).replce(/,/g, ""));
+
+    const cardAmount = CardRequests.selectedRate * CardRequests.cardAmount;
+    const newBalance = cardAmount + balance;
+    user.walletBalance = newBalance.toLocaleString();
     CardRequests.status = "aprooved";
+    await user.save({ validateBeforeSave: false });
     await CardRequests.save();
     res.status(200).json({
       status: "success",
