@@ -23,6 +23,7 @@ exports.Aproove_Rej_cardRequest = catchAsync(async (req, res, next) => {
     const newBalance = cardAmount + balance;
     user.walletBalance = newBalance.toLocaleString();
     CardRequests.status = "aprooved";
+    CardRequests.salesAmount = String(cardAmount);
     await user.save({ validateBeforeSave: false });
     await CardRequests.save();
     res.status(200).json({
