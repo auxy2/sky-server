@@ -1,5 +1,6 @@
 const catchAsync = require("../../../routes/utills/catchAsync");
 const User = require("../../../models/userModel");
+const Rates = require("../../../models/Rates");
 const axios = require("axios");
 const bitcore = require("bitcore-lib");
 const { broadcastUrl, ngnRate, unspent, status } = require("../../../APIs");
@@ -45,7 +46,7 @@ exports.generateBtcAddress = catchAsync(async (req, res, next) => {
       const Rate = await axios.get(rateUrl);
       let fee;
       const utxos = utxoResponse.data.unspent_outputs;
-      const currentRate = Rate.data.market_data.current_price.ngn;
+      const currentRate = Rate.data.market_data.current_price.usd;
 
       // transaction size will be inputCount * 189 + outputCount * 34 + 10 - outputCount = 266
       const transactionSize = 1 * 189 + 2 * 34 + 10 - 2;
@@ -58,19 +59,25 @@ exports.generateBtcAddress = catchAsync(async (req, res, next) => {
         const transaction = new bitcore.Transaction();
         if (i.value - fee > 0) {
           const satoshiToBtc = i.value / 10 ** 8;
-          const btcToNgn = satoshiToBtc * currentRate;
+          const btcToUsd = satoshiToBtc * currentRate;
           const balance = parseFloat(
             String(user.walletBalance).replace(/,/g, "")
           );
 
           // Update Btc And Wallet balance if its a sucessfull transaction
           async function UpdateBalance() {
-            const ngnAmount = balance + btcToNgn;
-            const newBalance = ngnAmount.toLocaleString();
+            const rates = await Rates.findOne({ Admin: "Admin" });
+            rates.cryptoRate.filter(async (item) => {
+              if (item.product.includes("btc")) {
+                const newRate = item.rate * btcToUsd;
+                const ngnAmount = balance + newRate;
+                const newBalance = ngnAmount.toLocaleString();
 
-            user.walletBalance = newBalance;
-            user.BtcBalance = satoshiToBtc;
-            await user.save({ validateBeforeSave: false });
+                user.walletBalance = newBalance;
+                user.BtcBalance = satoshiToBtc;
+                await user.save({ validateBeforeSave: false });
+              }
+            });
           }
 
           transaction

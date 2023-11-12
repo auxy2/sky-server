@@ -17,7 +17,7 @@ exports.Aproove_Rej_cardRequest = catchAsync(async (req, res, next) => {
   const CardRequests = await Card.findOne({ _id: req.body.id });
   if (req.body.status === "Aproove") {
     const user = await User.findOne({ _id: CardRequests.userId });
-    const balance = String(parseFloat(user.walletBalance).replce(/,/g, ""));
+    const balance = parseFloat(String(user.walletBalance).replace(/,/g, ""));
 
     const cardAmount = CardRequests.selectedRate * CardRequests.cardAmount;
     const newBalance = cardAmount + balance;

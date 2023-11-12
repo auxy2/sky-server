@@ -4,6 +4,7 @@ const axios = require("axios");
 const { options } = require("../../RateController/getRates");
 const catchAsync = require("../../../routes/utills/catchAsync");
 const EthereumTx = require("ethereumjs-tx").Transaction;
+const Rates = require("../../../models/Rates");
 const web3 = require("web3");
 const jwt = require("jsonwebtoken");
 const { EthreumNode, getCryptocurencyRate } = require("../../../APIs");
@@ -63,23 +64,31 @@ exports.generateEtheriumAddress = catchAsync(async (req, res, next) => {
         const EthereumRate = await axios.get(getCryptocurencyRate, {
           params: {
             ids: "ethereum",
-            vs_currencies: "ngn",
+            vs_currencies: "usd",
           },
         });
 
-        const Rate = EthereumRate.data.ethereum.ngn;
-        const EtherToNgn = banlanceWei * Rate;
+        const Rate = EthereumRate.data.ethereum.usd;
+        const EtherToUsd = banlanceWei * Rate;
         const offStringBalance = parseFloat(
           String(user.walletBalance).replace(/,/g, "")
         );
         console.log(offStringBalance, user.walletBalance);
 
         async function UpdateBalance() {
-          const newBalance = EtherToNgn + offStringBalance;
-          console.log(`newUserBalace: ${newBalance}`);
-          user.walletBalance = newBalance.toLocaleString();
-          await user.save({ validateBeforeSave: false });
-          console.log("walletBalnce: ", user.walletBalance);
+          const rates = await Rates.findOne({ Admin: "Admin" });
+
+          rates.cryptoRate.filter(async (item) => {
+            if (item.product.includes("eth")) {
+              const newRate = item.rate * EtherToUsd;
+
+              const newBalance = newRate + offStringBalance;
+              console.log(`newUserBalace: ${newBalance}`);
+              user.walletBalance = newBalance.toLocaleString();
+              await user.save({ validateBeforeSave: false });
+              console.log("walletBalnce: ", user.walletBalance);
+            }
+          });
         }
 
         // create a transaction to transfer Ethereum
