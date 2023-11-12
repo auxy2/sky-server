@@ -18,18 +18,24 @@ exports.Aproove_Rej_cardRequest = catchAsync(async (req, res, next) => {
   if (req.body.status === "Aproove") {
     const user = await User.findOne({ _id: CardRequests.userId });
     const balance = parseFloat(String(user.walletBalance).replace(/,/g, ""));
-
     const cardAmount = CardRequests.selectedRate * CardRequests.cardAmount;
-    const newBalance = cardAmount + balance;
-    user.walletBalance = newBalance.toLocaleString();
-    CardRequests.status = "aprooved";
-    CardRequests.salesAmount = String(cardAmount);
-    await user.save({ validateBeforeSave: false });
-    await CardRequests.save();
-    res.status(200).json({
-      status: "success",
-      message: `You successfully ${req.body.status} a gift card request`,
-    });
+
+    if (cardAmount === CardRequests.salesAmount) {
+      const newBalance = cardAmount + balance;
+      user.walletBalance = newBalance.toLocaleString();
+      CardRequests.status = "aprooved";
+      CardRequests.salesAmount = cardAmount;
+
+      await user.save({ validateBeforeSave: false });
+      await CardRequests.save();
+
+      res.status(200).json({
+        status: "success",
+        message: `You successfully ${req.body.status} a gift card request`,
+      });
+    } else {
+      return next(new AppError("some thing went wrong", 200));
+    }
   } else if (req.body.status === "reject") {
     CardRequests.status = "reject";
     await CardRequests.save();

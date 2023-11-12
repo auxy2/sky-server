@@ -31,7 +31,7 @@ const GiftCardSchema = new mongoose.Schema(
         ref: "Users",
       },
     ],
-    salesAmount: String,
+    salesAmount: Number,
     comment: String,
     status: {
       type: String,

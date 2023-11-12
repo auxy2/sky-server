@@ -7,7 +7,10 @@ const cloudinary = require("../../routes/utills/cloudinary");
 
 exports.sellGiftCard = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
+  const rates = await Rates.findOne({ Admin: "Admin" });
   const obj = req.body;
+  const amount = obj.selectedRate * obj.cardAmount;
+
   if (!user) {
     res.send("Something went wrong", 404);
   }
@@ -17,11 +20,12 @@ exports.sellGiftCard = catchAsync(async (req, res, next) => {
       if (err) {
         return next(new AppError("Error uploading image"));
       }
+
       console.log(result.url);
       obj.userId = user._id;
       obj.image = result.url;
       obj.public_id = result.public_id;
-
+      obj.salesAmount = amount;
       console.log(result);
       await Card.create(obj);
       res.status(201).json({
@@ -31,12 +35,12 @@ exports.sellGiftCard = catchAsync(async (req, res, next) => {
       });
     });
   } else {
-    const card = req.body;
-    card.userId = user._id;
-    delete card.image;
-    console.log(card);
+    obj.userId = user._id;
+    obj.salesAmount = amount;
+    delete obj.image;
+    console.log(obj);
 
-    await Card.create(card);
+    await Card.create(obj);
     res.status(201).json({
       status: "success",
       message:
