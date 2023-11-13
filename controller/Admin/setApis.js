@@ -18,24 +18,16 @@ exports.setApi = catchAsync(async (req, res, next) => {
     });
   }
 
-  if (product === "paystack") {
-    const newApi = await Apis.findOne({ Admin: "Admin" });
+  const newApi = await Apis.findOne({ Admin: "Admin" });
 
-    if (newApi.paystack.length === 0) {
-      const newObj = {
-        apiSecrete: req.body.apiSecrete,
-        apikey: req.body.apikey,
-      };
-      const paysatckApi = [...newApi.paystack, newObj];
-      newApi.paystack = paysatckApi;
-      await newApi.save();
-      res.status(200).json({
-        status: "success",
-        message: `${req.body.product} apikey successfully set`,
-      });
-    } else {
-      return next(new AppError(`${product} apikey and secrete alredy set`));
-    }
+  if (product === "paystack") {
+    newApi.paystackApikey = req.body.apikey;
+    newApi.paystackApiSecrete = req.body.apiSecrete;
+    await newApi.save();
+    res.status(200).json({
+      status: "success",
+      message: `${req.body.product} apikey successfully set`,
+    });
   }
 
   if (product === "blockcypher") {
