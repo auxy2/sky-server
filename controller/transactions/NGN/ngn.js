@@ -91,15 +91,15 @@ exports.withdraw = catchAsync(async (req, res, next) => {
           const balance = parseFloat(
             String(user.walletBalance).replace(/,/g, "")
           );
-          console.log("amount Before", trxObj.amount);
-          const amount = (trxObj.amount / 100).toFixed(2);
+          const amount = trxObj.amount;
           console.log("amount", amount);
 
           newBalance = parseFloat(balance - amount).toFixed(2);
 
           console.log(newBalance);
 
-          user.walletBalance = parseFloat(newBalance).toLocaleString();
+          const formatedBall = parseFloat(newBalance).toLocaleString();
+          user.walletBalance = String(formatedBall);
           await user.save({ validateBeforeSave: false });
 
           const newTx = await trns.create(trxObj);
