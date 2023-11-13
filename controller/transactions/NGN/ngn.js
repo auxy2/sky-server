@@ -52,63 +52,68 @@ exports.withdraw = catchAsync(async (req, res, next) => {
     if (!text.toLowerCase().includes("crypto") && !text.startsWith("cryp")) {
       if (parseFloat(balance) > parseFloat(amount)) {
         console.log(parseFloat(balance), parseFloat(amount));
-        const resp = await axios.post(transferRecipient, recipientData, {
-          headers: {
-            Authorization: `Bearer ${PAYSTACK_KEY}`,
-            "Content-Type": "Application/json",
-          },
-        });
 
-        const recipientCode = resp.data.data.recipient_code;
-        const refr = ref.length > 16 ? ref.slice(0, 16) : ref;
-        transferData.reference = refr;
-        transferData.recipient = recipientCode;
-
-        const response = await axios.post(transfer, transferData, {
-          headers: {
-            Authorization: `Bearer ${PAYSTACK_KEY}`,
-            "Content-Type": "Application/json",
-          },
-        });
-        if (response.data.message === "Transfer has been queued") {
-          let newBalance;
-          console.log("queue");
-
-          const data = response.data.data;
-          // console.log(newAmount);
-          const toFormat = data.amount;
-          const formatedBallance = (toFormat / 100).toFixed(2);
-          const trxObj = {
-            amount: formatedBallance,
-            txId: data.reference,
-            accounName: user.accounName,
-            accountNumber: user.accountNumber,
-            bankName: user.bankName,
-            currency: data.currency,
-            access_code: data.transfer_code,
-            userId: user.id,
-          };
-          const balance = parseFloat(
-            String(user.walletBalance).replace(/,/g, "")
-          );
-          const amount = trxObj.amount;
-          console.log("amount", amount);
-
-          newBalance = parseFloat(balance - amount).toFixed(2);
-
-          console.log(newBalance);
-
-          const formatedBall = parseFloat(newBalance).toLocaleString();
-          user.walletBalance = String(formatedBall);
-          await user.save({ validateBeforeSave: false });
-
-          const newTx = await trns.create(trxObj);
-          console.log(user.id, newTx);
-          res.status(200).json({
-            status: "success",
-            wallet_Balance: Number(newBalance).toLocaleString(),
+        try {
+          const resp = await axios.post(transferRecipient, recipientData, {
+            headers: {
+              Authorization: `Bearer ${PAYSTACK_KEY}`,
+              "Content-Type": "Application/json",
+            },
           });
-        } else {
+
+          const recipientCode = resp.data.data.recipient_code;
+          const refr = ref.length > 16 ? ref.slice(0, 16) : ref;
+          transferData.reference = refr;
+          transferData.recipient = recipientCode;
+
+          const response = await axios.post(transfer, transferData, {
+            headers: {
+              Authorization: `Bearer ${PAYSTACK_KEY}`,
+              "Content-Type": "Application/json",
+            },
+          });
+          if (response.data.message === "Transfer has been queued") {
+            let newBalance;
+            console.log("queue");
+
+            const data = response.data.data;
+            // console.log(newAmount);
+            const toFormat = data.amount;
+            const formatedBallance = (toFormat / 100).toFixed(2);
+            const trxObj = {
+              amount: formatedBallance,
+              txId: data.reference,
+              accounName: user.accounName,
+              accountNumber: user.accountNumber,
+              bankName: user.bankName,
+              currency: data.currency,
+              access_code: data.transfer_code,
+              userId: user.id,
+            };
+            const balance = parseFloat(
+              String(user.walletBalance).replace(/,/g, "")
+            );
+            const amount = trxObj.amount;
+            console.log("amount", amount);
+
+            newBalance = parseFloat(balance - amount).toFixed(2);
+
+            console.log(newBalance);
+
+            const formatedBall = parseFloat(newBalance).toLocaleString();
+            user.walletBalance = String(formatedBall);
+            await user.save({ validateBeforeSave: false });
+
+            const newTx = await trns.create(trxObj);
+            console.log(user.id, newTx);
+            res.status(200).json({
+              status: "success",
+              wallet_Balance: Number(newBalance).toLocaleString(),
+            });
+          } else {
+            return next(new AppError("something went wrong", 400));
+          }
+        } catch (err) {
           return next(new AppError("something went wrong", 400));
         }
       } else {
