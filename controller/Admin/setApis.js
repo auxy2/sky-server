@@ -31,8 +31,6 @@ exports.setApi = catchAsync(async (req, res, next) => {
   }
 
   if (product === "blockcypher") {
-    const newApi = await Apis.findOne({ Admin: "Admin" });
-
     if (newApi.blockcypher.length === 0) {
       const newObj = {
         apiSecrete: req.body.apiSecrete,
@@ -52,8 +50,6 @@ exports.setApi = catchAsync(async (req, res, next) => {
   }
 
   if (product === "blockchain") {
-    const newApi = await Apis.findOne({ Admin: "Admin" });
-
     if (newApi.blockchain.length === 0) {
       const newObj = {
         apiSecrete: req.body.apiSecrete,
@@ -73,8 +69,6 @@ exports.setApi = catchAsync(async (req, res, next) => {
   }
 
   if (product === "alchemy") {
-    const newApi = await Apis.findOne({ Admin: "Admin" });
-
     if (newApi.alchemy.length === 0) {
       const newObj = {
         apiSecrete: req.body.apiSecrete,
@@ -94,8 +88,6 @@ exports.setApi = catchAsync(async (req, res, next) => {
   }
 
   if (product === "coingecko") {
-    const newApi = await Apis.findOne({ Admin: "Admin" });
-
     if (newApi.coingecko.length === 0) {
       const newObj = {
         apiSecrete: req.body.apiSecrete,
@@ -115,8 +107,6 @@ exports.setApi = catchAsync(async (req, res, next) => {
   }
 
   if (product === "blockstream") {
-    const newApi = await Apis.findOne({ Admin: "Admin" });
-
     if (newApi.blockstream.length === 0) {
       const newObj = {
         apiSecrete: req.body.apiSecrete,
@@ -137,7 +127,6 @@ exports.setApi = catchAsync(async (req, res, next) => {
 
   if (product === "twilio") {
     console.log(req.body);
-    const newApi = await Apis.findOne({ Admin: "Admin" });
 
     if (newApi.twilio.length === 0) {
       const newObj = {
@@ -160,7 +149,6 @@ exports.setApi = catchAsync(async (req, res, next) => {
 
   if (product === "cloudinary") {
     console.log(req.body);
-    const newApi = await Apis.findOne({ Admin: "Admin" });
 
     if (newApi.cloudinary.length === 0) {
       const newObj = {
@@ -179,36 +167,6 @@ exports.setApi = catchAsync(async (req, res, next) => {
     } else {
       return next(new AppError(`${product} apikey and secrete alredy set`));
     }
-  }
-
-  if (product === "btc") {
-    const Address = await Apis.findOne({ Admin: "Admin" });
-    Address.btcAddress = req.body.address;
-    await Address.save();
-    res.status(200).json({
-      status: "success",
-      message: `you successfully set ${product} address`,
-    });
-  }
-
-  if (product === "eth") {
-    const Address = await Apis.findOne({ Admin: "Admin" });
-    Address.ethAddress = req.body.address;
-    await Address.save();
-    res.status(200).json({
-      status: "success",
-      message: `you successfully set ${product} address`,
-    });
-  }
-
-  if (product === "Usdt") {
-    const Address = await Apis.findOne({ Admin: "Admin" });
-    Address.usdtAddress = req.body.address;
-    await Address.save();
-    res.status(200).json({
-      status: "success",
-      message: `you successfully set ${product} address`,
-    });
   }
 });
 
