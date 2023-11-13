@@ -35,11 +35,8 @@ exports.withdraw = catchAsync(async (req, res, next) => {
     reference: "",
   };
   const apis = await paystack.findOne({ Admin: "Admin" });
-  let PAYSTACK_KEY;
-  const Apikey = apis.paystack;
-  Apikey.forEach((key) => {
-    PAYSTACK_KEY = key.apiSecrete;
-  });
+  const Apikey = apis.paystackApiSecrete;
+  const PAYSTACK_KEY = Apikey;
 
   console.log("Pkey", PAYSTACK_KEY);
   // const amount = transferData.amount.toLocaleString().toFixed(2)
