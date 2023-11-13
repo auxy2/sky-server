@@ -47,7 +47,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
   } else if (user.transactionPin === req.body.pin) {
     console.log("pin Confirmed");
     if (!text.toLowerCase().includes("crypto") && !text.startsWith("cryp")) {
-      if (parseFloat(balance) > parseFloat(amount)) {
+      if (parseFloat(balance) < parseFloat(amount)) {
         console.log(parseFloat(balance), parseFloat(amount));
 
         try {
