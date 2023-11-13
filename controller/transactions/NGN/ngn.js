@@ -114,7 +114,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
           return next(new AppError("something went wrong", 400));
         }
       } else {
-        console.log(balance, req.body.amount);
+        console.log(balance > req.body.amount);
         return next(new AppError("Your Balance Is Too Low", 200));
       }
     } else {
