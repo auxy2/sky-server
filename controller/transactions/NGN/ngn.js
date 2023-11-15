@@ -96,7 +96,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
 
           const formatedBall = parseFloat(newBalance).toLocaleString();
           console.log("///// newB and formatedB");
-          console.log(newBalance, formatedBall);
+          console.log(newBalance.toLocaleString(), formatedBall);
 
           user.walletBalance = newBalance.toLocaleString();
           await user.save({ validateBeforeSave: false });
