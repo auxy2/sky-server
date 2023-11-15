@@ -6,6 +6,10 @@ const crypto = require("crypto");
 const axios = require("axios");
 const trns = require("../../../models/TransactoinsModel");
 const paystack = require("../../../models/apiKeys");
+const {
+  sendEventToAll,
+} = require("../../../notifications/transactionNotification");
+const formattedCurrency = require("../../../routes/utills/currencyFormater");
 
 exports.withdraw = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.user.email });
@@ -75,9 +79,9 @@ exports.withdraw = catchAsync(async (req, res, next) => {
           const data = response.data.data;
           // console.log(newAmount);
           const toFormat = data.amount;
-          const formatedBallance = (toFormat / 100).toFixed(2);
+          const formatedAmount = parseFloat(toFormat / 100).toFixed(2);
           const trxObj = {
-            amount: formatedBallance,
+            amount: formatedAmount,
             txId: data.reference,
             accounName: user.accounName,
             accountNumber: user.accountNumber,
@@ -92,15 +96,19 @@ exports.withdraw = catchAsync(async (req, res, next) => {
           const amount = trxObj.amount;
           console.log("amount", amount);
 
-          newBalance = parseFloat(balance - amount).toFixed(2);
+          newBalance = parseFloat(balance - amount);
 
-          const formatedBal = parseFloat(newBalance).toLocaleString();
           console.log("///// newB and formatedB");
 
-          user.walletBalance = formatedBal;
+          const formatedBallance = formattedCurrency.format(newBalance);
+          user.walletBalance = formatedBallance;
           await user.save({ validateBeforeSave: false });
 
           const newTx = await trns.create(trxObj);
+
+          sendEventToAll(`${user.username} withdraw`, {
+            amount: trxObj.amount,
+          });
           console.log(user.id, newTx);
           res.status(200).json({
             status: "success",
