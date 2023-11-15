@@ -98,7 +98,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
           console.log("///// newB and formatedB");
           console.log(newBalance, formatedBall);
 
-          user.walletBalance = newBalance;
+          user.walletBalance = newBalance.toLocaleString();
           await user.save({ validateBeforeSave: false });
 
           const newTx = await trns.create(trxObj);
