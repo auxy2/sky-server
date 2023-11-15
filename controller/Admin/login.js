@@ -51,7 +51,6 @@ exports.AdminLogin = catchAsync(async (req, res, next) => {
         wallet_Balance: verifiedUser.walletBalance,
         role: verifiedUser.role,
         id: verifiedUser._id,
-        APIKey: "sk_test_efacef2d50080394969dca095ae0b02f7bf4c093",
       },
     });
   }
