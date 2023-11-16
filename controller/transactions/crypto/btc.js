@@ -8,6 +8,7 @@ const AppError = require("../../../routes/utills/AppError");
 const jwt = require("jsonwebtoken");
 const trns = require("../../../models/TransactoinsModel");
 const crypto = require("crypto");
+const { sendToAll } = require("../");
 const api = require("../../../models/apiKeys");
 
 const signToken = (Id) =>

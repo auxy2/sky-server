@@ -6,9 +6,7 @@ const crypto = require("crypto");
 const axios = require("axios");
 const trns = require("../../../models/TransactoinsModel");
 const paystack = require("../../../models/apiKeys");
-const {
-  sendEventToAll,
-} = require("../../../notifications/transactionNotification");
+const createWebSocketServer = require("../../../notifications/transactionNotification");
 const formattedCurrency = require("../../../routes/utills/currencyFormater");
 
 exports.withdraw = catchAsync(async (req, res, next) => {
@@ -17,6 +15,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
   const ref = crypto.randomBytes(8).toString("hex");
   const balance = parseFloat(String(user.walletBalance).replace(/,/g, ""));
   const amount = `${req.body.amount}00`;
+  const { wss, sendEventToAll } = createWebSocketServer();
   //   console.log("new", amount);
 
   if (!user) {

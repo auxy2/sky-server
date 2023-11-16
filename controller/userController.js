@@ -11,6 +11,7 @@ const fingerPrint = require("fingerprintjs2");
 const Mail = require("../routes/utills/email");
 const twilio = require("twilio");
 const cloudinary = require("../routes/utills/cloudinary");
+const formattedCurrency = require("../routes/utills/currencyFormater");
 
 const fpPromise = fingerPrint.getPromise().then((components) => {
   const fingerprint = fingerPrint.x64hash128(
@@ -590,6 +591,7 @@ exports.trackedDevice = catchAsync(async (req, res, next) => {
   const { ref } = req.query;
 
   const rootLink = await User.findOne({ ref_Link_Code: ref });
+  const earnedReward = await Rates.findOne({ Admin: "Admin" });
 
   if (rootLink) {
     try {
@@ -598,8 +600,13 @@ exports.trackedDevice = catchAsync(async (req, res, next) => {
       //   email: "testAdmin@gmail.com",
       // });
 
+      let bonusReward = 0;
+
       if (device.includes(await fpPromise)) {
         return next(new AppError("You cant use this service twice", 200));
+      }
+      if (earnedReward.active) {
+        bonusReward += earnedReward.referralRate;
       }
       const balance = parseFloat(
         String(rootLink.walletBalance).replace(/,/g, "")
@@ -607,8 +614,9 @@ exports.trackedDevice = catchAsync(async (req, res, next) => {
       const newDevice = [...rootLink.devices, await fpPromise];
       rootLink.devices = newDevice;
 
-      const newBalance = balance + earnedReward.refarralBonus;
-      rootLink.walletBalance = String(newBalance).toLocaleString();
+      const newBalance = balance + earnedReward.bonusReward;
+      const formatedBallance = formattedCurrency.format(newBalance);
+      rootLink.walletBalance = formatedBallance;
       await rootLink.save({ validateBeforeSave: false });
 
       res.status(200).json({
