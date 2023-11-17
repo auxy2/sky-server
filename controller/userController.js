@@ -607,7 +607,7 @@ exports.trackedDevice = catchAsync(async (req, res, next) => {
       }
       if (earnedReward.active) {
         console.log(earnedReward.active);
-        bonusReward += earnedReward.referralRate;
+        bonusReward = parseFloat(earnedReward.referralRate) + bonusReward;
         console.log(bonusReward);
       }
       const balance = parseFloat(
