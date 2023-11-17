@@ -15,7 +15,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
   const ref = crypto.randomBytes(8).toString("hex");
   const balance = parseFloat(String(user.walletBalance).replace(/,/g, ""));
   const amount = `${req.body.amount}00`;
-  const { wss, sendEventToAll } = createWebSocketServer({
+  // const { wss, sendEventToAll } = createWebSocketServer({
     port: process.env.SERVER_PORT,
   });
   //   console.log("new", amount);
@@ -107,9 +107,9 @@ exports.withdraw = catchAsync(async (req, res, next) => {
 
           const newTx = await trns.create(trxObj);
 
-          sendEventToAll(`${user.username} withdraw`, {
-            amount: trxObj.amount,
-          });
+          // sendEventToAll(`${user.username} withdraw`, {
+          //   amount: trxObj.amount,
+          // });
           console.log(user.id, newTx);
           res.status(200).json({
             status: "success",

@@ -606,9 +606,7 @@ exports.trackedDevice = catchAsync(async (req, res, next) => {
         return next(new AppError("You cant use this service twice", 200));
       }
       if (earnedReward.active) {
-        console.log(earnedReward.active);
         bonusReward = parseFloat(earnedReward.referralRate) + bonusReward;
-        console.log(bonusReward);
       }
       const balance = parseFloat(
         String(rootLink.walletBalance).replace(/,/g, "")
