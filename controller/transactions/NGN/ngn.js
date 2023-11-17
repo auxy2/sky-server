@@ -16,8 +16,8 @@ exports.withdraw = catchAsync(async (req, res, next) => {
   const balance = parseFloat(String(user.walletBalance).replace(/,/g, ""));
   const amount = `${req.body.amount}00`;
   // const { wss, sendEventToAll } = createWebSocketServer({
-    port: process.env.SERVER_PORT,
-  });
+  // port: process.env.SERVER_PORT,
+  // });
   //   console.log("new", amount);
 
   if (!user) {
