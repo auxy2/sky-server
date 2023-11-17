@@ -608,6 +608,7 @@ exports.trackedDevice = catchAsync(async (req, res, next) => {
       if (earnedReward.active) {
         console.log(earnedReward.active);
         bonusReward += earnedReward.referralRate;
+        console.log(bonusReward);
       }
       const balance = parseFloat(
         String(rootLink.walletBalance).replace(/,/g, "")
