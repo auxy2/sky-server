@@ -18,7 +18,6 @@ exports.withdraw = catchAsync(async (req, res, next) => {
   // const { wss, sendEventToAll } = createWebSocketServer({
   // port: process.env.SERVER_PORT,
   // });
-  //   console.log("new", amount);
 
   if (!user) {
     return next(new AppError("you are not permited to use this page", 400));
@@ -43,18 +42,11 @@ exports.withdraw = catchAsync(async (req, res, next) => {
   const Apikey = apis.paystackApiSecrete;
   const PAYSTACK_KEY = Apikey;
 
-  console.log("Pkey", PAYSTACK_KEY);
-  // const amount = transferData.amount.toLocaleString().toFixed(2)
-  // console.log('amount', amount)
-
   if (!user.transactionPin) {
     return next(new AppError("You have not set transaction pin yet", 200));
   } else if (user.transactionPin === req.body.pin) {
-    console.log("pin Confirmed");
     if (!text.toLowerCase().includes("crypto") && !text.startsWith("cryp")) {
       if (balance > parseFloat(req.body.amount)) {
-        console.log(parseFloat(balance), parseFloat(amount));
-
         const resp = await axios.post(transferRecipient, recipientData, {
           headers: {
             Authorization: `Bearer ${PAYSTACK_KEY}`,
@@ -75,10 +67,8 @@ exports.withdraw = catchAsync(async (req, res, next) => {
         });
         if (response.data.message === "Transfer has been queued") {
           let newBalance;
-          console.log("queue");
 
           const data = response.data.data;
-          // console.log(newAmount);
           const toFormat = data.amount;
           const formatedAmount = parseFloat(toFormat / 100).toFixed(2);
           const trxObj = {
@@ -95,11 +85,8 @@ exports.withdraw = catchAsync(async (req, res, next) => {
             String(user.walletBalance).replace(/,/g, "")
           );
           const amount = trxObj.amount;
-          console.log("amount", amount);
 
           newBalance = parseFloat(balance - amount);
-
-          console.log("///// newB and formatedB");
 
           const formatedBallance = formattedCurrency.format(newBalance);
           user.walletBalance = formatedBallance;
@@ -110,7 +97,6 @@ exports.withdraw = catchAsync(async (req, res, next) => {
           // sendEventToAll(`${user.username} withdraw`, {
           //   amount: trxObj.amount,
           // });
-          console.log(user.id, newTx);
           res.status(200).json({
             status: "success",
             wallet_Balance: Number(newBalance).toLocaleString(),
@@ -119,7 +105,6 @@ exports.withdraw = catchAsync(async (req, res, next) => {
           return next(new AppError("something went wrong", 400));
         }
       } else {
-        console.log(balance > req.body.amount);
         return next(new AppError("Your Balance Is Too Low", 200));
       }
     } else {
