@@ -3,19 +3,9 @@ const User = require("../../models/userModel");
 const catchAsync = require("../../routes/utills/catchAsync");
 const AppError = require("../../routes/utills/AppError");
 
-exports.usersT = catchAsync(async (req, res, next) => {
-  let activator = false;
-
-  // const Operator = await User.findOne(req.user);
-  // console.log(Operator);
-
-  // if (!Operator) {
-  //   next(new AppError("Something went wrong", 403));
-  // }
-  // if (Operator.role === "admin" || "maneger") {
-  const selectedUser = await User.findOne({ email: req.query.view });
+exports.users = catchAsync(async (req, res, next) => {
   const transactions = await tx
-    .findById({ userId: selectedUser._id })
+    .find()
     .populate({
       path: "userId",
       select:
@@ -24,20 +14,8 @@ exports.usersT = catchAsync(async (req, res, next) => {
     .sort({ createdAt: -1 });
   res.status(200).json({
     status: "success",
-    data: {
-      transactions,
-    },
+    users: transactions,
   });
-  async () => {
-    activator
-      ? await User.findByIdAndUpdate(req.query, {
-          active: false,
-        })
-      : await User.findByIdAndUpdate(req.query, {
-          active: true,
-        });
-  };
-  // }
 });
 
 exports.enableAndDisUser = catchAsync(async (req, res, next) => {
@@ -45,7 +23,7 @@ exports.enableAndDisUser = catchAsync(async (req, res, next) => {
   console.log(user);
   if (req.query.status === "true") {
     await User.findByIdAndUpdate(req.query.id, {
-      active: true,
+      activity: true,
     });
     res.status(200).json({
       status: "success",
@@ -55,7 +33,7 @@ exports.enableAndDisUser = catchAsync(async (req, res, next) => {
 
   if (req.query.status === "false") {
     await User.findByIdAndUpdate(req.query.id, {
-      active: false,
+      activity: false,
     });
     res.status(200).json({
       status: "success",
@@ -92,7 +70,6 @@ exports.getUser = catchAsync(async (req, res, next) => {
 });
 
 exports.addUsers = catchAsync(async (req, res, next) => {
-  console.log(req.body);
   const user = await User.create(req.body);
   user.verify = "verified";
   await user.save({ validateBeforeSave: false });

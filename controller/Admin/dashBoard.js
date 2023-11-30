@@ -19,11 +19,6 @@ exports.dashboard = catchAsync(async (req, res, next) => {
       earnings: results.earnings.toLocaleString(),
     },
   });
-
-  //   const data = {
-  //     results,
-  //     trnx,
-  //   };
 });
 
 exports.users = catchAsync(async (req, res, next) => {

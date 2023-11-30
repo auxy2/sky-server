@@ -87,6 +87,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       select: false,
     },
+    my_device: String,
     BtcBalance: {
       type: Number,
     },
@@ -132,6 +133,10 @@ const UserSchema = new mongoose.Schema(
         type: Date,
         default: Date.now(),
       },
+    },
+    activity: {
+      type: Boolean,
+      default: true,
     },
     devices: [],
     accounName: {

@@ -164,9 +164,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
         console.log(err.message);
         return next(new AppError("Error Uploading video", 200));
       }
-      console.log("qfvwfqewf gbtervfs");
       UpdatedUser.profilePhoto = ImageResult.url;
-      console.log(UpdatedUser, ImageResult.url);
       await UpdatedUser.save({ validateBeforeSave: false });
     });
   }
@@ -234,11 +232,8 @@ exports.viewCryptoRates = catchAsync(async (req, res, next) => {
 
   for (const rate of rates) {
     rate.cryptoRate.forEach((cryptoRate) => {
-      // Check if the "product" property exists in the object
       if (cryptoRate.product) {
-        // Convert the product name to lowercase for consistency
         const product = cryptoRate.product.toLowerCase();
-        // Categorize the product based on its type
         if (product.includes("btc")) {
           categorizedProducts.btcRates.push(cryptoRate);
         } else if (product.includes("eth")) {
@@ -268,9 +263,6 @@ exports.resetPin = catchAsync(async (req, res, next) => {
     user.transactionPin = newPin;
     await user.save({ validateBeforeSave: false });
     res.send("confirmed");
-
-    console.log(newPin, confirmPin);
-    console.log(user);
   } else {
     res.status(400).json({
       status: "failed",
@@ -292,12 +284,6 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 });
 
 exports.getBank = catchAsync(async (req, res, next) => {
-  // const user = await User.findOne(req.user);
-  // if(!user){
-  //     res.status(200).json({
-  //         status: 'sucess'
-  //     })
-  // }
   try {
     const response = await axios.get("https://api.paystack.co/bank", {
       headers: {
@@ -318,7 +304,6 @@ exports.getBank = catchAsync(async (req, res, next) => {
       }
 
       const sortedBank = bank.sort((a, b) => a.id - b.id);
-      console.log("bank");
 
       res.status(200).json({
         status: "success",
@@ -331,8 +316,6 @@ exports.getBank = catchAsync(async (req, res, next) => {
 });
 exports.addBank = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
-  console.log(user);
-  console.log(req.query);
 
   if (!user) {
     return next(new AppError("Something went wrong", 403));
@@ -375,9 +358,6 @@ exports.addBank = catchAsync(async (req, res, next) => {
         });
       if (Details.status === true) {
         user.bankCode = bank.code;
-        //   user.bankName = bank.name;
-        //   user.accountNumber = accountNumber;
-        //   (user.accounName = Details.data.account_name),
         await user.save({ validateBeforeSave: false });
 
         const token = signToken(user._id);
@@ -418,15 +398,7 @@ exports.request_Verification = catchAsync(async (req, res, next) => {
   if (!user) {
     return next(new AppError("user not found", 404));
   }
-  const datails = req.body;
-  datails.userId = user._id;
-  console.log(datails);
-  datails.userId = user._id;
-  await verification.create(datails);
-  res.status(201).json({
-    status: "success",
-    message: "you verification request is successfull",
-  });
+
   if (req.file) {
     cloudinary.uploader.upload(req.file.path, async (err, result) => {
       if (err) {
@@ -435,7 +407,6 @@ exports.request_Verification = catchAsync(async (req, res, next) => {
 
       const datails = req.body;
       datails.userId = user._id;
-      console.log(datails);
       datails.userId = user._id;
       datails.image = result.url;
       await verification.create(datails);
@@ -447,7 +418,6 @@ exports.request_Verification = catchAsync(async (req, res, next) => {
   } else {
     const datails = req.body;
     datails.userId = user._id;
-    console.log(datails);
     datails.userId = user._id;
     await verification.create(datails);
     res.status(201).json({
@@ -470,7 +440,6 @@ exports.setRateAlart = catchAsync(async (req, res, next) => {
       selectedSubCategory,
     } = req.body;
 
-    console.log(req.body);
     if (!enteredAmount) {
       return next(new AppError("Please set a rate amount", 200));
     }
@@ -489,7 +458,6 @@ exports.setRateAlart = catchAsync(async (req, res, next) => {
       }
       for (const alarts of user.rateAlart) {
         const alart = user.notifyUserIfAmountBelowRate(alarts);
-        console.log("interval", alart);
         if (alart && alarts.selectedNotifyMethod === "Email") {
           Mail.sendEmail({
             email: user.email,
@@ -498,7 +466,6 @@ exports.setRateAlart = catchAsync(async (req, res, next) => {
           });
 
           const remaining_alarts = removeAlartFromList(user.rateAlart);
-          console.log("alart remainign: email", remaining_alarts);
         }
 
         if (alart && alarts.selectedNotifyMethod === "SMS") {
@@ -536,10 +503,8 @@ exports.deleteAlart = catchAsync(async (req, res, next) => {
   const Alart = user.rateAlart.filter(
     (alart) => alart._id.toString() !== req.query.id
   );
-  console.log(Alart);
   if (Alart) {
     const remaining_alarts = removeAlartFromList(user.rateAlart);
-    console.log("alart remainig: delete", remaining_alarts);
     user.rateAlart = Alart;
     await user.save({ validateBeforeSave: false });
     res.status(200).json({
@@ -570,14 +535,19 @@ exports.refarralLInk = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user._id);
 
   if (!user) {
-    return next(new AppError(" somethink went wrong", 403));
+    return next(new AppError(" something went wrong", 403));
   }
 
+  if (user.ref_Link_Code) {
+    return next(new AppError("You hava an existing referral link", 403));
+  }
+  const my_device = await fpPromise;
   const USER_REFERRAL_CODE = await ref_code();
   const refarra_lInk = `${req.protocol}://${req.get(
     "host"
   )}/api/V1/skyshowNG/refUser?ref=${USER_REFERRAL_CODE}`;
 
+  user.my_device = my_device;
   user.ref_Link_Code = USER_REFERRAL_CODE;
   await user.save({ validateBeforeSave: false });
 
@@ -596,9 +566,6 @@ exports.trackedDevice = catchAsync(async (req, res, next) => {
   if (rootLink) {
     try {
       const device = [...rootLink.devices];
-      // const earnedReward = await Admin.findOne({
-      //   email: "testAdmin@gmail.com",
-      // });
 
       let bonusReward = 0;
 

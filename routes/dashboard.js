@@ -17,12 +17,13 @@ const authControler = require("../controller/authController");
 const categoriesAndRates = require("../controller/RateController/Rates/getGiftCardRate");
 const ApiKeys = require("../controller/Admin/setApis");
 const refer = require("../controller/Admin/referrals");
+const transactionNotification = require("../notifications/transactionNotification");
 
 const uploads = require("./utills/multer");
 
 const router = express.Router();
 
-router.post("/Admin/users", DB.users); // Done
+router.get("/Admin/users", DB.users); // Done
 router.post("/dash_Board", DB.dashboard); // Done
 router.post("/Admin/set_Rate_Crypto", uploads.single("image"), rates.setRate); // Done /////////////
 router.delete("/Admin/deleteCryto_Rate", rates.deleteCyptoRate);
@@ -62,6 +63,11 @@ router.get(
   authControler.protect,
   tutorialVideo.getTutorials
 ); // Done
+router.get(
+  "/Admin/allTrnxNotifications",
+  authControler.protect,
+  transactionNotification.allTrnxNotifications
+);
 
 router.get("/Admin/ReferralRate", refer.getReferralRate); // Done
 router.post("/Admin/Act_dis_ReferralRate", refer.activateRefRate); // Done

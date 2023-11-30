@@ -2,3 +2,23 @@ node_modules/
 *.env
 
 sk_test_0983a2e0ef36a8d729e383d537db07c0176032c4;
+
+
+personal_pass = SirUPUcchBtIu3wM
+ cloudinary_api_secret t3o6dszY3dRb2Qq9znSgcdn3lzQ
+
+ personal_cloud mongodb+srv://personalemail8000:SirUPUcchBtIu3wM@skyshow.yqgndns.mongodb.net/SKYSHOWNG
+ recipient_Wallet 0x47b8432ba02b69c498175ef08d04aefdfa89b1c3
+ JWT_SECRETE this-is-the-new-web-add-token-to
+ JWT_EXP 90d
+ NODE_ENV production
+ SERVER_PORT 3564
+ cloudinary_Key 987942923792866
+ JWT_COOKIES_EXP 90
+ TWILIO_ACCOUNT_SID AC9e02e2a931d7c413e0a3e65f791d63d8
+ YOUR_TWILIO_AUTH_TOKEN 4ad6194375aff50d8658c8720115c3f4
+ Alchemy_API_KEY A49uzpPV2KLuIG6UqioGqIkTF9jj-tnh
+ TWILIO_AUTH_TOKEN 4ad6194375aff50d8658c8720115c3f4
+ TWILIO_PHONE_NUMBER +13342181689
+ cloudinary_name dqukkjqdl
+ PAYSTACK_KEY sk_test_efacef2d50080394969dca095ae0b02f7bf4c093

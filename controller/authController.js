@@ -195,6 +195,7 @@ exports.login = catchAsync(async (req, res, next) => {
       message: "Invalid input",
     });
   }
+
   let user;
   let verifiedUser;
   // find user with his credential and validate it
@@ -205,26 +206,30 @@ exports.login = catchAsync(async (req, res, next) => {
     ? (verifiedUser = await User.findById(user._id))
     : res.send(`Email or Username Not Found`);
 
-  // if not user send a error message to the user
-  if (user === "null" || !(await user.correctPass(password, user.password))) {
-    res.send(`Invalid password`);
-  } else if (!verifiedUser.verify) {
-    res.send("Something went wrong verify your acount");
+  if (verifiedUser.activity) {
+    // if not user send a error message to the user
+    if (user === "null" || !(await user.correctPass(password, user.password))) {
+      res.send(`Invalid password`);
+    } else if (!verifiedUser.verify) {
+      res.send("Something went wrong verify your acount");
+    } else {
+      const jwtToken = signToken(user._id);
+      sendCookie(jwtToken, res);
+      res.status(200).json({
+        status: "success",
+        jwtToken,
+        data: {
+          name: verifiedUser.name,
+          wallet_Balance: verifiedUser.walletBalance,
+          email: verifiedUser.email,
+          username: verifiedUser.username,
+          phoneNumner: verifiedUser.phoneNumber,
+          profilePhoto: verifiedUser.profilePhoto,
+        },
+      });
+    }
   } else {
-    const jwtToken = signToken(user._id);
-    sendCookie(jwtToken, res);
-    res.status(200).json({
-      status: "success",
-      jwtToken,
-      data: {
-        name: verifiedUser.name,
-        wallet_Balance: verifiedUser.walletBalance,
-        email: verifiedUser.email,
-        username: verifiedUser.username,
-        phoneNumner: verifiedUser.phoneNumber,
-        profilePhoto: verifiedUser.profilePhoto,
-      },
-    });
+    return next(new AppError("you are disabled from acessing this appication"));
   }
 });
 //////////  Protect Some Resources ////////
@@ -239,7 +244,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   } else if (req.cookie) {
     console.log("req.cookei", req.cookie);
     jwtToken = req.cookie;
-    console.log("jwt", jwtToken, "cookie", req.headers.cookie);
   }
   if (!jwtToken) {
     console.log("not jwt", req.headers);
@@ -253,7 +257,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   if (!curretUser) {
     return next(new AppError("password recently changed please login again"));
   }
-  console.log("jwt", decoded.iat);
   if (curretUser.changePassAfter(decoded.iat)) {
     return next(new AppError("Login in with your new password", 404));
   }
@@ -279,12 +282,6 @@ exports.restrictTo = (...roles) => {
 exports.forgetPassword = catchAsync(async (req, res, next) => {
   const userInfo = req.query.Info;
   console.log(userInfo);
-
-  // userInfo.include("@")
-  //   ? (user = await User.findOne({ email: userInfo }))
-  //   : userInfo.startsWith("0")
-  //   ? (user = await User.findOne({ phoneNumber: userInfo }))
-  //   : res.send("Invalid data");
 
   if (userInfo.includes("@")) {
     const user = await User.findOne({ email: userInfo });

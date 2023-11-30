@@ -2,12 +2,25 @@ const User = require("../../models/userModel");
 const Rates = require("../../models/Rates");
 const catchAsync = require("../../routes/utills/catchAsync");
 const AppError = require("../../routes/utills/AppError");
+// const fpPromise = require("../../routes/utills/deviceFingerpint");
 
 exports.getAllReferral = catchAsync(async (req, res, next) => {
   const user = await User.find({});
+  let referrals = [];
+  user.filter(async (item) => {
+    if (item.my_device === item.devices) {
+      const ref = await User.findOne({ my_device: item.my_device });
+      const refree = await User.findOne({ devices: item.devices });
+      referrals.push({
+        refer: ref,
+        refree: refree,
+      });
+    }
+  });
+
   res.status(200).json({
     status: "success",
-    referrals: user,
+    referrals,
   });
 });
 

@@ -61,6 +61,12 @@ GiftCardSchema.pre(/^find/, async function (next) {
   });
 });
 
+GiftCardSchema.method.notification = function () {
+  if (this.isNew) {
+    return this;
+  }
+};
+
 // GiftCardSchema.pre('save', async function(next){
 //     const manegementsPromises = this.manegements.map( async el => await User.findById(el));
 //     this.manegements = await Promise.all(manegementsPromises);
