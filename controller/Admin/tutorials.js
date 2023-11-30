@@ -5,24 +5,7 @@ const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 
 exports.Uploads = catchAsync(async (req, res, next) => {
-  // if (req.file) {
-  //   console.log("1", req.file);
-  //   return next(new AppError("no path found", 200));
-  // }
   if (req.file) {
-    //   const videoBuffer = req.files.video[0].buffer;
-    //   const ImageBufer = req.files.image[0].buffer;
-    // console.log("image", ImageBufer, "video", videoBuffer);
-
-    // cloudinary.uploader.upload(
-    //   req.file.path,
-    //   { resource_type: "video" },
-    //   async (err, ImageResult) => {
-    //     if (err) {
-    //       console.log(err.message);
-    //       return next(new AppError("Error Uploading video", 200));
-    //     }
-
     cloudinary.uploader.upload(
       req.file.path,
       { resource_type: "video" },
@@ -35,7 +18,6 @@ exports.Uploads = catchAsync(async (req, res, next) => {
         const rate = await Rates.findOne({ Admin: "Admin" });
 
         const body = req.body;
-        // body.coverImage = VideoResult.url;
         body.video = VideoResult.url;
         console.log("body", body);
 
@@ -53,8 +35,6 @@ exports.Uploads = catchAsync(async (req, res, next) => {
         });
       }
     );
-    // }
-    // );
   } else {
     return next(new AppError("no video found", 200));
   }

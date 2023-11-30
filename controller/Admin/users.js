@@ -2,10 +2,19 @@ const tx = require("../../models/TransactoinsModel");
 const User = require("../../models/userModel");
 const catchAsync = require("../../routes/utills/catchAsync");
 const AppError = require("../../routes/utills/AppError");
+exports.usersT = catchAsync(async (req, res, next) => {
+  let activator = false;
 
-exports.users = catchAsync(async (req, res, next) => {
+  // const Operator = await User.findOne(req.user);
+  // console.log(Operator);
+
+  // if (!Operator) {
+  //   next(new AppError("Something went wrong", 403));
+  // }
+  // if (Operator.role === "admin" || "maneger") {
+  const selectedUser = await User.findOne({ email: req.query.view });
   const transactions = await tx
-    .find()
+    .findById({ userId: selectedUser._id })
     .populate({
       path: "userId",
       select:
@@ -14,8 +23,21 @@ exports.users = catchAsync(async (req, res, next) => {
     .sort({ createdAt: -1 });
   res.status(200).json({
     status: "success",
+    data: {
+      transactions,
+    },
     users: transactions,
   });
+  async () => {
+    activator
+      ? await User.findByIdAndUpdate(req.query, {
+          active: false,
+        })
+      : await User.findByIdAndUpdate(req.query, {
+          active: true,
+        });
+  };
+  // }
 });
 
 exports.enableAndDisUser = catchAsync(async (req, res, next) => {
