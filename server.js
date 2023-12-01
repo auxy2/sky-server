@@ -9,7 +9,6 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
-const createWebSocketServer = require("./notifications/transactionNotification");
 const compression = require("compression");
 const cors = require("cors");
 
@@ -31,7 +30,6 @@ const notifications = require("./routes/webHooks");
 const app = express();
 const server = require("https").createServer(app);
 const port = process.env.SERVER_PORT || 1234;
-const { wss, sendEventToAll } = createWebSocketServer(server);
 
 // const db = process.env.personal_cloud;
 // const DB = db.replace("<password>", process.env.personal_pass);
