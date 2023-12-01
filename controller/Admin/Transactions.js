@@ -21,13 +21,12 @@ exports.viewAllTrns = catchAsync(async (req, res, next) => {
 
 exports.userTransation = catchAsync(async (req, res, next) => {
   console.log(req.query);
-  const userTransatio = await trns.find({ userId: req.query.id });
   const userTransation = await trns.find({ userId: req.query.id }).populate({
     path: "userId",
     select:
       "name email phoneNumber walletBalance accounName accountNumber bankName rateAlart role",
   });
-  console.log("!", userTransatio);
+  console.log("!", userTransation);
   for (const entry of userTransation) {
     const rateAlart = entry.userId[0].rateAlart;
     const userData = entry.userId[0];
