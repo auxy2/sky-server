@@ -19,36 +19,22 @@ exports.viewAllTrns = catchAsync(async (req, res, next) => {
 });
 
 exports.userTransation = catchAsync(async (req, res, next) => {
-  const userTrnx = await trns.find({ userId: req.query.id }).populate({
-    path: "userId",
-    select:
-      "name email phoneNumber walletBalance accounName accountNumber bankName rateAlart role",
-  });
+  const user = await User.findOne({ _id: req.query.id });
+  const userTransation = await trns.find({ userId: req.query.id });
+  const gift_cardTransactions = await giftCard.find({ userId: req.query.id });
 
-  let rateAlt;
-  let bankdls = {};
-  let userTransation;
-
-  for (const entry of userTrnx) {
-    const rateAlart = entry.userId[0].rateAlart;
-    const userData = entry.userId[0];
-    const { accounName, accountNumber, bankName, walletBalance, role } =
-      userData;
-    const bankdetails = {
-      accounName,
-      accountNumber,
-      bankName,
-      walletBalance,
-      role,
-    };
-    rateAlt = rateAlart;
-    bankdls = bankdetails;
-    userTransation = userTrnx;
-  }
+  const bankdetails = {
+    accounName: user.accounName,
+    accountNumber: user.accountNumber,
+    bankName: user.bankName,
+    walletBalance: user.walletBalance,
+    role: user.role,
+  };
   res.status(200).json({
     status: "success",
-    rateAlart: rateAlt,
-    bankdetails: bankdls,
     userTransation,
+    gift_cardTransactions,
+    rateAlart: user.rateAlart,
+    bankdetails,
   });
 });
