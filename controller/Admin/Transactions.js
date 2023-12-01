@@ -1,5 +1,6 @@
 const trns = require("../../models/TransactoinsModel");
 const giftCard = require("../../models/GiftcardModel");
+const User = require("../../models/userModel");
 const catchAsync = require("../../routes/utills/catchAsync");
 
 exports.viewAllTrns = catchAsync(async (req, res, next) => {
