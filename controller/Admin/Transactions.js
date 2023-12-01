@@ -28,7 +28,7 @@ exports.userTransation = catchAsync(async (req, res, next) => {
   });
   console.log("!");
   for (const entry of userTransation) {
-    console.log(entry.userId);
+    console.log(entry);
     const rateAlart = entry.userId[0].rateAlart;
     const userData = entry.userId[0];
     const { accounName, accountNumber, bankName, walletBalance, role } =
