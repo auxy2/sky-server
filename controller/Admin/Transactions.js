@@ -26,7 +26,7 @@ exports.userTransation = catchAsync(async (req, res, next) => {
     select:
       "name email phoneNumber walletBalance accounName accountNumber bankName rateAlart role",
   });
-  console.log("!");
+  console.log("!", userTransation);
   for (const entry of userTransation) {
     console.log(entry);
     const rateAlart = entry.userId[0].rateAlart;
