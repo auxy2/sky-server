@@ -22,6 +22,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
         const newtutorials = [...rate.tutorials, body];
         rate.tutorials = newtutorials;
         await rate.save();
+        console.log(rate.tutorials);
         const latestVideo = rate.tutorials;
         const UploadedVideo = latestVideo.find(
           (item) => item.title === body.title
