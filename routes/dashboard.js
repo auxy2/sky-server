@@ -56,7 +56,7 @@ router.get("/Admin/giftCard_request", CardRequest.giftCardsRequests); // Done
 router.post("/Admin/ChangeRole", getAllUsers.changeUsersRole);
 router.post("/usersInfo", getAllUsers.usersTx);
 router.get("/getUser", authControler.protect, getAllUsers.getUser);
-router.post("/Admin/tutorial", uploads.single("video"), tutorialVideo.Uploads); // Done
+router.post("/Admin/tutorials", uploads.single("video"), tutorialVideo.Uploads); // Done
 router.delete("/Admin/deleteTutorial", tutorialVideo.deleteTutorial);
 router.get(
   "/Admin/AllTutorial",
