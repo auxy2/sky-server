@@ -21,7 +21,7 @@ exports.viewAllTrns = catchAsync(async (req, res, next) => {
 
 exports.userTransation = catchAsync(async (req, res, next) => {
   console.log(req.query);
-  const userTransatio = await trns.findOne({ userId: req.query.id });
+  const userTransatio = await trns.find({ userId: req.query.id });
   const userTransation = await trns.findOne({ userId: req.query.id }).populate({
     path: "userId",
     select:
