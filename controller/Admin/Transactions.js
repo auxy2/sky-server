@@ -37,11 +37,12 @@ exports.userTransation = catchAsync(async (req, res, next) => {
       walletBalance,
       role,
     };
-    // res.status(200).json({
-    //   status: "success",
-    //   rateAlart,
-    //   bankdetails,
-    //   userTransation,
-    // });
+    res.status(200).json({
+      status: "success",
+      rateAlart,
+      bankdetails,
+      userTransation,
+    });
+    next();
   }
 });
