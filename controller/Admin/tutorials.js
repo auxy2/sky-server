@@ -21,12 +21,11 @@ exports.Uploads = catchAsync(async (req, res, next) => {
 
         const newtutorials = [...rate.tutorials, body];
         rate.tutorials = newtutorials;
-
-        const latestVideo = newtutorials;
+        await rate.save();
+        const latestVideo = rate.tutorials;
         const UploadedVideo = latestVideo.find(
           (item) => item.title === body.title
         );
-        await rate.save();
         res.status(200).json({
           status: "success",
           UploadedVideo,
