@@ -24,13 +24,15 @@ exports.userTransation = catchAsync(async (req, res, next) => {
   const userTransation = await trns.find({ userId: req.query.id });
   const gift_cardTransactions = await giftCard.find({ userId: req.query.id });
 
-  const bankdetails = {
-    accounName: user.accounName,
-    accountNumber: user.accountNumber,
-    bankName: user.bankName,
-    walletBalance: user.walletBalance,
-    role: user.role,
-  };
+  const bankdetails = [
+    {
+      accounName: user.accounName,
+      accountNumber: user.accountNumber,
+      bankName: user.bankName,
+      walletBalance: user.walletBalance,
+      role: user.role,
+    },
+  ];
   res.status(200).json({
     status: "success",
     userTransation,
