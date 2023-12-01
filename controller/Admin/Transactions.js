@@ -20,12 +20,17 @@ exports.viewAllTrns = catchAsync(async (req, res, next) => {
 });
 
 exports.userTransation = catchAsync(async (req, res, next) => {
-  const userTransation = await trns.find({ userId: req.query.id }).populate({
+  const userTrnx = await trns.find({ userId: req.query.id }).populate({
     path: "userId",
     select:
       "name email phoneNumber walletBalance accounName accountNumber bankName rateAlart role",
   });
-  for (const entry of userTransation) {
+
+  let rateAlt;
+  let bankdls = {};
+  let userTransation;
+
+  for (const entry of userTrnx) {
     const rateAlart = entry.userId[0].rateAlart;
     const userData = entry.userId[0];
     const { accounName, accountNumber, bankName, walletBalance, role } =
@@ -37,11 +42,14 @@ exports.userTransation = catchAsync(async (req, res, next) => {
       walletBalance,
       role,
     };
-    res.status(200).json({
-      status: "success",
-      rateAlart,
-      bankdetails,
-      userTransation,
-    });
+    rateAlt = rateAlart;
+    bankdls = bankdetails;
+    userTransation = userTrnx;
   }
+  res.status(200).json({
+    status: "success",
+    rateAlart: rateAlt,
+    bankdetails: bankdls,
+    userTransation,
+  });
 });
