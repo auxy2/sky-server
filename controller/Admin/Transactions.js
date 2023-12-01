@@ -43,6 +43,5 @@ exports.userTransation = catchAsync(async (req, res, next) => {
       bankdetails,
       userTransation,
     });
-    next();
   }
 });
