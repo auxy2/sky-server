@@ -26,6 +26,7 @@ exports.Uploads = catchAsync(async (req, res, next) => {
         const UploadedVideo = latestVideo.find(
           (item) => item.title === body.title
         );
+        console.log(UploadedVideo);
         res.status(200).json({
           status: "success",
           UploadedVideo,
