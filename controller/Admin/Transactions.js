@@ -11,7 +11,6 @@ exports.viewAllTrns = catchAsync(async (req, res, next) => {
     path: "userId",
     select: "name email phoneNumber profilePhoto",
   });
-
   res.status(200).json({
     status: "sucess",
     trnx,

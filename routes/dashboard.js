@@ -63,11 +63,10 @@ router.get(
   authControler.protect,
   tutorialVideo.getTutorials
 ); // Done
-// router.get(
-//   "/Admin/allTrnxNotifications",
-//   authControler.protect,
-//   transactionNotification.allTrnxNotifications
-// );
+router.get(
+  "/Admin/allTrnxNotifications",
+  transactionNotification.allTrnxNotifications
+);
 
 router.get("/Admin/ReferralRate", refer.getReferralRate); // Done
 router.post("/Admin/Act_dis_ReferralRate", refer.activateRefRate); // Done

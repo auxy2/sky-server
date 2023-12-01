@@ -1,25 +1,15 @@
-const WebSocket = require("ws");
+const trnx = require("../models/TransactoinsModel");
+const gift_card = require("../models/GiftcardModel");
+const User = require("../models/userModel");
+const catchAsync = require("../routes/utills/catchAsync");
 
-function createWebSocketServer(server) {
-  const wss = new WebSocket.Server({ server });
-  const connectedSockets = new Set();
-
-  wss.on("connection", (socket) => {
-    console.log("WebSocket client connected");
-    connectedSockets.add(socket);
-
-    socket.on("message", (message) => {
-      console.log(`Received message: ${message}`);
-    });
-  });
-
-  function sendEventToAll(event, data) {
-    connectedSockets.forEach((socket) => {
-      socket.send(JSON.stringify({ event, data }));
+exports.allTrnxNotifications = catchAsync(async (req, res, next) => {
+  const user = User.findOne(req.user);
+  if (user.notification()) {
+    const notification = user.notification();
+    res.status(200).json({
+      status: "success",
+      message: `${user.username} wants to sell ${notification.cardType} of ${notification.cardAmount} amount`,
     });
   }
-
-  return { wss, sendEventToAll };
-}
-
-module.exports = createWebSocketServer;
+});
