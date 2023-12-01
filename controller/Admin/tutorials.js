@@ -11,7 +11,6 @@ exports.Uploads = catchAsync(async (req, res, next) => {
       { resource_type: "video" },
       async (err, VideoResult) => {
         if (err) {
-          console.log(err.message);
           return next(new AppError("Error Uploading video", 200));
         }
 
@@ -19,12 +18,11 @@ exports.Uploads = catchAsync(async (req, res, next) => {
 
         const body = req.body;
         body.video = VideoResult.url;
-        console.log("body", body);
 
         const newtutorials = [...rate.tutorials, body];
         rate.tutorials = newtutorials;
 
-        const latestVideo = rate.tutorials;
+        const latestVideo = newtutorials;
         const UploadedVideo = latestVideo.find(
           (item) => item.title === body.title
         );
