@@ -153,6 +153,8 @@ const UserSchema = new mongoose.Schema(
         selectedNotifyMethod: String,
         selectedRate: String,
         selectedSubCategory: String,
+        email: String,
+        username: String,
         createdAt: {
           type: Date,
           default: Date.now(),

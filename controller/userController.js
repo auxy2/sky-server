@@ -443,6 +443,8 @@ exports.setRateAlart = catchAsync(async (req, res, next) => {
     if (!enteredAmount) {
       return next(new AppError("Please set a rate amount", 200));
     }
+    req.body.username = user.username;
+    req.body.email = user.email;
     const newAlart = [...user.rateAlart, req.body];
     user.rateAlart = newAlart;
     await user.save({ validateBeforeSave: false });
