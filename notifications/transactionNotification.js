@@ -5,6 +5,7 @@ const catchAsync = require("../routes/utills/catchAsync");
 
 exports.allTrnxNotifications = catchAsync(async (req, res, next) => {
   const user = User.findOne(req.user);
+  console.log(user);
   if (user.notification()) {
     const notification = user.notification();
     res.status(200).json({
