@@ -138,6 +138,14 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   let UpdatedUser;
   let Body = req.body;
 
+  const filterdBody = filteredObj(
+    req.body,
+    "name",
+    "email",
+    "phoneNumber",
+    "username",
+    "profilePhoto"
+  );
   if (req.file) {
     cloudinary.uploader.upload(req.file.path, async (err, ImageResult) => {
       if (err) {
@@ -150,16 +158,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     });
   }
 
-  console.log("file", req.file);
-
-  const filterdBody = filteredObj(
-    req.body,
-    "name",
-    "email",
-    "phoneNumber",
-    "username",
-    "profilePhoto"
-  );
+  console.log("file", req.file, filterdBody);
 
   filterdBody?.email === "" ? delete filterdBody.email : filterdBody;
 
