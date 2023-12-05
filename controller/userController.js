@@ -157,7 +157,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     console.log("Body request", req.body);
   });
 
-  console.log("file", req.file, filterdBody);
+  console.log("filtBody", filterdBody);
 
   filterdBody?.email === "" ? delete filterdBody.email : filterdBody;
 
