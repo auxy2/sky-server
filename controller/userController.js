@@ -143,6 +143,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
         console.log(err.message);
         return next(new AppError("Error Uploading video", 200));
       }
+      console.log(ImageResult.url);
       req.body.profilePhoto = ImageResult.url;
       console.log("Body request", req.body);
     });
