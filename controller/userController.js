@@ -137,15 +137,30 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 exports.updateMe = catchAsync(async (req, res, next) => {
   let UpdatedUser;
 
+  if (req.file) {
+    cloudinary.uploader.upload(req.file.path, async (err, ImageResult) => {
+      if (err) {
+        console.log(err.message);
+        return next(new AppError("Error Uploading video", 200));
+      }
+      req.body.profilePhoto = ImageResult.url;
+      console.log("Body request", req.body);
+      await UpdatedUser.save({ validateBeforeSave: false });
+    });
+  }
+
   const filterdBody = filteredObj(
     req.body,
     "name",
     "email",
     "phoneNumber",
-    "username"
+    "username",
+    "profilePhoto"
   );
 
-  filterdBody?.email === "" ? delete filterdBody.email : filterdBody;
+  filterdBody?.email === "" || filterdBody.profilePhoto !== ""
+    ? delete filterdBody.email
+    : filterdBody;
 
   UpdatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
     new: true,
@@ -154,18 +169,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   if (!UpdatedUser) {
     res.send("invalid credentials");
-  }
-
-  if (req.file) {
-    cloudinary.uploader.upload(req.file.path, async (err, ImageResult) => {
-      if (err) {
-        console.log(err.message);
-        return next(new AppError("Error Uploading video", 200));
-      }
-      console.log(UpdatedUser);
-      UpdatedUser.profilePhoto = ImageResult.url;
-      await UpdatedUser.save({ validateBeforeSave: false });
-    });
   }
 
   const reUpdateUser = {
