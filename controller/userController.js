@@ -147,7 +147,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     "profilePhoto"
   );
 
-  cloudinary.uploader.upload(req.file.path, async (err, ImageResult) => {
+  cloudinary.uploader.upload(req.file.path, (err, ImageResult) => {
     if (err) {
       console.log(err.message);
       return next(new AppError("Error Uploading video", 200));
