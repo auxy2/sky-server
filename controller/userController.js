@@ -145,7 +145,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
       }
       req.body.profilePhoto = ImageResult.url;
       console.log("Body request", req.body);
-      await UpdatedUser.save({ validateBeforeSave: false });
     });
   }
 
