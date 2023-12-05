@@ -146,17 +146,16 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     "username",
     "profilePhoto"
   );
-  if (req.file) {
-    cloudinary.uploader.upload(req.file.path, async (err, ImageResult) => {
-      if (err) {
-        console.log(err.message);
-        return next(new AppError("Error Uploading video", 200));
-      }
-      console.log(ImageResult.url);
-      Body.profilePhoto = ImageResult.url;
-      console.log("Body request", req.body);
-    });
-  }
+
+  cloudinary.uploader.upload(req.file.path, async (err, ImageResult) => {
+    if (err) {
+      console.log(err.message);
+      return next(new AppError("Error Uploading video", 200));
+    }
+    console.log(ImageResult.url);
+    Body.profilePhoto = ImageResult.url;
+    console.log("Body request", req.body);
+  });
 
   console.log("file", req.file, filterdBody);
 
