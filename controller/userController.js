@@ -145,9 +145,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     "username"
   );
 
-  filterdBody?.email === "" || filterdBody.profilePhoto !== ""
-    ? delete filterdBody.email
-    : filterdBody;
+  filterdBody?.email === "" ? delete filterdBody.email : filterdBody;
 
   UpdatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
     new: true,
@@ -164,6 +162,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
         console.log(err.message);
         return next(new AppError("Error Uploading video", 200));
       }
+      console.log(UpdatedUser);
       UpdatedUser.profilePhoto = ImageResult.url;
       await UpdatedUser.save({ validateBeforeSave: false });
     });
@@ -386,7 +385,6 @@ exports.saveUsersBank = catchAsync(async (req, res, next) => {
   user.accountNumber = req.body.AccountNumber;
   user.accounName = req.body.AccountName;
   await user.save({ validateBeforeSave: false });
-  console.log(req.body);
   res.status(200).json({
     status: "success",
     message: "bank details successfully saved ",
@@ -456,7 +454,6 @@ exports.setRateAlart = catchAsync(async (req, res, next) => {
     const intervalId = setInterval(() => {
       if (user.rateAlart.length === 0) {
         clearInterval(intervalId);
-        console.log("interver cleared");
       }
       for (const alarts of user.rateAlart) {
         const alart = user.notifyUserIfAmountBelowRate(alarts);
