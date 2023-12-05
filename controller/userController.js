@@ -136,6 +136,7 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 
 exports.updateMe = catchAsync(async (req, res, next) => {
   let UpdatedUser;
+  let Body = req.body;
 
   if (req.file) {
     cloudinary.uploader.upload(req.file.path, async (err, ImageResult) => {
@@ -144,10 +145,12 @@ exports.updateMe = catchAsync(async (req, res, next) => {
         return next(new AppError("Error Uploading video", 200));
       }
       console.log(ImageResult.url);
-      req.body.profilePhoto = ImageResult.url;
+      Body.profilePhoto = ImageResult.url;
       console.log("Body request", req.body);
     });
   }
+
+  console.log("file", req.file);
 
   const filterdBody = filteredObj(
     req.body,
@@ -158,9 +161,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     "profilePhoto"
   );
 
-  filterdBody?.email === "" || filterdBody.profilePhoto !== ""
-    ? delete filterdBody.email
-    : filterdBody;
+  filterdBody?.email === "" ? delete filterdBody.email : filterdBody;
 
   UpdatedUser = await User.findByIdAndUpdate(req.user.id, filterdBody, {
     new: true,
