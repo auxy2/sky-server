@@ -18,7 +18,6 @@ exports.viewAllTrns = catchAsync(async (req, res, next) => {
     giftCard_trnx,
   });
 });
-
 exports.userTransation = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ _id: req.query.id });
   const userTransation = await trns.find({ userId: req.query.id });

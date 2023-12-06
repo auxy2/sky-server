@@ -44,7 +44,7 @@ const toDate = async (obj) => {
 
 exports.getSalesAnalytsis = catchAsync(async (req, res, next) => {
   const crypto = await trns.find({});
-  const gift_card = await gitfCard.find({});
+  const gift_card = await gitfCard.find({ status: "aprooved" });
 
   toString(crypto);
   toString(gift_card);
