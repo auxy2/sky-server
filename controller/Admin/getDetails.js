@@ -31,21 +31,19 @@ async function dashboards() {
   if (currencyTotals.BTC) {
     BTCtoNGN = currencyTotals.BTC * BTCrate.USD_TO_NGN;
   } else {
-    currencyTotals.BTC = 0.0;
+    currencyTotals.BTC = 0;
     BTCtoNGN = 0;
   }
   if (currencyTotals.ETH) {
     EthtoNGN = currencyTotals.ETH * ETHrate.USD_TO_NGN;
-    console.log(currencyTotals.ETH);
   } else {
-    currencyTotals.ETH = 0.0;
+    currencyTotals.ETH = 0;
     EthtoNGN = 0;
-    console.log("2 BTCtoNGN", BTCtoNGN);
   }
   if (currencyTotals.USDT) {
     nairaAmount = cryptoAmount * BTCrate.USD_TO_NGN;
   } else {
-    currencyTotals = 0.0;
+    currencyTotals = 0;
     nairaAmount = 0;
   }
 
@@ -54,6 +52,7 @@ async function dashboards() {
     totalAmout += parseFloat(cardAmount);
     if (cardAmount) {
       totalAmout += parseFloat(cardAmount);
+      console.log(gift_Cards);
     } else {
       totalAmout = 0.0;
     }
