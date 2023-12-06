@@ -36,6 +36,7 @@ async function dashboards() {
   }
   if (currencyTotals.ETH) {
     EthtoNGN = currencyTotals.ETH * ETHrate.USD_TO_NGN;
+    console.log(currencyTotals.ETH);
   } else {
     currencyTotals.ETH = 0.0;
     EthtoNGN = 0;
