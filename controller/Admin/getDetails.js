@@ -11,8 +11,8 @@ async function dashboards() {
 
   let currencyTotals = {};
   let totalAmout = 0;
-  let EthtoNGN = 0;
-  let BTCtoNGN = 0;
+  let EthtoNGN;
+  let BTCtoNGN;
 
   for (const transation of trnx) {
     const { amount, currency } = transation;
@@ -29,11 +29,12 @@ async function dashboards() {
   const nairaAmount = cryptoAmount * BTCrate.USD_TO_NGN;
 
   if (currencyTotals.BTC !== "NaN") {
-    BTCtoNGN + currencyTotals.BTC * BTCrate.USD_TO_NGN;
-    console.log("BTCtoNGN", BTCtoNGN);
+    BTCtoNGN = currencyTotals.BTC * BTCrate.USD_TO_NGN;
+    console.log("1 BTCtoNGN", BTCtoNGN);
   }
-  if (currencyTotals.ETH !== "NaN") {
-    EthtoNGN + currencyTotals.ETH * ETHrate.USD_TO_NGN;
+  if (!currencyTotals.ETH) {
+    EthtoNGN = currencyTotals.ETH * ETHrate.USD_TO_NGN;
+    console.log("2 BTCtoNGN", BTCtoNGN);
   }
 
   gift_Cards.forEach((item) => {
