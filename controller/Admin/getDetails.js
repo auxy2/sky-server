@@ -13,6 +13,7 @@ async function dashboards() {
   let totalAmout = 0;
   let EthtoNGN;
   let BTCtoNGN;
+  let nairaAmount;
 
   for (const transation of trnx) {
     const { amount, currency } = transation;
@@ -26,20 +27,35 @@ async function dashboards() {
   const ETHrate = await getCryptoToNairaRate("ethereum");
 
   const cryptoAmount = currencyTotals.USDT / BTCrate.CRYPTO_TO_USD;
-  const nairaAmount = cryptoAmount * BTCrate.USD_TO_NGN;
 
-  if (currencyTotals.BTC !== "NaN") {
+  if (currencyTotals.BTC) {
     BTCtoNGN = currencyTotals.BTC * BTCrate.USD_TO_NGN;
-    console.log("1 BTCtoNGN", BTCtoNGN);
+  } else {
+    currencyTotals.BTC = 0.0;
+    BTCtoNGN = 0;
   }
-  if (!currencyTotals.ETH) {
+  if (currencyTotals.ETH) {
     EthtoNGN = currencyTotals.ETH * ETHrate.USD_TO_NGN;
+  } else {
+    currencyTotals.ETH = 0.0;
+    EthtoNGN = 0;
     console.log("2 BTCtoNGN", BTCtoNGN);
+  }
+  if (currencyTotals.USDT) {
+    nairaAmount = cryptoAmount * BTCrate.USD_TO_NGN;
+  } else {
+    currencyTotals = 0.0;
+    nairaAmount = 0;
   }
 
   gift_Cards.forEach((item) => {
     const { cardAmount } = item;
     totalAmout += parseFloat(cardAmount);
+    if (cardAmount) {
+      totalAmout += parseFloat(cardAmount);
+    } else {
+      totalAmout = 0.0;
+    }
   });
 
   const earnings = EthtoNGN + nairaAmount + BTCtoNGN + totalAmout;
