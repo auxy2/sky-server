@@ -13,7 +13,6 @@ async function dashboards() {
   let totalAmout = 0;
   let EthtoNGN = 0;
   let BTCtoNGN = 0;
-  let nairaAmount = 0;
 
   for (const transation of trnx) {
     const { amount, currency } = transation;
@@ -27,11 +26,11 @@ async function dashboards() {
   const ETHrate = await getCryptoToNairaRate("ethereum");
 
   const cryptoAmount = currencyTotals.USDT / BTCrate.CRYPTO_TO_USD;
-  if (cryptoAmount !== "Nan") {
-    nairaAmount + cryptoAmount * BTCrate.USD_TO_NGN;
-  }
+  const nairaAmount = cryptoAmount * BTCrate.USD_TO_NGN;
+
   if (currencyTotals.BTC !== "NaN") {
     BTCtoNGN + currencyTotals.BTC * BTCrate.USD_TO_NGN;
+    console.log("BTCtoNGN", BTCtoNGN);
   }
   if (currencyTotals.ETH !== "NaN") {
     EthtoNGN + currencyTotals.ETH * ETHrate.USD_TO_NGN;
