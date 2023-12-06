@@ -34,7 +34,7 @@ async function dashboards() {
     totalAmout += parseFloat(cardAmount);
   });
 
-  const earnings = EthtoNGN + nairaAmount + BTCtoNGN;
+  const earnings = EthtoNGN + nairaAmount + BTCtoNGN + totalAmout;
 
   return {
     orders: results,
