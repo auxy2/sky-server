@@ -49,10 +49,8 @@ async function dashboards() {
 
   gift_Cards.forEach((item) => {
     const { cardAmount } = item;
-    totalAmout += parseFloat(cardAmount);
     if (cardAmount) {
       totalAmout += parseFloat(cardAmount);
-      console.log(gift_Cards);
     } else {
       totalAmout = 0.0;
     }
