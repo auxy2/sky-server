@@ -52,8 +52,6 @@ exports.getSalesAnalytsis = catchAsync(async (req, res, next) => {
   const cryptoCurrency = await toDate(trns);
   const gift_Card = await toDate(gitfCard);
 
-  console.log("cryptoCurrency", cryptoCurrency, "gift_Card", gift_Card);
-
   const data = await dashboards();
 
   res.status(200).json({

@@ -7,7 +7,6 @@ async function dashboards() {
   const trnx = await trns.find({ status: "success" });
   const user = await User.find();
   const gift_Cards = await gift_card.find({ status: "aprooved" });
-  const results = gift_Cards.length + trnx.length;
 
   let currencyTotals = {};
   let totalAmout = 0;
@@ -57,6 +56,10 @@ async function dashboards() {
   });
 
   const earnings = EthtoNGN + nairaAmount + BTCtoNGN + totalAmout;
+
+  const Cards = await gift_card.find();
+  const Trns = await trns.find();
+  const results = Cards.length + Trns.length;
 
   return {
     orders: results,
