@@ -4,13 +4,14 @@ const gift_card = require("../../models/GiftcardModel");
 const { getCryptoToNairaRate } = require("../RateController/getRates");
 
 async function dashboards() {
-  const trnx = await trns.find();
+  const trnx = await trns.find({ status: "success" });
   const user = await User.find();
-  const gift_Cards = await gift_card.find();
+  const gift_Cards = await gift_card.find({ status: "aprooved" });
   const results = gift_Cards.length + trnx.length;
 
   let currencyTotals = {};
   let totalAmout = 0;
+  console.logO("trnx", trnx, "gift_Cards", gift_Cards);
 
   for (const transation of trnx) {
     const { amount, currency } = transation;
