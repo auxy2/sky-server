@@ -11,7 +11,7 @@ async function dashboards() {
 
   let currencyTotals = {};
   let totalAmout = 0;
-  console.logO("trnx", trnx, "gift_Cards", gift_Cards);
+  console.log("trnx", trnx, "gift_Cards", gift_Cards);
 
   for (const transation of trnx) {
     const { amount, currency } = transation;
