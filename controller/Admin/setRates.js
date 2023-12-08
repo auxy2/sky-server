@@ -95,36 +95,6 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
   id = Math.floor(id);
   Cat_SubBodyObj.id = id;
 
-  // if (req.file) {
-  //   if (Cat_SubBodyObj.type === "catigory") {
-  //     cloudinary.uploader.upload(req.file.path, async (err, result) => {
-  //       if (err) {
-  //         return next(new AppError("image uploads fail", 200));
-  //       }
-
-  //       Cat_SubBodyObj.image = result.url;
-
-  //       console.log("catigory", result);
-  //       const catNewRate = [...rates.gitCard_Cartigories, Cat_SubBodyObj];
-  //       rates.gitCard_Cartigories = catNewRate;
-  //       await rates.save();
-  //       console.log("catigory", Cat_SubBodyObj);
-
-  //       const latestRate = await Rates.findOne({ Admin: "Admin" });
-
-  //       const productField = latestRate.gitCard_Cartigories;
-
-  //       const newproduct = productField.find(
-  //         (item) => item.product === req.body.product
-  //       );
-  //       res.status(200).json({
-  //         status: "success",
-  //         message: newproduct,
-  //       });
-  //     });
-  //   }
-  // }
-
   if (req.file) {
     if (Cat_SubBodyObj.type === "Sub_catigory") {
       cloudinary.uploader.upload(req.file.path, async (err, result) => {
@@ -133,7 +103,6 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
         }
 
         console.log("SubCatigory", result);
-        console.log(Cat_SubBodyObj);
 
         Cat_SubBodyObj.image = result.url;
         const SubCatNewRate = [
@@ -142,7 +111,6 @@ exports.setGiftCardRate = catchAsync(async (req, res, next) => {
         ];
         rates.giftCardSub_Cartigories = SubCatNewRate;
         await rates.save();
-        console.log("SubCatigory", Cat_SubBodyObj);
 
         const latestRate = await Rates.findOne({ Admin: "Admin" });
 
@@ -186,7 +154,7 @@ exports.deleteGiftCard_Rate = catchAsync(async (req, res, next) => {
     message: "you successfully deleted a rate",
   });
 });
-
+jyfjv;
 exports.setCardForm = catchAsync(async (req, res, next) => {
   const forms = await Rates.findOne({ Admin: "Admin" });
 
