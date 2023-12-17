@@ -17,7 +17,6 @@ const authControler = require("../controller/authController");
 const categoriesAndRates = require("../controller/RateController/Rates/getGiftCardRate");
 const ApiKeys = require("../controller/Admin/setApis");
 const refer = require("../controller/Admin/referrals");
-const transactionNotification = require("../notifications/transactionNotification");
 
 const uploads = require("./utills/multer");
 
@@ -63,10 +62,6 @@ router.get(
   authControler.protect,
   tutorialVideo.getTutorials
 ); // Done
-router.get(
-  "/Admin/allTrnxNotifications",
-  transactionNotification.allTrnxNotifications
-);
 
 router.get("/Admin/ReferralRate", refer.getReferralRate); // Done
 router.post("/Admin/Act_dis_ReferralRate", refer.activateRefRate); // Done

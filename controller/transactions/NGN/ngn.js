@@ -9,6 +9,8 @@ const paystack = require("../../../models/apiKeys");
 const createWebSocketServer = require("../../../notifications/transactionNotification");
 const formattedCurrency = require("../../../routes/utills/currencyFormater");
 
+let notificationObj = {};
+
 exports.withdraw = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.user.email });
   const text = String(req.body.desc || "");
@@ -92,6 +94,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
           user.walletBalance = formatedBallance;
           await user.save({ validateBeforeSave: false });
 
+          notificationObj = trxObj;
           const newTx = await trns.create(trxObj);
 
           // sendEventToAll(`${user.username} withdraw`, {
@@ -114,5 +117,15 @@ exports.withdraw = catchAsync(async (req, res, next) => {
     }
   } else {
     return next(new AppError("incorrect pin", 200));
+  }
+});
+
+exports.withdrawalNotification = catchAsync(async (req, res, next) => {
+  if (notificationObj) {
+    const userId = notificationObj.userId;
+    const user = await User.findById({ _id: userId });
+    notificationObj.username = user.username;
+
+    return notificationObj;
   }
 });

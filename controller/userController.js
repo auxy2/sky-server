@@ -149,7 +149,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   if (req.file) {
     cloudinary.uploader.upload(req.file.path, (err, ImageResult) => {
       if (err) {
-        console.log(err.message);
         return next(new AppError("Error Uploading video", 200));
       }
       Body.profilePhoto = ImageResult.url;
@@ -308,9 +307,7 @@ exports.getBank = catchAsync(async (req, res, next) => {
         bank: sortedBank,
       });
     }
-  } catch (err) {
-    console.log(err.message);
-  }
+  } catch (err) {}
 });
 exports.addBank = catchAsync(async (req, res, next) => {
   const user = await User.findOne(req.user);
