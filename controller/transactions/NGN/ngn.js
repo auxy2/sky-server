@@ -96,6 +96,7 @@ exports.withdraw = catchAsync(async (req, res, next) => {
           await user.save({ validateBeforeSave: false });
 
           const newTx = await trns.create(trxObj);
+          const newNot = await notifications.create(trxObj);
 
           // sendEventToAll(`${user.username} withdraw`, {
           //   amount: trxObj.amount,
