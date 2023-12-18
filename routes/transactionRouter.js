@@ -9,7 +9,6 @@ const router = express.Router();
 router.get("/TXs", TxHistory.usersTx); // Done
 router.get(
   "/Admin/allTrnxNotifications",
-  parser.withdrawalNotification,
   transactionNotification.allTrnxNotifications
 );
 // router.post("/alert", alart.rateAlart);
