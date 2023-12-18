@@ -8,6 +8,17 @@ const notificationSchema = new mongoose.Schema({
       ref: "Users",
     },
   ],
+  currency: String,
+  category: String,
+  cardCode: {
+    type: String,
+  },
+  cardAmount: String,
+  salesAmount: Number,
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 const Adminnotifications = mongoose.model("notifications", notificationSchema);

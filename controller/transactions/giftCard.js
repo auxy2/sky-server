@@ -1,6 +1,7 @@
 const Card = require("../../models/GiftcardModel");
 const User = require("../../models/userModel");
 const Rates = require("../../models/Rates.js");
+const notification = require("../../models/notificationsModel");
 const AppError = require("../../routes/utills/AppError");
 const catchAsync = require("../../routes/utills/catchAsync");
 const cloudinary = require("../../routes/utills/cloudinary");
@@ -28,6 +29,7 @@ exports.sellGiftCard = catchAsync(async (req, res, next) => {
       obj.salesAmount = amount;
       console.log(result);
       await Card.create(obj);
+      await notification.create(obj);
       res.status(201).json({
         status: "success",
         message:
