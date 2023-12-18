@@ -120,13 +120,3 @@ exports.withdraw = catchAsync(async (req, res, next) => {
     return next(new AppError("incorrect pin", 200));
   }
 });
-
-exports.withdrawalNotification = catchAsync(async (req, res, next) => {
-  if (notificationObj) {
-    const userId = notificationObj.userId;
-    const user = await User.findById({ _id: userId });
-    notificationObj.username = user.username;
-
-    return notificationObj;
-  }
-});
