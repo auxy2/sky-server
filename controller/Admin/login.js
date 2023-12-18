@@ -38,7 +38,7 @@ exports.AdminLogin = catchAsync(async (req, res, next) => {
     res.send(`Invalid password`);
   } else if (!verifiedUser.verify) {
     res.send("Something went wrong please use the reset password");
-  } else if (!verifiedUser.role !== "admin") {
+  } else if (verifiedUser.role !== "admin") {
     return next(new AppError("you dont have access to this page", 200));
   } else {
     const jwtToken = signToken(user._id);
