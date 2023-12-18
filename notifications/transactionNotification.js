@@ -7,7 +7,7 @@ const NGNnot = require("../controller/transactions/NGN/ngn");
 const AppError = require("../routes/utills/AppError");
 
 exports.allTrnxNotifications = catchAsync(async (req, res, next) => {
-  const ntf = notification.find({}).populate({
+  const ntf = await notification.find({}).populate({
     path: "userId",
     select: "name",
   });
