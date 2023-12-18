@@ -9,7 +9,7 @@ const signToken = (Id) =>
   });
 
 exports.AdminLogin = catchAsync(async (req, res, next) => {
-  const Admin = await User.findOne({ role: "admin" });
+  const Admin = await User.findOne({ role: "Admin" });
 
   const { email, password, phoneNumber } = req.body;
 
