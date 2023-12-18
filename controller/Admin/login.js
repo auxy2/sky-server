@@ -11,10 +11,6 @@ const signToken = (Id) =>
 exports.AdminLogin = catchAsync(async (req, res, next) => {
   const { email, password, phoneNumber } = req.body;
 
-  // if (!Admin) {
-  //   return next(new AppError("you dont have access to this page", 200));
-  // }
-
   if ((!email && !phoneNumber) || !password) {
     res.status(404).json({
       status: "fail",
