@@ -154,7 +154,6 @@ exports.deleteGiftCard_Rate = catchAsync(async (req, res, next) => {
     message: "you successfully deleted a rate",
   });
 });
-jyfjv;
 exports.setCardForm = catchAsync(async (req, res, next) => {
   const forms = await Rates.findOne({ Admin: "Admin" });
 
