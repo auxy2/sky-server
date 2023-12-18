@@ -4,6 +4,7 @@ const catchAsync = require("../../../routes/utills/catchAsync");
 const { transfer, transferRecipient } = require("../../../APIs");
 const crypto = require("crypto");
 const axios = require("axios");
+const notifications = require("../../../models/TransactoinsModel");
 const trns = require("../../../models/TransactoinsModel");
 const paystack = require("../../../models/apiKeys");
 const createWebSocketServer = require("../../../notifications/transactionNotification");
@@ -94,7 +95,6 @@ exports.withdraw = catchAsync(async (req, res, next) => {
           user.walletBalance = formatedBallance;
           await user.save({ validateBeforeSave: false });
 
-          notificationObj = trxObj;
           const newTx = await trns.create(trxObj);
 
           // sendEventToAll(`${user.username} withdraw`, {
