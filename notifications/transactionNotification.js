@@ -7,13 +7,10 @@ const NGNnot = require("../controller/transactions/NGN/ngn");
 const AppError = require("../routes/utills/AppError");
 
 exports.allTrnxNotifications = catchAsync(async (req, res, next) => {
-  const ntf = notification
-    .find({})
-    .populate({
-      path: "userId",
-      select: "name",
-    })
-    .sort(-1);
+  const ntf = notification.find({}).populate({
+    path: "userId",
+    select: "name",
+  });
   if (ntf) {
     res.status(200).json({
       status: "success",
