@@ -88,7 +88,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
 
     if (req.query.Number === newUser.phoneNumber) {
       if (!newUser.verify) {
-        console.log(newUser.verify);
+        
         const accountSid = process.env.TWILIO_ACCOUNT_SID;
         const authToken = process.env.TWILIO_AUTH_TOKEN;
         const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
