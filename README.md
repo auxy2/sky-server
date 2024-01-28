@@ -2,4 +2,4 @@
 
 # npm start 
 
-you can use npm start to run the server by default the sevrer port is set to 
+you can use npm start to run the server by default the sevrer port is set to 1234 however you can create you prefferred port by adding an eviroment variables # config.env file
