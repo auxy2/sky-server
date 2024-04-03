@@ -464,23 +464,23 @@ exports.setRateAlart = catchAsync(async (req, res, next) => {
         }
 
         if (alart && alarts.selectedNotifyMethod === "SMS") {
-          const accountSid = process.env.TWILIO_ACCOUNT_SID;
-          const authToken = process.env.TWILIO_AUTH_TOKEN;
-          const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
-          const message = `Your Gift Card alart of ${alarts.enteredAmount} is bellow ${alarts.selectedRate}`;
-          const client = twilio(accountSid, authToken);
+          // const accountSid = process.env.TWILIO_ACCOUNT_SID;
+          // const authToken = process.env.TWILIO_AUTH_TOKEN;
+          // const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
+          // const message = `Your Gift Card alart of ${alarts.enteredAmount} is bellow ${alarts.selectedRate}`;
+          // const client = twilio(accountSid, authToken);
 
-          // Sms body
-          client.messages
-            .create({
-              body: message,
-              from: twilioPhoneNumber,
-              to: "+234" + user.phoneNumber,
-            })
-            .then((message) =>
-              console.log("sms sent successfully:", message.sid)
-            )
-            .catch((error) => console.error("Error sending SMS:", error));
+          // // Sms body
+          // client.messages
+          //   .create({
+          //     body: message,
+          //     from: twilioPhoneNumber,
+          //     to: "+234" + user.phoneNumber,
+          //   })
+          //   .then((message) =>
+          //     console.log("sms sent successfully:", message.sid)
+          //   )
+          //   .catch((error) => console.error("Error sending SMS:", error));
 
           const remaining_alarts = removeAlartFromList(user.rateAlart);
           console.log("alart remainign: sms", remaining_alarts);
