@@ -34,7 +34,7 @@ exports.generateEtheriumAddress = catchAsync(async (req, res, next) => {
     // connect to the Ethereum node and initiate transaction
 
     async () => {
-      const url = EthreumNode + process.env.Alchemy_API_KEY;
+      // const url = EthreumNode + process.env.Alchemy_API_KEY;
       const CounterObj = {
         jsonrpc: "2.0",
         id: 1,
