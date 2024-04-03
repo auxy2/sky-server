@@ -89,21 +89,21 @@ exports.signUp = catchAsync(async (req, res, next) => {
     if (req.query.Number === newUser.phoneNumber) {
       if (!newUser.verify) {
         
-        const accountSid = process.env.TWILIO_ACCOUNT_SID;
-        const authToken = process.env.TWILIO_AUTH_TOKEN;
-        const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
-        const message = `Dear ${name}\n\nuse the (OTP) to verify your signUp\n\nplease dont share with any one ${token}\n\nThank's for your surport`;
-        const client = twilio(accountSid, authToken);
+        // const accountSid = process.env.TWILIO_ACCOUNT_SID;
+        // const authToken = process.env.TWILIO_AUTH_TOKEN;
+        // const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
+        // const message = `Dear ${name}\n\nuse the (OTP) to verify your signUp\n\nplease dont share with any one ${token}\n\nThank's for your surport`;
+        // const client = twilio(accountSid, authToken);
 
-        // Sms body
-        client.messages
-          .create({
-            body: message,
-            from: twilioPhoneNumber,
-            to: "+234" + newUser.phoneNumber,
-          })
-          .then((message) => console.log("sms sent successfully:", message.sid))
-          .catch((error) => console.error("Error sending SMS:", error));
+        // // Sms body
+        // client.messages
+        //   .create({
+        //     body: message,
+        //     from: twilioPhoneNumber,
+        //     to: "+234" + newUser.phoneNumber,
+        //   })
+        //   .then((message) => console.log("sms sent successfully:", message.sid))
+        //   .catch((error) => console.error("Error sending SMS:", error));
 
         newUser.token = token;
         await newUser.save({ validateBeforeSave: false });
@@ -320,21 +320,21 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
     const user = await User.findOne({ phoneNumber: userInfo });
     if (user) {
       const token = generateToken();
-      const accountSid = process.env.TWILIO_ACCOUNT_SID;
-      const authToken = process.env.TWILIO_AUTH_TOKEN;
-      const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
-      const message = `Dear ${user.name}\n\nuse the (OTP) to verify your acount\n\nplease dont share with any one ${token}\n\nThank's for your surport`;
-      const client = twilio(accountSid, authToken);
+      // const accountSid = process.env.TWILIO_ACCOUNT_SID;
+      // const authToken = process.env.TWILIO_AUTH_TOKEN;
+      // const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
+      // const message = `Dear ${user.name}\n\nuse the (OTP) to verify your acount\n\nplease dont share with any one ${token}\n\nThank's for your surport`;
+      // const client = twilio(accountSid, authToken);
 
-      // Sms body
-      client.messages
-        .create({
-          body: message,
-          from: twilioPhoneNumber,
-          to: "+234" + user.phoneNumber,
-        })
-        .then((message) => console.log("sms sent successfully:", message.sid))
-        .catch((error) => console.error("Error sending SMS:", error));
+      // // Sms body
+      // client.messages
+      //   .create({
+      //     body: message,
+      //     from: twilioPhoneNumber,
+      //     to: "+234" + user.phoneNumber,
+      //   })
+      //   .then((message) => console.log("sms sent successfully:", message.sid))
+      //   .catch((error) => console.error("Error sending SMS:", error));
       const jwtToken = signToken(user._id);
       res.status(200).json({
         status: "success",
