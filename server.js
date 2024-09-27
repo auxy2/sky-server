@@ -1,16 +1,15 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const helmet = require("helmet");
-const requestIp = require("request-ip");
-const morgan = require("morgan");
-const mongoose = require("mongoose");
+mongoose = require("mongoose");
 // const rate_Limit = require('express-rate-limit')
+const express = require("express")
 const bodyParser = require("body-parser");
+const helmet = require("helmet")
 const cookieParser = require("cookie-parser");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
+const dotenv = require("dotenv")
 const compression = require("compression");
 const cors = require("cors");
+const morgan = require("morgan")
 
 dotenv.config({ path: "./config.env" });
 
@@ -31,9 +30,9 @@ const app = express();
 const server = require("https").createServer(app);
 const port = process.env.SERVER_PORT || 1234;
 
-// const db = process.env.personal_cloud;
+const db = process.env.personal_cloud;
 // const DB = db.replace("<password>", process.env.personal_pass);
-// console.log(DB);
+console.log(db);
 
 const connectDB = async () => {
   try {
@@ -62,7 +61,7 @@ app.use(compression());
 app.use(helmet());
 
 // get the client ip
-app.use(requestIp.mw());
+// app.use(requestIp.mw());
 
 // Development loging
 app.use(morgan("dev"));
